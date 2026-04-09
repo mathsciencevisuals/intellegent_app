@@ -5,11 +5,17 @@ import { useRouter } from "next/navigation";
 
 type Props = {
   slug: string;
+  sources?: Array<{
+    id: string;
+    name: string;
+    type: string;
+  }>;
 };
 
-export function UploadDocumentForm({ slug }: Props) {
+export function UploadDocumentForm({ slug, sources = [] }: Props) {
   const router = useRouter();
   const [file, setFile] = useState<File | null>(null);
+  const [sourceId, setSourceId] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -27,6 +33,9 @@ export function UploadDocumentForm({ slug }: Props) {
     try {
       const formData = new FormData();
       formData.append("file", file);
+      if (sourceId) {
+        formData.append("sourceId", sourceId);
+      }
 
       const res = await fetch(`/api/workspaces/${slug}/documents`, {
         method: "POST",
@@ -42,6 +51,7 @@ export function UploadDocumentForm({ slug }: Props) {
       }
 
       setFile(null);
+      setSourceId("");
       const input = document.getElementById("document-file-input") as HTMLInputElement | null;
       if (input) input.value = "";
 
@@ -55,6 +65,29 @@ export function UploadDocumentForm({ slug }: Props) {
 
   return (
     <form onSubmit={onSubmit} className="space-y-4">
+      {sources.length > 0 ? (
+        <div>
+          <label className="mb-2 block text-sm font-medium text-neutral-700">
+            Link to source
+          </label>
+          <select
+            value={sourceId}
+            onChange={(event) => setSourceId(event.target.value)}
+            className="block w-full rounded-xl border border-neutral-300 bg-white px-3 py-2 text-sm"
+          >
+            <option value="">None</option>
+            {sources.map((source) => (
+              <option key={source.id} value={source.id}>
+                {source.name} ({source.type})
+              </option>
+            ))}
+          </select>
+          <p className="mt-2 text-xs text-neutral-500">
+            Link uploads to an existing source to keep traceability intact.
+          </p>
+        </div>
+      ) : null}
+
       <div>
         <label className="mb-2 block text-sm font-medium text-neutral-700">
           Select document

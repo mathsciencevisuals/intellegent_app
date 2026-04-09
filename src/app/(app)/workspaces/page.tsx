@@ -2,7 +2,10 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import {
+  ArrowDown,
   ArrowRight,
+  ArrowUp,
+  ArrowUpDown,
   BriefcaseBusiness,
   Clock3,
   FileText,
@@ -19,7 +22,60 @@ import { RoleBadge } from "@/components/ui/role-badge";
 import { StatCard } from "@/components/ui/stat-card";
 import { CountBadge } from "@/components/ui/count-badge";
 
-export default async function WorkspacesLandingPage() {
+type WorkspacesSortKey = "name" | "createdAt" | "documents" | "members" | "invites";
+type SortDirection = "asc" | "desc";
+
+function getSingleSearchParam(
+  value: string | string[] | undefined
+) {
+  return Array.isArray(value) ? value[0] : value;
+}
+
+function getNextSortDirection(
+  currentKey: WorkspacesSortKey,
+  currentDirection: SortDirection,
+  clickedKey: WorkspacesSortKey
+) {
+  if (currentKey !== clickedKey) {
+    return clickedKey === "createdAt" ? "desc" : "asc";
+  }
+
+  return currentDirection === "asc" ? "desc" : "asc";
+}
+
+function SortHeader({
+  label,
+  href,
+  active,
+  direction,
+}: {
+  label: string;
+  href: string;
+  active: boolean;
+  direction: SortDirection;
+}) {
+  return (
+    <Link href={href} className="inline-flex items-center gap-1.5 hover:text-neutral-700">
+      {label}
+      {!active ? (
+        <ArrowUpDown className="h-3.5 w-3.5" />
+      ) : direction === "asc" ? (
+        <ArrowUp className="h-3.5 w-3.5" />
+      ) : (
+        <ArrowDown className="h-3.5 w-3.5" />
+      )}
+    </Link>
+  );
+}
+
+export default async function WorkspacesLandingPage({
+  searchParams,
+}: {
+  searchParams: Promise<{
+    sort?: string | string[];
+    direction?: string | string[];
+  }>;
+}) {
   const session = await getServerSession(authConfig);
 
   if (!session?.user?.email) {
@@ -66,7 +122,52 @@ export default async function WorkspacesLandingPage() {
     redirect("/login");
   }
 
-  const memberships = user.memberships;
+  const resolvedSearchParams = await searchParams;
+  const sortParam = getSingleSearchParam(resolvedSearchParams.sort);
+  const directionParam = getSingleSearchParam(resolvedSearchParams.direction);
+  const sortKey: WorkspacesSortKey =
+    sortParam === "createdAt" ||
+    sortParam === "documents" ||
+    sortParam === "members" ||
+    sortParam === "invites"
+      ? sortParam
+      : "name";
+  const sortDirection: SortDirection =
+    directionParam === "asc" || directionParam === "desc" ? directionParam : "asc";
+
+  const memberships = [...user.memberships].sort((left, right) => {
+    if (sortKey === "createdAt") {
+      const comparison =
+        new Date(left.workspace.createdAt).getTime() -
+        new Date(right.workspace.createdAt).getTime();
+
+      return sortDirection === "asc" ? comparison : -comparison;
+    }
+
+    if (sortKey === "documents") {
+      const comparison = left.workspace.documents.length - right.workspace.documents.length;
+
+      return sortDirection === "asc" ? comparison : -comparison;
+    }
+
+    if (sortKey === "members") {
+      const comparison = left.workspace.memberships.length - right.workspace.memberships.length;
+
+      return sortDirection === "asc" ? comparison : -comparison;
+    }
+
+    if (sortKey === "invites") {
+      const comparison = left.workspace.invites.length - right.workspace.invites.length;
+
+      return sortDirection === "asc" ? comparison : -comparison;
+    }
+
+    const comparison = left.workspace.name.localeCompare(right.workspace.name, undefined, {
+      sensitivity: "base",
+    });
+
+    return sortDirection === "asc" ? comparison : -comparison;
+  });
   const manageableMemberships = memberships.filter(
     (membership) => membership.role === "OWNER" || membership.role === "ADMIN"
   );
@@ -76,6 +177,36 @@ export default async function WorkspacesLandingPage() {
     (document) => document.status === "PROCESSING"
   ).length;
   const failedDocuments = allDocuments.filter((document) => document.status === "FAILED").length;
+  const workspaceSortDirection = getNextSortDirection(
+    sortKey,
+    sortDirection,
+    "name"
+  );
+  const createdSortDirection = getNextSortDirection(
+    sortKey,
+    sortDirection,
+    "createdAt"
+  );
+  const documentsSortDirection = getNextSortDirection(
+    sortKey,
+    sortDirection,
+    "documents"
+  );
+  const membersSortDirection = getNextSortDirection(
+    sortKey,
+    sortDirection,
+    "members"
+  );
+  const invitesSortDirection = getNextSortDirection(
+    sortKey,
+    sortDirection,
+    "invites"
+  );
+  const workspaceSortHref = `/workspaces?sort=name&direction=${workspaceSortDirection}`;
+  const createdSortHref = `/workspaces?sort=createdAt&direction=${createdSortDirection}`;
+  const documentsSortHref = `/workspaces?sort=documents&direction=${documentsSortDirection}`;
+  const membersSortHref = `/workspaces?sort=members&direction=${membersSortDirection}`;
+  const invitesSortHref = `/workspaces?sort=invites&direction=${invitesSortDirection}`;
 
   return (
     <div className="space-y-6 p-6">
@@ -142,48 +273,98 @@ export default async function WorkspacesLandingPage() {
                 </p>
               </div>
             ) : (
-              <div className="space-y-4">
-                {memberships.map((membership) => {
-                  const workspace = membership.workspace;
-                  const documentCount = workspace.documents.length;
-                  const pendingInvites = workspace.invites.length;
-                  const memberCount = workspace.memberships.length;
+              <div className="overflow-hidden rounded-2xl border">
+                <div className="overflow-x-auto">
+                  <table className="w-full min-w-[760px] text-sm">
+                    <thead className="bg-neutral-50 text-left text-neutral-500">
+                      <tr>
+                        <th className="px-4 py-3 font-medium">
+                          <SortHeader
+                            label="Workspace"
+                            href={workspaceSortHref}
+                            active={sortKey === "name"}
+                            direction={sortKey === "name" ? sortDirection : "asc"}
+                          />
+                        </th>
+                        <th className="px-4 py-3 font-medium">Role</th>
+                        <th className="px-4 py-3 font-medium">
+                          <SortHeader
+                            label="Documents"
+                            href={documentsSortHref}
+                            active={sortKey === "documents"}
+                            direction={sortKey === "documents" ? sortDirection : "asc"}
+                          />
+                        </th>
+                        <th className="px-4 py-3 font-medium">
+                          <SortHeader
+                            label="Members"
+                            href={membersSortHref}
+                            active={sortKey === "members"}
+                            direction={sortKey === "members" ? sortDirection : "asc"}
+                          />
+                        </th>
+                        <th className="px-4 py-3 font-medium">
+                          <SortHeader
+                            label="Invites"
+                            href={invitesSortHref}
+                            active={sortKey === "invites"}
+                            direction={sortKey === "invites" ? sortDirection : "asc"}
+                          />
+                        </th>
+                        <th className="px-4 py-3 font-medium">
+                          <SortHeader
+                            label="Created"
+                            href={createdSortHref}
+                            active={sortKey === "createdAt"}
+                            direction={sortKey === "createdAt" ? sortDirection : "desc"}
+                          />
+                        </th>
+                        <th className="px-4 py-3 font-medium text-right">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {memberships.map((membership) => {
+                        const workspace = membership.workspace;
+                        const documentCount = workspace.documents.length;
+                        const pendingInvites = workspace.invites.length;
+                        const memberCount = workspace.memberships.length;
 
-                  return (
-                    <Link
-                      key={membership.id}
-                      href={`/workspaces/${workspace.slug}`}
-                      className="block rounded-2xl border p-5 transition hover:bg-neutral-50"
-                    >
-                      <div className="flex items-start justify-between gap-4">
-                        <div className="min-w-0">
-                          <div className="truncate text-lg font-semibold text-neutral-900">
-                            {workspace.name}
-                          </div>
-                          <div className="mt-2 flex flex-wrap items-center gap-2">
-                            <RoleBadge role={membership.role} />
-                            <div className="text-sm text-neutral-500">
-                              Created {new Date(workspace.createdAt).toLocaleDateString()}
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-neutral-100 text-neutral-700">
-                          <ArrowRight className="h-4 w-4" />
-                        </div>
-                      </div>
-
-                      <div className="mt-4 flex flex-wrap gap-4 text-sm text-neutral-600">
-                        <span>{documentCount} documents</span>
-                        <span>{memberCount} members</span>
-                        <span className="inline-flex items-center gap-2">
-                          Pending invites
-                          <CountBadge count={pendingInvites} />
-                        </span>
-                      </div>
-                    </Link>
-                  );
-                })}
+                        return (
+                          <tr key={membership.id} className="border-t align-middle hover:bg-neutral-50">
+                            <td className="px-4 py-3">
+                              <Link
+                                href={`/workspaces/${workspace.slug}`}
+                                className="block font-medium text-neutral-900"
+                              >
+                                {workspace.name}
+                              </Link>
+                            </td>
+                            <td className="px-4 py-3">
+                              <RoleBadge role={membership.role} />
+                            </td>
+                            <td className="px-4 py-3 text-neutral-600">{documentCount}</td>
+                            <td className="px-4 py-3 text-neutral-600">{memberCount}</td>
+                            <td className="px-4 py-3 text-neutral-600">
+                              {pendingInvites > 0 ? <CountBadge count={pendingInvites} /> : 0}
+                            </td>
+                            <td className="px-4 py-3 text-neutral-600">
+                              {new Date(workspace.createdAt).toLocaleDateString()}
+                            </td>
+                            <td className="px-4 py-3 text-right">
+                              <Link
+                                href={`/workspaces/${workspace.slug}`}
+                                className="inline-flex items-center gap-1 font-medium text-neutral-700 hover:text-neutral-900"
+                              >
+                                Open
+                                <ArrowRight className="h-4 w-4" />
+                              </Link>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             )}
           </CardContent>

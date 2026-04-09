@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 
 export function WorkspaceTabs({
   slug,
-  active: _active,
 }: {
   slug: string;
   active?: string;
@@ -14,6 +13,10 @@ export function WorkspaceTabs({
 
   const tabs = [
     { name: "Documents", path: `/workspaces/${slug}` },
+    { name: "Sources", path: `/workspaces/${slug}/sources` },
+    { name: "Pipeline", path: `/workspaces/${slug}/pipeline` },
+    { name: "Features", path: `/workspaces/${slug}/features` },
+    { name: "Reports", path: `/workspaces/${slug}/reports` },
     { name: "Members", path: `/workspaces/${slug}/members` },
     { name: "Activity", path: `/workspaces/${slug}/activity` },
     { name: "Settings", path: `/workspaces/${slug}/settings` },
@@ -21,9 +24,12 @@ export function WorkspaceTabs({
 
   return (
     <div className="border-b bg-white px-6">
-      <div className="flex gap-3">
+      <div className="flex gap-3 overflow-x-auto py-1">
         {tabs.map((tab) => {
-          const active = pathname === tab.path;
+          const active =
+            pathname === tab.path ||
+            (tab.name === "Features" &&
+              pathname.startsWith(`/workspaces/${slug}/features/`));
 
           return (
             <Link

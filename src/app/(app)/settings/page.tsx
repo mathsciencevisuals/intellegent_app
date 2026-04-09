@@ -1,10 +1,11 @@
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
-import { KeyRound, Settings, ShieldCheck, UserRound } from "lucide-react";
+import { BellRing, KeyRound, ShieldCheck, UserRound } from "lucide-react";
 
 import { authConfig } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { PasswordSettingsForm } from "@/components/settings/password-settings-form";
+import { PreferencesSettingsForm } from "@/components/settings/preferences-settings-form";
 import { ProfileSettingsForm } from "@/components/settings/profile-settings-form";
 import { PageHeader } from "@/components/ui/page-header";
 import {
@@ -27,8 +28,12 @@ export default async function PreferencesPage() {
     select: {
       id: true,
       name: true,
+      title: true,
       email: true,
       role: true,
+      emailNotificationsEnabled: true,
+      weeklyDigestEnabled: true,
+      workspaceListDensity: true,
       createdAt: true,
       memberships: {
         select: {
@@ -73,6 +78,13 @@ export default async function PreferencesPage() {
     },
   ];
 
+  if (user.title) {
+    accountStats.splice(1, 0, {
+      label: "Title",
+      value: user.title,
+    });
+  }
+
   return (
     <div className="space-y-6 p-6">
       <PageHeader
@@ -99,6 +111,7 @@ export default async function PreferencesPage() {
           <CardContent>
             <ProfileSettingsForm
               initialName={user.name ?? ""}
+              initialTitle={user.title ?? ""}
               email={user.email}
             />
           </CardContent>
@@ -165,7 +178,7 @@ export default async function PreferencesPage() {
                   More account controls can land here next
                 </div>
                 <div className="mt-1 text-sm text-neutral-500">
-                  Notification delivery, display preferences, and richer profile fields still need persistence support in the schema.
+                  Notification delivery and workspace density preferences are now persisted. More advanced theme controls and richer profile metadata can build on top of this foundation.
                 </div>
               </div>
             </div>
@@ -175,25 +188,24 @@ export default async function PreferencesPage() {
 
       <Card className="rounded-2xl border-0 shadow-sm">
         <CardHeader>
-          <CardTitle className="text-lg">App preferences</CardTitle>
-          <CardDescription>
-            Current application-level defaults for this release.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-start gap-3 rounded-2xl border border-dashed p-4">
-            <div className="mt-1 flex h-10 w-10 items-center justify-center rounded-xl bg-neutral-100">
-              <Settings className="h-5 w-5 text-neutral-600" />
+          <div className="flex items-center gap-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-neutral-100">
+              <BellRing className="h-5 w-5 text-neutral-700" />
             </div>
             <div>
-              <div className="font-medium text-neutral-900">
-                System preferences are still fixed
-              </div>
-              <div className="mt-1 text-sm text-neutral-500">
-                The current app uses a shared neutral theme and standard notification behavior. Once those options have persistence behind them, this section can become editable.
-              </div>
+              <CardTitle className="text-lg">App preferences</CardTitle>
+              <CardDescription>
+                Persisted notification and display defaults for this account.
+              </CardDescription>
             </div>
           </div>
+        </CardHeader>
+        <CardContent>
+          <PreferencesSettingsForm
+            initialEmailNotificationsEnabled={user.emailNotificationsEnabled}
+            initialWeeklyDigestEnabled={user.weeklyDigestEnabled}
+            initialWorkspaceListDensity={user.workspaceListDensity}
+          />
         </CardContent>
       </Card>
     </div>

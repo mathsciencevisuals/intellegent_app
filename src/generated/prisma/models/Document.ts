@@ -37,6 +37,7 @@ export type DocumentSumAggregateOutputType = {
 export type DocumentMinAggregateOutputType = {
   id: string | null
   workspaceId: string | null
+  sourceId: string | null
   title: string | null
   fileName: string | null
   mimeType: string | null
@@ -44,6 +45,10 @@ export type DocumentMinAggregateOutputType = {
   status: $Enums.DocumentStatus | null
   storageKey: string | null
   errorMessage: string | null
+  processingSummary: string | null
+  extractedText: string | null
+  processingStartedAt: Date | null
+  processedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -51,6 +56,7 @@ export type DocumentMinAggregateOutputType = {
 export type DocumentMaxAggregateOutputType = {
   id: string | null
   workspaceId: string | null
+  sourceId: string | null
   title: string | null
   fileName: string | null
   mimeType: string | null
@@ -58,6 +64,10 @@ export type DocumentMaxAggregateOutputType = {
   status: $Enums.DocumentStatus | null
   storageKey: string | null
   errorMessage: string | null
+  processingSummary: string | null
+  extractedText: string | null
+  processingStartedAt: Date | null
+  processedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -65,6 +75,7 @@ export type DocumentMaxAggregateOutputType = {
 export type DocumentCountAggregateOutputType = {
   id: number
   workspaceId: number
+  sourceId: number
   title: number
   fileName: number
   mimeType: number
@@ -72,6 +83,10 @@ export type DocumentCountAggregateOutputType = {
   status: number
   storageKey: number
   errorMessage: number
+  processingSummary: number
+  extractedText: number
+  processingStartedAt: number
+  processedAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -89,6 +104,7 @@ export type DocumentSumAggregateInputType = {
 export type DocumentMinAggregateInputType = {
   id?: true
   workspaceId?: true
+  sourceId?: true
   title?: true
   fileName?: true
   mimeType?: true
@@ -96,6 +112,10 @@ export type DocumentMinAggregateInputType = {
   status?: true
   storageKey?: true
   errorMessage?: true
+  processingSummary?: true
+  extractedText?: true
+  processingStartedAt?: true
+  processedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -103,6 +123,7 @@ export type DocumentMinAggregateInputType = {
 export type DocumentMaxAggregateInputType = {
   id?: true
   workspaceId?: true
+  sourceId?: true
   title?: true
   fileName?: true
   mimeType?: true
@@ -110,6 +131,10 @@ export type DocumentMaxAggregateInputType = {
   status?: true
   storageKey?: true
   errorMessage?: true
+  processingSummary?: true
+  extractedText?: true
+  processingStartedAt?: true
+  processedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -117,6 +142,7 @@ export type DocumentMaxAggregateInputType = {
 export type DocumentCountAggregateInputType = {
   id?: true
   workspaceId?: true
+  sourceId?: true
   title?: true
   fileName?: true
   mimeType?: true
@@ -124,6 +150,10 @@ export type DocumentCountAggregateInputType = {
   status?: true
   storageKey?: true
   errorMessage?: true
+  processingSummary?: true
+  extractedText?: true
+  processingStartedAt?: true
+  processedAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -218,6 +248,7 @@ export type DocumentGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 export type DocumentGroupByOutputType = {
   id: string
   workspaceId: string
+  sourceId: string | null
   title: string
   fileName: string | null
   mimeType: string | null
@@ -225,6 +256,10 @@ export type DocumentGroupByOutputType = {
   status: $Enums.DocumentStatus
   storageKey: string | null
   errorMessage: string | null
+  processingSummary: string | null
+  extractedText: string | null
+  processingStartedAt: Date | null
+  processedAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: DocumentCountAggregateOutputType | null
@@ -255,6 +290,7 @@ export type DocumentWhereInput = {
   NOT?: Prisma.DocumentWhereInput | Prisma.DocumentWhereInput[]
   id?: Prisma.StringFilter<"Document"> | string
   workspaceId?: Prisma.StringFilter<"Document"> | string
+  sourceId?: Prisma.StringNullableFilter<"Document"> | string | null
   title?: Prisma.StringFilter<"Document"> | string
   fileName?: Prisma.StringNullableFilter<"Document"> | string | null
   mimeType?: Prisma.StringNullableFilter<"Document"> | string | null
@@ -262,14 +298,22 @@ export type DocumentWhereInput = {
   status?: Prisma.EnumDocumentStatusFilter<"Document"> | $Enums.DocumentStatus
   storageKey?: Prisma.StringNullableFilter<"Document"> | string | null
   errorMessage?: Prisma.StringNullableFilter<"Document"> | string | null
+  processingSummary?: Prisma.StringNullableFilter<"Document"> | string | null
+  extractedText?: Prisma.StringNullableFilter<"Document"> | string | null
+  processingStartedAt?: Prisma.DateTimeNullableFilter<"Document"> | Date | string | null
+  processedAt?: Prisma.DateTimeNullableFilter<"Document"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Document"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Document"> | Date | string
   workspace?: Prisma.XOR<Prisma.WorkspaceScalarRelationFilter, Prisma.WorkspaceWhereInput>
+  source?: Prisma.XOR<Prisma.SourceNullableScalarRelationFilter, Prisma.SourceWhereInput> | null
+  extractionJobs?: Prisma.ExtractionJobListRelationFilter
+  featureSources?: Prisma.FeatureSourceListRelationFilter
 }
 
 export type DocumentOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   workspaceId?: Prisma.SortOrder
+  sourceId?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
   fileName?: Prisma.SortOrderInput | Prisma.SortOrder
   mimeType?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -277,9 +321,16 @@ export type DocumentOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   storageKey?: Prisma.SortOrderInput | Prisma.SortOrder
   errorMessage?: Prisma.SortOrderInput | Prisma.SortOrder
+  processingSummary?: Prisma.SortOrderInput | Prisma.SortOrder
+  extractedText?: Prisma.SortOrderInput | Prisma.SortOrder
+  processingStartedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  processedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   workspace?: Prisma.WorkspaceOrderByWithRelationInput
+  source?: Prisma.SourceOrderByWithRelationInput
+  extractionJobs?: Prisma.ExtractionJobOrderByRelationAggregateInput
+  featureSources?: Prisma.FeatureSourceOrderByRelationAggregateInput
 }
 
 export type DocumentWhereUniqueInput = Prisma.AtLeast<{
@@ -288,6 +339,7 @@ export type DocumentWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.DocumentWhereInput[]
   NOT?: Prisma.DocumentWhereInput | Prisma.DocumentWhereInput[]
   workspaceId?: Prisma.StringFilter<"Document"> | string
+  sourceId?: Prisma.StringNullableFilter<"Document"> | string | null
   title?: Prisma.StringFilter<"Document"> | string
   fileName?: Prisma.StringNullableFilter<"Document"> | string | null
   mimeType?: Prisma.StringNullableFilter<"Document"> | string | null
@@ -295,14 +347,22 @@ export type DocumentWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumDocumentStatusFilter<"Document"> | $Enums.DocumentStatus
   storageKey?: Prisma.StringNullableFilter<"Document"> | string | null
   errorMessage?: Prisma.StringNullableFilter<"Document"> | string | null
+  processingSummary?: Prisma.StringNullableFilter<"Document"> | string | null
+  extractedText?: Prisma.StringNullableFilter<"Document"> | string | null
+  processingStartedAt?: Prisma.DateTimeNullableFilter<"Document"> | Date | string | null
+  processedAt?: Prisma.DateTimeNullableFilter<"Document"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Document"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Document"> | Date | string
   workspace?: Prisma.XOR<Prisma.WorkspaceScalarRelationFilter, Prisma.WorkspaceWhereInput>
+  source?: Prisma.XOR<Prisma.SourceNullableScalarRelationFilter, Prisma.SourceWhereInput> | null
+  extractionJobs?: Prisma.ExtractionJobListRelationFilter
+  featureSources?: Prisma.FeatureSourceListRelationFilter
 }, "id">
 
 export type DocumentOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   workspaceId?: Prisma.SortOrder
+  sourceId?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
   fileName?: Prisma.SortOrderInput | Prisma.SortOrder
   mimeType?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -310,6 +370,10 @@ export type DocumentOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   storageKey?: Prisma.SortOrderInput | Prisma.SortOrder
   errorMessage?: Prisma.SortOrderInput | Prisma.SortOrder
+  processingSummary?: Prisma.SortOrderInput | Prisma.SortOrder
+  extractedText?: Prisma.SortOrderInput | Prisma.SortOrder
+  processingStartedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  processedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.DocumentCountOrderByAggregateInput
@@ -325,6 +389,7 @@ export type DocumentScalarWhereWithAggregatesInput = {
   NOT?: Prisma.DocumentScalarWhereWithAggregatesInput | Prisma.DocumentScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Document"> | string
   workspaceId?: Prisma.StringWithAggregatesFilter<"Document"> | string
+  sourceId?: Prisma.StringNullableWithAggregatesFilter<"Document"> | string | null
   title?: Prisma.StringWithAggregatesFilter<"Document"> | string
   fileName?: Prisma.StringNullableWithAggregatesFilter<"Document"> | string | null
   mimeType?: Prisma.StringNullableWithAggregatesFilter<"Document"> | string | null
@@ -332,6 +397,10 @@ export type DocumentScalarWhereWithAggregatesInput = {
   status?: Prisma.EnumDocumentStatusWithAggregatesFilter<"Document"> | $Enums.DocumentStatus
   storageKey?: Prisma.StringNullableWithAggregatesFilter<"Document"> | string | null
   errorMessage?: Prisma.StringNullableWithAggregatesFilter<"Document"> | string | null
+  processingSummary?: Prisma.StringNullableWithAggregatesFilter<"Document"> | string | null
+  extractedText?: Prisma.StringNullableWithAggregatesFilter<"Document"> | string | null
+  processingStartedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Document"> | Date | string | null
+  processedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Document"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Document"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Document"> | Date | string
 }
@@ -345,14 +414,22 @@ export type DocumentCreateInput = {
   status?: $Enums.DocumentStatus
   storageKey?: string | null
   errorMessage?: string | null
+  processingSummary?: string | null
+  extractedText?: string | null
+  processingStartedAt?: Date | string | null
+  processedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   workspace: Prisma.WorkspaceCreateNestedOneWithoutDocumentsInput
+  source?: Prisma.SourceCreateNestedOneWithoutDocumentsInput
+  extractionJobs?: Prisma.ExtractionJobCreateNestedManyWithoutDocumentInput
+  featureSources?: Prisma.FeatureSourceCreateNestedManyWithoutDocumentInput
 }
 
 export type DocumentUncheckedCreateInput = {
   id?: string
   workspaceId: string
+  sourceId?: string | null
   title: string
   fileName?: string | null
   mimeType?: string | null
@@ -360,8 +437,14 @@ export type DocumentUncheckedCreateInput = {
   status?: $Enums.DocumentStatus
   storageKey?: string | null
   errorMessage?: string | null
+  processingSummary?: string | null
+  extractedText?: string | null
+  processingStartedAt?: Date | string | null
+  processedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  extractionJobs?: Prisma.ExtractionJobUncheckedCreateNestedManyWithoutDocumentInput
+  featureSources?: Prisma.FeatureSourceUncheckedCreateNestedManyWithoutDocumentInput
 }
 
 export type DocumentUpdateInput = {
@@ -373,14 +456,22 @@ export type DocumentUpdateInput = {
   status?: Prisma.EnumDocumentStatusFieldUpdateOperationsInput | $Enums.DocumentStatus
   storageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processingSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   workspace?: Prisma.WorkspaceUpdateOneRequiredWithoutDocumentsNestedInput
+  source?: Prisma.SourceUpdateOneWithoutDocumentsNestedInput
+  extractionJobs?: Prisma.ExtractionJobUpdateManyWithoutDocumentNestedInput
+  featureSources?: Prisma.FeatureSourceUpdateManyWithoutDocumentNestedInput
 }
 
 export type DocumentUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   workspaceId?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -388,13 +479,20 @@ export type DocumentUncheckedUpdateInput = {
   status?: Prisma.EnumDocumentStatusFieldUpdateOperationsInput | $Enums.DocumentStatus
   storageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processingSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  extractionJobs?: Prisma.ExtractionJobUncheckedUpdateManyWithoutDocumentNestedInput
+  featureSources?: Prisma.FeatureSourceUncheckedUpdateManyWithoutDocumentNestedInput
 }
 
 export type DocumentCreateManyInput = {
   id?: string
   workspaceId: string
+  sourceId?: string | null
   title: string
   fileName?: string | null
   mimeType?: string | null
@@ -402,6 +500,10 @@ export type DocumentCreateManyInput = {
   status?: $Enums.DocumentStatus
   storageKey?: string | null
   errorMessage?: string | null
+  processingSummary?: string | null
+  extractedText?: string | null
+  processingStartedAt?: Date | string | null
+  processedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -415,6 +517,10 @@ export type DocumentUpdateManyMutationInput = {
   status?: Prisma.EnumDocumentStatusFieldUpdateOperationsInput | $Enums.DocumentStatus
   storageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processingSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -422,6 +528,7 @@ export type DocumentUpdateManyMutationInput = {
 export type DocumentUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   workspaceId?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -429,6 +536,10 @@ export type DocumentUncheckedUpdateManyInput = {
   status?: Prisma.EnumDocumentStatusFieldUpdateOperationsInput | $Enums.DocumentStatus
   storageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processingSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -446,6 +557,7 @@ export type DocumentOrderByRelationAggregateInput = {
 export type DocumentCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   workspaceId?: Prisma.SortOrder
+  sourceId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   fileName?: Prisma.SortOrder
   mimeType?: Prisma.SortOrder
@@ -453,6 +565,10 @@ export type DocumentCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   storageKey?: Prisma.SortOrder
   errorMessage?: Prisma.SortOrder
+  processingSummary?: Prisma.SortOrder
+  extractedText?: Prisma.SortOrder
+  processingStartedAt?: Prisma.SortOrder
+  processedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -464,6 +580,7 @@ export type DocumentAvgOrderByAggregateInput = {
 export type DocumentMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   workspaceId?: Prisma.SortOrder
+  sourceId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   fileName?: Prisma.SortOrder
   mimeType?: Prisma.SortOrder
@@ -471,6 +588,10 @@ export type DocumentMaxOrderByAggregateInput = {
   status?: Prisma.SortOrder
   storageKey?: Prisma.SortOrder
   errorMessage?: Prisma.SortOrder
+  processingSummary?: Prisma.SortOrder
+  extractedText?: Prisma.SortOrder
+  processingStartedAt?: Prisma.SortOrder
+  processedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -478,6 +599,7 @@ export type DocumentMaxOrderByAggregateInput = {
 export type DocumentMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   workspaceId?: Prisma.SortOrder
+  sourceId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   fileName?: Prisma.SortOrder
   mimeType?: Prisma.SortOrder
@@ -485,12 +607,21 @@ export type DocumentMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   storageKey?: Prisma.SortOrder
   errorMessage?: Prisma.SortOrder
+  processingSummary?: Prisma.SortOrder
+  extractedText?: Prisma.SortOrder
+  processingStartedAt?: Prisma.SortOrder
+  processedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type DocumentSumOrderByAggregateInput = {
   fileSize?: Prisma.SortOrder
+}
+
+export type DocumentScalarRelationFilter = {
+  is?: Prisma.DocumentWhereInput
+  isNot?: Prisma.DocumentWhereInput
 }
 
 export type DocumentCreateNestedManyWithoutWorkspaceInput = {
@@ -547,6 +678,76 @@ export type EnumDocumentStatusFieldUpdateOperationsInput = {
   set?: $Enums.DocumentStatus
 }
 
+export type DocumentCreateNestedManyWithoutSourceInput = {
+  create?: Prisma.XOR<Prisma.DocumentCreateWithoutSourceInput, Prisma.DocumentUncheckedCreateWithoutSourceInput> | Prisma.DocumentCreateWithoutSourceInput[] | Prisma.DocumentUncheckedCreateWithoutSourceInput[]
+  connectOrCreate?: Prisma.DocumentCreateOrConnectWithoutSourceInput | Prisma.DocumentCreateOrConnectWithoutSourceInput[]
+  createMany?: Prisma.DocumentCreateManySourceInputEnvelope
+  connect?: Prisma.DocumentWhereUniqueInput | Prisma.DocumentWhereUniqueInput[]
+}
+
+export type DocumentUncheckedCreateNestedManyWithoutSourceInput = {
+  create?: Prisma.XOR<Prisma.DocumentCreateWithoutSourceInput, Prisma.DocumentUncheckedCreateWithoutSourceInput> | Prisma.DocumentCreateWithoutSourceInput[] | Prisma.DocumentUncheckedCreateWithoutSourceInput[]
+  connectOrCreate?: Prisma.DocumentCreateOrConnectWithoutSourceInput | Prisma.DocumentCreateOrConnectWithoutSourceInput[]
+  createMany?: Prisma.DocumentCreateManySourceInputEnvelope
+  connect?: Prisma.DocumentWhereUniqueInput | Prisma.DocumentWhereUniqueInput[]
+}
+
+export type DocumentUpdateManyWithoutSourceNestedInput = {
+  create?: Prisma.XOR<Prisma.DocumentCreateWithoutSourceInput, Prisma.DocumentUncheckedCreateWithoutSourceInput> | Prisma.DocumentCreateWithoutSourceInput[] | Prisma.DocumentUncheckedCreateWithoutSourceInput[]
+  connectOrCreate?: Prisma.DocumentCreateOrConnectWithoutSourceInput | Prisma.DocumentCreateOrConnectWithoutSourceInput[]
+  upsert?: Prisma.DocumentUpsertWithWhereUniqueWithoutSourceInput | Prisma.DocumentUpsertWithWhereUniqueWithoutSourceInput[]
+  createMany?: Prisma.DocumentCreateManySourceInputEnvelope
+  set?: Prisma.DocumentWhereUniqueInput | Prisma.DocumentWhereUniqueInput[]
+  disconnect?: Prisma.DocumentWhereUniqueInput | Prisma.DocumentWhereUniqueInput[]
+  delete?: Prisma.DocumentWhereUniqueInput | Prisma.DocumentWhereUniqueInput[]
+  connect?: Prisma.DocumentWhereUniqueInput | Prisma.DocumentWhereUniqueInput[]
+  update?: Prisma.DocumentUpdateWithWhereUniqueWithoutSourceInput | Prisma.DocumentUpdateWithWhereUniqueWithoutSourceInput[]
+  updateMany?: Prisma.DocumentUpdateManyWithWhereWithoutSourceInput | Prisma.DocumentUpdateManyWithWhereWithoutSourceInput[]
+  deleteMany?: Prisma.DocumentScalarWhereInput | Prisma.DocumentScalarWhereInput[]
+}
+
+export type DocumentUncheckedUpdateManyWithoutSourceNestedInput = {
+  create?: Prisma.XOR<Prisma.DocumentCreateWithoutSourceInput, Prisma.DocumentUncheckedCreateWithoutSourceInput> | Prisma.DocumentCreateWithoutSourceInput[] | Prisma.DocumentUncheckedCreateWithoutSourceInput[]
+  connectOrCreate?: Prisma.DocumentCreateOrConnectWithoutSourceInput | Prisma.DocumentCreateOrConnectWithoutSourceInput[]
+  upsert?: Prisma.DocumentUpsertWithWhereUniqueWithoutSourceInput | Prisma.DocumentUpsertWithWhereUniqueWithoutSourceInput[]
+  createMany?: Prisma.DocumentCreateManySourceInputEnvelope
+  set?: Prisma.DocumentWhereUniqueInput | Prisma.DocumentWhereUniqueInput[]
+  disconnect?: Prisma.DocumentWhereUniqueInput | Prisma.DocumentWhereUniqueInput[]
+  delete?: Prisma.DocumentWhereUniqueInput | Prisma.DocumentWhereUniqueInput[]
+  connect?: Prisma.DocumentWhereUniqueInput | Prisma.DocumentWhereUniqueInput[]
+  update?: Prisma.DocumentUpdateWithWhereUniqueWithoutSourceInput | Prisma.DocumentUpdateWithWhereUniqueWithoutSourceInput[]
+  updateMany?: Prisma.DocumentUpdateManyWithWhereWithoutSourceInput | Prisma.DocumentUpdateManyWithWhereWithoutSourceInput[]
+  deleteMany?: Prisma.DocumentScalarWhereInput | Prisma.DocumentScalarWhereInput[]
+}
+
+export type DocumentCreateNestedOneWithoutExtractionJobsInput = {
+  create?: Prisma.XOR<Prisma.DocumentCreateWithoutExtractionJobsInput, Prisma.DocumentUncheckedCreateWithoutExtractionJobsInput>
+  connectOrCreate?: Prisma.DocumentCreateOrConnectWithoutExtractionJobsInput
+  connect?: Prisma.DocumentWhereUniqueInput
+}
+
+export type DocumentUpdateOneRequiredWithoutExtractionJobsNestedInput = {
+  create?: Prisma.XOR<Prisma.DocumentCreateWithoutExtractionJobsInput, Prisma.DocumentUncheckedCreateWithoutExtractionJobsInput>
+  connectOrCreate?: Prisma.DocumentCreateOrConnectWithoutExtractionJobsInput
+  upsert?: Prisma.DocumentUpsertWithoutExtractionJobsInput
+  connect?: Prisma.DocumentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DocumentUpdateToOneWithWhereWithoutExtractionJobsInput, Prisma.DocumentUpdateWithoutExtractionJobsInput>, Prisma.DocumentUncheckedUpdateWithoutExtractionJobsInput>
+}
+
+export type DocumentCreateNestedOneWithoutFeatureSourcesInput = {
+  create?: Prisma.XOR<Prisma.DocumentCreateWithoutFeatureSourcesInput, Prisma.DocumentUncheckedCreateWithoutFeatureSourcesInput>
+  connectOrCreate?: Prisma.DocumentCreateOrConnectWithoutFeatureSourcesInput
+  connect?: Prisma.DocumentWhereUniqueInput
+}
+
+export type DocumentUpdateOneRequiredWithoutFeatureSourcesNestedInput = {
+  create?: Prisma.XOR<Prisma.DocumentCreateWithoutFeatureSourcesInput, Prisma.DocumentUncheckedCreateWithoutFeatureSourcesInput>
+  connectOrCreate?: Prisma.DocumentCreateOrConnectWithoutFeatureSourcesInput
+  upsert?: Prisma.DocumentUpsertWithoutFeatureSourcesInput
+  connect?: Prisma.DocumentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DocumentUpdateToOneWithWhereWithoutFeatureSourcesInput, Prisma.DocumentUpdateWithoutFeatureSourcesInput>, Prisma.DocumentUncheckedUpdateWithoutFeatureSourcesInput>
+}
+
 export type DocumentCreateWithoutWorkspaceInput = {
   id?: string
   title: string
@@ -556,12 +757,20 @@ export type DocumentCreateWithoutWorkspaceInput = {
   status?: $Enums.DocumentStatus
   storageKey?: string | null
   errorMessage?: string | null
+  processingSummary?: string | null
+  extractedText?: string | null
+  processingStartedAt?: Date | string | null
+  processedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  source?: Prisma.SourceCreateNestedOneWithoutDocumentsInput
+  extractionJobs?: Prisma.ExtractionJobCreateNestedManyWithoutDocumentInput
+  featureSources?: Prisma.FeatureSourceCreateNestedManyWithoutDocumentInput
 }
 
 export type DocumentUncheckedCreateWithoutWorkspaceInput = {
   id?: string
+  sourceId?: string | null
   title: string
   fileName?: string | null
   mimeType?: string | null
@@ -569,8 +778,14 @@ export type DocumentUncheckedCreateWithoutWorkspaceInput = {
   status?: $Enums.DocumentStatus
   storageKey?: string | null
   errorMessage?: string | null
+  processingSummary?: string | null
+  extractedText?: string | null
+  processingStartedAt?: Date | string | null
+  processedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  extractionJobs?: Prisma.ExtractionJobUncheckedCreateNestedManyWithoutDocumentInput
+  featureSources?: Prisma.FeatureSourceUncheckedCreateNestedManyWithoutDocumentInput
 }
 
 export type DocumentCreateOrConnectWithoutWorkspaceInput = {
@@ -605,6 +820,7 @@ export type DocumentScalarWhereInput = {
   NOT?: Prisma.DocumentScalarWhereInput | Prisma.DocumentScalarWhereInput[]
   id?: Prisma.StringFilter<"Document"> | string
   workspaceId?: Prisma.StringFilter<"Document"> | string
+  sourceId?: Prisma.StringNullableFilter<"Document"> | string | null
   title?: Prisma.StringFilter<"Document"> | string
   fileName?: Prisma.StringNullableFilter<"Document"> | string | null
   mimeType?: Prisma.StringNullableFilter<"Document"> | string | null
@@ -612,11 +828,15 @@ export type DocumentScalarWhereInput = {
   status?: Prisma.EnumDocumentStatusFilter<"Document"> | $Enums.DocumentStatus
   storageKey?: Prisma.StringNullableFilter<"Document"> | string | null
   errorMessage?: Prisma.StringNullableFilter<"Document"> | string | null
+  processingSummary?: Prisma.StringNullableFilter<"Document"> | string | null
+  extractedText?: Prisma.StringNullableFilter<"Document"> | string | null
+  processingStartedAt?: Prisma.DateTimeNullableFilter<"Document"> | Date | string | null
+  processedAt?: Prisma.DateTimeNullableFilter<"Document"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Document"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Document"> | Date | string
 }
 
-export type DocumentCreateManyWorkspaceInput = {
+export type DocumentCreateWithoutSourceInput = {
   id?: string
   title: string
   fileName?: string | null
@@ -625,6 +845,269 @@ export type DocumentCreateManyWorkspaceInput = {
   status?: $Enums.DocumentStatus
   storageKey?: string | null
   errorMessage?: string | null
+  processingSummary?: string | null
+  extractedText?: string | null
+  processingStartedAt?: Date | string | null
+  processedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  workspace: Prisma.WorkspaceCreateNestedOneWithoutDocumentsInput
+  extractionJobs?: Prisma.ExtractionJobCreateNestedManyWithoutDocumentInput
+  featureSources?: Prisma.FeatureSourceCreateNestedManyWithoutDocumentInput
+}
+
+export type DocumentUncheckedCreateWithoutSourceInput = {
+  id?: string
+  workspaceId: string
+  title: string
+  fileName?: string | null
+  mimeType?: string | null
+  fileSize?: number | null
+  status?: $Enums.DocumentStatus
+  storageKey?: string | null
+  errorMessage?: string | null
+  processingSummary?: string | null
+  extractedText?: string | null
+  processingStartedAt?: Date | string | null
+  processedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  extractionJobs?: Prisma.ExtractionJobUncheckedCreateNestedManyWithoutDocumentInput
+  featureSources?: Prisma.FeatureSourceUncheckedCreateNestedManyWithoutDocumentInput
+}
+
+export type DocumentCreateOrConnectWithoutSourceInput = {
+  where: Prisma.DocumentWhereUniqueInput
+  create: Prisma.XOR<Prisma.DocumentCreateWithoutSourceInput, Prisma.DocumentUncheckedCreateWithoutSourceInput>
+}
+
+export type DocumentCreateManySourceInputEnvelope = {
+  data: Prisma.DocumentCreateManySourceInput | Prisma.DocumentCreateManySourceInput[]
+  skipDuplicates?: boolean
+}
+
+export type DocumentUpsertWithWhereUniqueWithoutSourceInput = {
+  where: Prisma.DocumentWhereUniqueInput
+  update: Prisma.XOR<Prisma.DocumentUpdateWithoutSourceInput, Prisma.DocumentUncheckedUpdateWithoutSourceInput>
+  create: Prisma.XOR<Prisma.DocumentCreateWithoutSourceInput, Prisma.DocumentUncheckedCreateWithoutSourceInput>
+}
+
+export type DocumentUpdateWithWhereUniqueWithoutSourceInput = {
+  where: Prisma.DocumentWhereUniqueInput
+  data: Prisma.XOR<Prisma.DocumentUpdateWithoutSourceInput, Prisma.DocumentUncheckedUpdateWithoutSourceInput>
+}
+
+export type DocumentUpdateManyWithWhereWithoutSourceInput = {
+  where: Prisma.DocumentScalarWhereInput
+  data: Prisma.XOR<Prisma.DocumentUpdateManyMutationInput, Prisma.DocumentUncheckedUpdateManyWithoutSourceInput>
+}
+
+export type DocumentCreateWithoutExtractionJobsInput = {
+  id?: string
+  title: string
+  fileName?: string | null
+  mimeType?: string | null
+  fileSize?: number | null
+  status?: $Enums.DocumentStatus
+  storageKey?: string | null
+  errorMessage?: string | null
+  processingSummary?: string | null
+  extractedText?: string | null
+  processingStartedAt?: Date | string | null
+  processedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  workspace: Prisma.WorkspaceCreateNestedOneWithoutDocumentsInput
+  source?: Prisma.SourceCreateNestedOneWithoutDocumentsInput
+  featureSources?: Prisma.FeatureSourceCreateNestedManyWithoutDocumentInput
+}
+
+export type DocumentUncheckedCreateWithoutExtractionJobsInput = {
+  id?: string
+  workspaceId: string
+  sourceId?: string | null
+  title: string
+  fileName?: string | null
+  mimeType?: string | null
+  fileSize?: number | null
+  status?: $Enums.DocumentStatus
+  storageKey?: string | null
+  errorMessage?: string | null
+  processingSummary?: string | null
+  extractedText?: string | null
+  processingStartedAt?: Date | string | null
+  processedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  featureSources?: Prisma.FeatureSourceUncheckedCreateNestedManyWithoutDocumentInput
+}
+
+export type DocumentCreateOrConnectWithoutExtractionJobsInput = {
+  where: Prisma.DocumentWhereUniqueInput
+  create: Prisma.XOR<Prisma.DocumentCreateWithoutExtractionJobsInput, Prisma.DocumentUncheckedCreateWithoutExtractionJobsInput>
+}
+
+export type DocumentUpsertWithoutExtractionJobsInput = {
+  update: Prisma.XOR<Prisma.DocumentUpdateWithoutExtractionJobsInput, Prisma.DocumentUncheckedUpdateWithoutExtractionJobsInput>
+  create: Prisma.XOR<Prisma.DocumentCreateWithoutExtractionJobsInput, Prisma.DocumentUncheckedCreateWithoutExtractionJobsInput>
+  where?: Prisma.DocumentWhereInput
+}
+
+export type DocumentUpdateToOneWithWhereWithoutExtractionJobsInput = {
+  where?: Prisma.DocumentWhereInput
+  data: Prisma.XOR<Prisma.DocumentUpdateWithoutExtractionJobsInput, Prisma.DocumentUncheckedUpdateWithoutExtractionJobsInput>
+}
+
+export type DocumentUpdateWithoutExtractionJobsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status?: Prisma.EnumDocumentStatusFieldUpdateOperationsInput | $Enums.DocumentStatus
+  storageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processingSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  workspace?: Prisma.WorkspaceUpdateOneRequiredWithoutDocumentsNestedInput
+  source?: Prisma.SourceUpdateOneWithoutDocumentsNestedInput
+  featureSources?: Prisma.FeatureSourceUpdateManyWithoutDocumentNestedInput
+}
+
+export type DocumentUncheckedUpdateWithoutExtractionJobsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  workspaceId?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status?: Prisma.EnumDocumentStatusFieldUpdateOperationsInput | $Enums.DocumentStatus
+  storageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processingSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  featureSources?: Prisma.FeatureSourceUncheckedUpdateManyWithoutDocumentNestedInput
+}
+
+export type DocumentCreateWithoutFeatureSourcesInput = {
+  id?: string
+  title: string
+  fileName?: string | null
+  mimeType?: string | null
+  fileSize?: number | null
+  status?: $Enums.DocumentStatus
+  storageKey?: string | null
+  errorMessage?: string | null
+  processingSummary?: string | null
+  extractedText?: string | null
+  processingStartedAt?: Date | string | null
+  processedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  workspace: Prisma.WorkspaceCreateNestedOneWithoutDocumentsInput
+  source?: Prisma.SourceCreateNestedOneWithoutDocumentsInput
+  extractionJobs?: Prisma.ExtractionJobCreateNestedManyWithoutDocumentInput
+}
+
+export type DocumentUncheckedCreateWithoutFeatureSourcesInput = {
+  id?: string
+  workspaceId: string
+  sourceId?: string | null
+  title: string
+  fileName?: string | null
+  mimeType?: string | null
+  fileSize?: number | null
+  status?: $Enums.DocumentStatus
+  storageKey?: string | null
+  errorMessage?: string | null
+  processingSummary?: string | null
+  extractedText?: string | null
+  processingStartedAt?: Date | string | null
+  processedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  extractionJobs?: Prisma.ExtractionJobUncheckedCreateNestedManyWithoutDocumentInput
+}
+
+export type DocumentCreateOrConnectWithoutFeatureSourcesInput = {
+  where: Prisma.DocumentWhereUniqueInput
+  create: Prisma.XOR<Prisma.DocumentCreateWithoutFeatureSourcesInput, Prisma.DocumentUncheckedCreateWithoutFeatureSourcesInput>
+}
+
+export type DocumentUpsertWithoutFeatureSourcesInput = {
+  update: Prisma.XOR<Prisma.DocumentUpdateWithoutFeatureSourcesInput, Prisma.DocumentUncheckedUpdateWithoutFeatureSourcesInput>
+  create: Prisma.XOR<Prisma.DocumentCreateWithoutFeatureSourcesInput, Prisma.DocumentUncheckedCreateWithoutFeatureSourcesInput>
+  where?: Prisma.DocumentWhereInput
+}
+
+export type DocumentUpdateToOneWithWhereWithoutFeatureSourcesInput = {
+  where?: Prisma.DocumentWhereInput
+  data: Prisma.XOR<Prisma.DocumentUpdateWithoutFeatureSourcesInput, Prisma.DocumentUncheckedUpdateWithoutFeatureSourcesInput>
+}
+
+export type DocumentUpdateWithoutFeatureSourcesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status?: Prisma.EnumDocumentStatusFieldUpdateOperationsInput | $Enums.DocumentStatus
+  storageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processingSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  workspace?: Prisma.WorkspaceUpdateOneRequiredWithoutDocumentsNestedInput
+  source?: Prisma.SourceUpdateOneWithoutDocumentsNestedInput
+  extractionJobs?: Prisma.ExtractionJobUpdateManyWithoutDocumentNestedInput
+}
+
+export type DocumentUncheckedUpdateWithoutFeatureSourcesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  workspaceId?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status?: Prisma.EnumDocumentStatusFieldUpdateOperationsInput | $Enums.DocumentStatus
+  storageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processingSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  extractionJobs?: Prisma.ExtractionJobUncheckedUpdateManyWithoutDocumentNestedInput
+}
+
+export type DocumentCreateManyWorkspaceInput = {
+  id?: string
+  sourceId?: string | null
+  title: string
+  fileName?: string | null
+  mimeType?: string | null
+  fileSize?: number | null
+  status?: $Enums.DocumentStatus
+  storageKey?: string | null
+  errorMessage?: string | null
+  processingSummary?: string | null
+  extractedText?: string | null
+  processingStartedAt?: Date | string | null
+  processedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -638,12 +1121,20 @@ export type DocumentUpdateWithoutWorkspaceInput = {
   status?: Prisma.EnumDocumentStatusFieldUpdateOperationsInput | $Enums.DocumentStatus
   storageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processingSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  source?: Prisma.SourceUpdateOneWithoutDocumentsNestedInput
+  extractionJobs?: Prisma.ExtractionJobUpdateManyWithoutDocumentNestedInput
+  featureSources?: Prisma.FeatureSourceUpdateManyWithoutDocumentNestedInput
 }
 
 export type DocumentUncheckedUpdateWithoutWorkspaceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -651,11 +1142,53 @@ export type DocumentUncheckedUpdateWithoutWorkspaceInput = {
   status?: Prisma.EnumDocumentStatusFieldUpdateOperationsInput | $Enums.DocumentStatus
   storageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processingSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  extractionJobs?: Prisma.ExtractionJobUncheckedUpdateManyWithoutDocumentNestedInput
+  featureSources?: Prisma.FeatureSourceUncheckedUpdateManyWithoutDocumentNestedInput
+}
+
+export type DocumentUncheckedUpdateManyWithoutWorkspaceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status?: Prisma.EnumDocumentStatusFieldUpdateOperationsInput | $Enums.DocumentStatus
+  storageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processingSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type DocumentUncheckedUpdateManyWithoutWorkspaceInput = {
+export type DocumentCreateManySourceInput = {
+  id?: string
+  workspaceId: string
+  title: string
+  fileName?: string | null
+  mimeType?: string | null
+  fileSize?: number | null
+  status?: $Enums.DocumentStatus
+  storageKey?: string | null
+  errorMessage?: string | null
+  processingSummary?: string | null
+  extractedText?: string | null
+  processingStartedAt?: Date | string | null
+  processedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type DocumentUpdateWithoutSourceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -664,15 +1197,99 @@ export type DocumentUncheckedUpdateManyWithoutWorkspaceInput = {
   status?: Prisma.EnumDocumentStatusFieldUpdateOperationsInput | $Enums.DocumentStatus
   storageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processingSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  workspace?: Prisma.WorkspaceUpdateOneRequiredWithoutDocumentsNestedInput
+  extractionJobs?: Prisma.ExtractionJobUpdateManyWithoutDocumentNestedInput
+  featureSources?: Prisma.FeatureSourceUpdateManyWithoutDocumentNestedInput
+}
+
+export type DocumentUncheckedUpdateWithoutSourceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  workspaceId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status?: Prisma.EnumDocumentStatusFieldUpdateOperationsInput | $Enums.DocumentStatus
+  storageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processingSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  extractionJobs?: Prisma.ExtractionJobUncheckedUpdateManyWithoutDocumentNestedInput
+  featureSources?: Prisma.FeatureSourceUncheckedUpdateManyWithoutDocumentNestedInput
+}
+
+export type DocumentUncheckedUpdateManyWithoutSourceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  workspaceId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status?: Prisma.EnumDocumentStatusFieldUpdateOperationsInput | $Enums.DocumentStatus
+  storageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processingSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+
+/**
+ * Count Type DocumentCountOutputType
+ */
+
+export type DocumentCountOutputType = {
+  extractionJobs: number
+  featureSources: number
+}
+
+export type DocumentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  extractionJobs?: boolean | DocumentCountOutputTypeCountExtractionJobsArgs
+  featureSources?: boolean | DocumentCountOutputTypeCountFeatureSourcesArgs
+}
+
+/**
+ * DocumentCountOutputType without action
+ */
+export type DocumentCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DocumentCountOutputType
+   */
+  select?: Prisma.DocumentCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * DocumentCountOutputType without action
+ */
+export type DocumentCountOutputTypeCountExtractionJobsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ExtractionJobWhereInput
+}
+
+/**
+ * DocumentCountOutputType without action
+ */
+export type DocumentCountOutputTypeCountFeatureSourcesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FeatureSourceWhereInput
+}
 
 
 export type DocumentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   workspaceId?: boolean
+  sourceId?: boolean
   title?: boolean
   fileName?: boolean
   mimeType?: boolean
@@ -680,14 +1297,23 @@ export type DocumentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   status?: boolean
   storageKey?: boolean
   errorMessage?: boolean
+  processingSummary?: boolean
+  extractedText?: boolean
+  processingStartedAt?: boolean
+  processedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>
+  source?: boolean | Prisma.Document$sourceArgs<ExtArgs>
+  extractionJobs?: boolean | Prisma.Document$extractionJobsArgs<ExtArgs>
+  featureSources?: boolean | Prisma.Document$featureSourcesArgs<ExtArgs>
+  _count?: boolean | Prisma.DocumentCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["document"]>
 
 export type DocumentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   workspaceId?: boolean
+  sourceId?: boolean
   title?: boolean
   fileName?: boolean
   mimeType?: boolean
@@ -695,14 +1321,20 @@ export type DocumentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   status?: boolean
   storageKey?: boolean
   errorMessage?: boolean
+  processingSummary?: boolean
+  extractedText?: boolean
+  processingStartedAt?: boolean
+  processedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>
+  source?: boolean | Prisma.Document$sourceArgs<ExtArgs>
 }, ExtArgs["result"]["document"]>
 
 export type DocumentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   workspaceId?: boolean
+  sourceId?: boolean
   title?: boolean
   fileName?: boolean
   mimeType?: boolean
@@ -710,14 +1342,20 @@ export type DocumentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   status?: boolean
   storageKey?: boolean
   errorMessage?: boolean
+  processingSummary?: boolean
+  extractedText?: boolean
+  processingStartedAt?: boolean
+  processedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>
+  source?: boolean | Prisma.Document$sourceArgs<ExtArgs>
 }, ExtArgs["result"]["document"]>
 
 export type DocumentSelectScalar = {
   id?: boolean
   workspaceId?: boolean
+  sourceId?: boolean
   title?: boolean
   fileName?: boolean
   mimeType?: boolean
@@ -725,29 +1363,43 @@ export type DocumentSelectScalar = {
   status?: boolean
   storageKey?: boolean
   errorMessage?: boolean
+  processingSummary?: boolean
+  extractedText?: boolean
+  processingStartedAt?: boolean
+  processedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type DocumentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "workspaceId" | "title" | "fileName" | "mimeType" | "fileSize" | "status" | "storageKey" | "errorMessage" | "createdAt" | "updatedAt", ExtArgs["result"]["document"]>
+export type DocumentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "workspaceId" | "sourceId" | "title" | "fileName" | "mimeType" | "fileSize" | "status" | "storageKey" | "errorMessage" | "processingSummary" | "extractedText" | "processingStartedAt" | "processedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["document"]>
 export type DocumentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>
+  source?: boolean | Prisma.Document$sourceArgs<ExtArgs>
+  extractionJobs?: boolean | Prisma.Document$extractionJobsArgs<ExtArgs>
+  featureSources?: boolean | Prisma.Document$featureSourcesArgs<ExtArgs>
+  _count?: boolean | Prisma.DocumentCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type DocumentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>
+  source?: boolean | Prisma.Document$sourceArgs<ExtArgs>
 }
 export type DocumentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>
+  source?: boolean | Prisma.Document$sourceArgs<ExtArgs>
 }
 
 export type $DocumentPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Document"
   objects: {
     workspace: Prisma.$WorkspacePayload<ExtArgs>
+    source: Prisma.$SourcePayload<ExtArgs> | null
+    extractionJobs: Prisma.$ExtractionJobPayload<ExtArgs>[]
+    featureSources: Prisma.$FeatureSourcePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     workspaceId: string
+    sourceId: string | null
     title: string
     fileName: string | null
     mimeType: string | null
@@ -755,6 +1407,10 @@ export type $DocumentPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     status: $Enums.DocumentStatus
     storageKey: string | null
     errorMessage: string | null
+    processingSummary: string | null
+    extractedText: string | null
+    processingStartedAt: Date | null
+    processedAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["document"]>
@@ -1152,6 +1808,9 @@ readonly fields: DocumentFieldRefs;
 export interface Prisma__DocumentClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   workspace<T extends Prisma.WorkspaceDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WorkspaceDefaultArgs<ExtArgs>>): Prisma.Prisma__WorkspaceClient<runtime.Types.Result.GetResult<Prisma.$WorkspacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  source<T extends Prisma.Document$sourceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Document$sourceArgs<ExtArgs>>): Prisma.Prisma__SourceClient<runtime.Types.Result.GetResult<Prisma.$SourcePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  extractionJobs<T extends Prisma.Document$extractionJobsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Document$extractionJobsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExtractionJobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  featureSources<T extends Prisma.Document$featureSourcesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Document$featureSourcesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FeatureSourcePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1183,6 +1842,7 @@ export interface Prisma__DocumentClient<T, Null = never, ExtArgs extends runtime
 export interface DocumentFieldRefs {
   readonly id: Prisma.FieldRef<"Document", 'String'>
   readonly workspaceId: Prisma.FieldRef<"Document", 'String'>
+  readonly sourceId: Prisma.FieldRef<"Document", 'String'>
   readonly title: Prisma.FieldRef<"Document", 'String'>
   readonly fileName: Prisma.FieldRef<"Document", 'String'>
   readonly mimeType: Prisma.FieldRef<"Document", 'String'>
@@ -1190,6 +1850,10 @@ export interface DocumentFieldRefs {
   readonly status: Prisma.FieldRef<"Document", 'DocumentStatus'>
   readonly storageKey: Prisma.FieldRef<"Document", 'String'>
   readonly errorMessage: Prisma.FieldRef<"Document", 'String'>
+  readonly processingSummary: Prisma.FieldRef<"Document", 'String'>
+  readonly extractedText: Prisma.FieldRef<"Document", 'String'>
+  readonly processingStartedAt: Prisma.FieldRef<"Document", 'DateTime'>
+  readonly processedAt: Prisma.FieldRef<"Document", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Document", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Document", 'DateTime'>
 }
@@ -1590,6 +2254,73 @@ export type DocumentDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Limit how many Documents to delete.
    */
   limit?: number
+}
+
+/**
+ * Document.source
+ */
+export type Document$sourceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Source
+   */
+  select?: Prisma.SourceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Source
+   */
+  omit?: Prisma.SourceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SourceInclude<ExtArgs> | null
+  where?: Prisma.SourceWhereInput
+}
+
+/**
+ * Document.extractionJobs
+ */
+export type Document$extractionJobsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ExtractionJob
+   */
+  select?: Prisma.ExtractionJobSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ExtractionJob
+   */
+  omit?: Prisma.ExtractionJobOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ExtractionJobInclude<ExtArgs> | null
+  where?: Prisma.ExtractionJobWhereInput
+  orderBy?: Prisma.ExtractionJobOrderByWithRelationInput | Prisma.ExtractionJobOrderByWithRelationInput[]
+  cursor?: Prisma.ExtractionJobWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ExtractionJobScalarFieldEnum | Prisma.ExtractionJobScalarFieldEnum[]
+}
+
+/**
+ * Document.featureSources
+ */
+export type Document$featureSourcesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FeatureSource
+   */
+  select?: Prisma.FeatureSourceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FeatureSource
+   */
+  omit?: Prisma.FeatureSourceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FeatureSourceInclude<ExtArgs> | null
+  where?: Prisma.FeatureSourceWhereInput
+  orderBy?: Prisma.FeatureSourceOrderByWithRelationInput | Prisma.FeatureSourceOrderByWithRelationInput[]
+  cursor?: Prisma.FeatureSourceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FeatureSourceScalarFieldEnum | Prisma.FeatureSourceScalarFieldEnum[]
 }
 
 /**

@@ -9,6 +9,7 @@ import { prisma } from "@/lib/prisma";
 const updateProfileSchema = z.object({
   action: z.literal("profile"),
   name: z.string().trim().min(2).max(80),
+  title: z.string().trim().max(80).optional().or(z.literal("")),
 });
 
 const updatePasswordSchema = z
@@ -22,6 +23,13 @@ const updatePasswordSchema = z
     message: "New passwords do not match",
     path: ["confirmPassword"],
   });
+
+const updatePreferencesSchema = z.object({
+  action: z.literal("preferences"),
+  emailNotificationsEnabled: z.boolean(),
+  weeklyDigestEnabled: z.boolean(),
+  workspaceListDensity: z.enum(["COMFORTABLE", "COMPACT"]),
+});
 
 export async function PATCH(req: NextRequest) {
   try {
@@ -54,10 +62,12 @@ export async function PATCH(req: NextRequest) {
         where: { id: actor.id },
         data: {
           name: parsed.name,
+          title: parsed.title?.trim() ? parsed.title.trim() : null,
         },
         select: {
           id: true,
           name: true,
+          title: true,
           email: true,
           updatedAt: true,
         },
@@ -104,6 +114,32 @@ export async function PATCH(req: NextRequest) {
       return NextResponse.json({
         success: true,
         message: "Password updated.",
+      });
+    }
+
+    if (body.action === "preferences") {
+      const parsed = updatePreferencesSchema.parse(body);
+
+      const user = await prisma.user.update({
+        where: { id: actor.id },
+        data: {
+          emailNotificationsEnabled: parsed.emailNotificationsEnabled,
+          weeklyDigestEnabled: parsed.weeklyDigestEnabled,
+          workspaceListDensity: parsed.workspaceListDensity,
+        },
+        select: {
+          id: true,
+          emailNotificationsEnabled: true,
+          weeklyDigestEnabled: true,
+          workspaceListDensity: true,
+          updatedAt: true,
+        },
+      });
+
+      return NextResponse.json({
+        success: true,
+        message: "Preferences updated.",
+        user,
       });
     }
 

@@ -27,11 +27,15 @@ export type AggregateUser = {
 export type UserMinAggregateOutputType = {
   id: string | null
   name: string | null
+  title: string | null
   email: string | null
   emailVerified: Date | null
   image: string | null
   passwordHash: string | null
   role: string | null
+  emailNotificationsEnabled: boolean | null
+  weeklyDigestEnabled: boolean | null
+  workspaceListDensity: $Enums.WorkspaceListDensity | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -39,11 +43,15 @@ export type UserMinAggregateOutputType = {
 export type UserMaxAggregateOutputType = {
   id: string | null
   name: string | null
+  title: string | null
   email: string | null
   emailVerified: Date | null
   image: string | null
   passwordHash: string | null
   role: string | null
+  emailNotificationsEnabled: boolean | null
+  weeklyDigestEnabled: boolean | null
+  workspaceListDensity: $Enums.WorkspaceListDensity | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -51,11 +59,15 @@ export type UserMaxAggregateOutputType = {
 export type UserCountAggregateOutputType = {
   id: number
   name: number
+  title: number
   email: number
   emailVerified: number
   image: number
   passwordHash: number
   role: number
+  emailNotificationsEnabled: number
+  weeklyDigestEnabled: number
+  workspaceListDensity: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -65,11 +77,15 @@ export type UserCountAggregateOutputType = {
 export type UserMinAggregateInputType = {
   id?: true
   name?: true
+  title?: true
   email?: true
   emailVerified?: true
   image?: true
   passwordHash?: true
   role?: true
+  emailNotificationsEnabled?: true
+  weeklyDigestEnabled?: true
+  workspaceListDensity?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -77,11 +93,15 @@ export type UserMinAggregateInputType = {
 export type UserMaxAggregateInputType = {
   id?: true
   name?: true
+  title?: true
   email?: true
   emailVerified?: true
   image?: true
   passwordHash?: true
   role?: true
+  emailNotificationsEnabled?: true
+  weeklyDigestEnabled?: true
+  workspaceListDensity?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -89,11 +109,15 @@ export type UserMaxAggregateInputType = {
 export type UserCountAggregateInputType = {
   id?: true
   name?: true
+  title?: true
   email?: true
   emailVerified?: true
   image?: true
   passwordHash?: true
   role?: true
+  emailNotificationsEnabled?: true
+  weeklyDigestEnabled?: true
+  workspaceListDensity?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -174,11 +198,15 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type UserGroupByOutputType = {
   id: string
   name: string | null
+  title: string | null
   email: string
   emailVerified: Date | null
   image: string | null
   passwordHash: string | null
   role: string
+  emailNotificationsEnabled: boolean
+  weeklyDigestEnabled: boolean
+  workspaceListDensity: $Enums.WorkspaceListDensity
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
@@ -207,11 +235,15 @@ export type UserWhereInput = {
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   id?: Prisma.StringFilter<"User"> | string
   name?: Prisma.StringNullableFilter<"User"> | string | null
+  title?: Prisma.StringNullableFilter<"User"> | string | null
   email?: Prisma.StringFilter<"User"> | string
   emailVerified?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   image?: Prisma.StringNullableFilter<"User"> | string | null
   passwordHash?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.StringFilter<"User"> | string
+  emailNotificationsEnabled?: Prisma.BoolFilter<"User"> | boolean
+  weeklyDigestEnabled?: Prisma.BoolFilter<"User"> | boolean
+  workspaceListDensity?: Prisma.EnumWorkspaceListDensityFilter<"User"> | $Enums.WorkspaceListDensity
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   memberships?: Prisma.MembershipListRelationFilter
@@ -219,16 +251,21 @@ export type UserWhereInput = {
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   sentInvites?: Prisma.WorkspaceInviteListRelationFilter
+  savedViews?: Prisma.SavedViewListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
+  title?: Prisma.SortOrderInput | Prisma.SortOrder
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrderInput | Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   passwordHash?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
+  emailNotificationsEnabled?: Prisma.SortOrder
+  weeklyDigestEnabled?: Prisma.SortOrder
+  workspaceListDensity?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   memberships?: Prisma.MembershipOrderByRelationAggregateInput
@@ -236,6 +273,7 @@ export type UserOrderByWithRelationInput = {
   accounts?: Prisma.AccountOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   sentInvites?: Prisma.WorkspaceInviteOrderByRelationAggregateInput
+  savedViews?: Prisma.SavedViewOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -245,10 +283,14 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   name?: Prisma.StringNullableFilter<"User"> | string | null
+  title?: Prisma.StringNullableFilter<"User"> | string | null
   emailVerified?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   image?: Prisma.StringNullableFilter<"User"> | string | null
   passwordHash?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.StringFilter<"User"> | string
+  emailNotificationsEnabled?: Prisma.BoolFilter<"User"> | boolean
+  weeklyDigestEnabled?: Prisma.BoolFilter<"User"> | boolean
+  workspaceListDensity?: Prisma.EnumWorkspaceListDensityFilter<"User"> | $Enums.WorkspaceListDensity
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   memberships?: Prisma.MembershipListRelationFilter
@@ -256,16 +298,21 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   sentInvites?: Prisma.WorkspaceInviteListRelationFilter
+  savedViews?: Prisma.SavedViewListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
+  title?: Prisma.SortOrderInput | Prisma.SortOrder
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrderInput | Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   passwordHash?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
+  emailNotificationsEnabled?: Prisma.SortOrder
+  weeklyDigestEnabled?: Prisma.SortOrder
+  workspaceListDensity?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -279,11 +326,15 @@ export type UserScalarWhereWithAggregatesInput = {
   NOT?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"User"> | string
   name?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  title?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
   emailVerified?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   image?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   passwordHash?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   role?: Prisma.StringWithAggregatesFilter<"User"> | string
+  emailNotificationsEnabled?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  weeklyDigestEnabled?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  workspaceListDensity?: Prisma.EnumWorkspaceListDensityWithAggregatesFilter<"User"> | $Enums.WorkspaceListDensity
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
@@ -291,11 +342,15 @@ export type UserScalarWhereWithAggregatesInput = {
 export type UserCreateInput = {
   id?: string
   name?: string | null
+  title?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   passwordHash?: string | null
   role?: string
+  emailNotificationsEnabled?: boolean
+  weeklyDigestEnabled?: boolean
+  workspaceListDensity?: $Enums.WorkspaceListDensity
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
@@ -303,16 +358,21 @@ export type UserCreateInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   sentInvites?: Prisma.WorkspaceInviteCreateNestedManyWithoutInvitedByInput
+  savedViews?: Prisma.SavedViewCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
   id?: string
   name?: string | null
+  title?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   passwordHash?: string | null
   role?: string
+  emailNotificationsEnabled?: boolean
+  weeklyDigestEnabled?: boolean
+  workspaceListDensity?: $Enums.WorkspaceListDensity
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
@@ -320,16 +380,21 @@ export type UserUncheckedCreateInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   sentInvites?: Prisma.WorkspaceInviteUncheckedCreateNestedManyWithoutInvitedByInput
+  savedViews?: Prisma.SavedViewUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  emailNotificationsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weeklyDigestEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  workspaceListDensity?: Prisma.EnumWorkspaceListDensityFieldUpdateOperationsInput | $Enums.WorkspaceListDensity
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
@@ -337,16 +402,21 @@ export type UserUpdateInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   sentInvites?: Prisma.WorkspaceInviteUpdateManyWithoutInvitedByNestedInput
+  savedViews?: Prisma.SavedViewUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  emailNotificationsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weeklyDigestEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  workspaceListDensity?: Prisma.EnumWorkspaceListDensityFieldUpdateOperationsInput | $Enums.WorkspaceListDensity
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
@@ -354,16 +424,21 @@ export type UserUncheckedUpdateInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   sentInvites?: Prisma.WorkspaceInviteUncheckedUpdateManyWithoutInvitedByNestedInput
+  savedViews?: Prisma.SavedViewUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
   id?: string
   name?: string | null
+  title?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   passwordHash?: string | null
   role?: string
+  emailNotificationsEnabled?: boolean
+  weeklyDigestEnabled?: boolean
+  workspaceListDensity?: $Enums.WorkspaceListDensity
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -371,11 +446,15 @@ export type UserCreateManyInput = {
 export type UserUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  emailNotificationsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weeklyDigestEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  workspaceListDensity?: Prisma.EnumWorkspaceListDensityFieldUpdateOperationsInput | $Enums.WorkspaceListDensity
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -383,11 +462,15 @@ export type UserUpdateManyMutationInput = {
 export type UserUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  emailNotificationsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weeklyDigestEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  workspaceListDensity?: Prisma.EnumWorkspaceListDensityFieldUpdateOperationsInput | $Enums.WorkspaceListDensity
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -395,11 +478,15 @@ export type UserUncheckedUpdateManyInput = {
 export type UserCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  title?: Prisma.SortOrder
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  emailNotificationsEnabled?: Prisma.SortOrder
+  weeklyDigestEnabled?: Prisma.SortOrder
+  workspaceListDensity?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -407,11 +494,15 @@ export type UserCountOrderByAggregateInput = {
 export type UserMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  title?: Prisma.SortOrder
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  emailNotificationsEnabled?: Prisma.SortOrder
+  weeklyDigestEnabled?: Prisma.SortOrder
+  workspaceListDensity?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -419,11 +510,15 @@ export type UserMaxOrderByAggregateInput = {
 export type UserMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  title?: Prisma.SortOrder
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  emailNotificationsEnabled?: Prisma.SortOrder
+  weeklyDigestEnabled?: Prisma.SortOrder
+  workspaceListDensity?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -443,6 +538,14 @@ export type NullableStringFieldUpdateOperationsInput = {
 
 export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
+}
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
+}
+
+export type EnumWorkspaceListDensityFieldUpdateOperationsInput = {
+  set?: $Enums.WorkspaceListDensity
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
@@ -519,36 +622,60 @@ export type UserUpdateOneRequiredWithoutSentInvitesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSentInvitesInput, Prisma.UserUpdateWithoutSentInvitesInput>, Prisma.UserUncheckedUpdateWithoutSentInvitesInput>
 }
 
+export type UserCreateNestedOneWithoutSavedViewsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSavedViewsInput, Prisma.UserUncheckedCreateWithoutSavedViewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSavedViewsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSavedViewsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSavedViewsInput, Prisma.UserUncheckedCreateWithoutSavedViewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSavedViewsInput
+  upsert?: Prisma.UserUpsertWithoutSavedViewsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSavedViewsInput, Prisma.UserUpdateWithoutSavedViewsInput>, Prisma.UserUncheckedUpdateWithoutSavedViewsInput>
+}
+
 export type UserCreateWithoutOwnedWorkspacesInput = {
   id?: string
   name?: string | null
+  title?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   passwordHash?: string | null
   role?: string
+  emailNotificationsEnabled?: boolean
+  weeklyDigestEnabled?: boolean
+  workspaceListDensity?: $Enums.WorkspaceListDensity
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   sentInvites?: Prisma.WorkspaceInviteCreateNestedManyWithoutInvitedByInput
+  savedViews?: Prisma.SavedViewCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOwnedWorkspacesInput = {
   id?: string
   name?: string | null
+  title?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   passwordHash?: string | null
   role?: string
+  emailNotificationsEnabled?: boolean
+  weeklyDigestEnabled?: boolean
+  workspaceListDensity?: $Enums.WorkspaceListDensity
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   sentInvites?: Prisma.WorkspaceInviteUncheckedCreateNestedManyWithoutInvitedByInput
+  savedViews?: Prisma.SavedViewUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOwnedWorkspacesInput = {
@@ -570,65 +697,85 @@ export type UserUpdateToOneWithWhereWithoutOwnedWorkspacesInput = {
 export type UserUpdateWithoutOwnedWorkspacesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  emailNotificationsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weeklyDigestEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  workspaceListDensity?: Prisma.EnumWorkspaceListDensityFieldUpdateOperationsInput | $Enums.WorkspaceListDensity
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   sentInvites?: Prisma.WorkspaceInviteUpdateManyWithoutInvitedByNestedInput
+  savedViews?: Prisma.SavedViewUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedWorkspacesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  emailNotificationsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weeklyDigestEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  workspaceListDensity?: Prisma.EnumWorkspaceListDensityFieldUpdateOperationsInput | $Enums.WorkspaceListDensity
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   sentInvites?: Prisma.WorkspaceInviteUncheckedUpdateManyWithoutInvitedByNestedInput
+  savedViews?: Prisma.SavedViewUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMembershipsInput = {
   id?: string
   name?: string | null
+  title?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   passwordHash?: string | null
   role?: string
+  emailNotificationsEnabled?: boolean
+  weeklyDigestEnabled?: boolean
+  workspaceListDensity?: $Enums.WorkspaceListDensity
   createdAt?: Date | string
   updatedAt?: Date | string
   ownedWorkspaces?: Prisma.WorkspaceCreateNestedManyWithoutOwnerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   sentInvites?: Prisma.WorkspaceInviteCreateNestedManyWithoutInvitedByInput
+  savedViews?: Prisma.SavedViewCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMembershipsInput = {
   id?: string
   name?: string | null
+  title?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   passwordHash?: string | null
   role?: string
+  emailNotificationsEnabled?: boolean
+  weeklyDigestEnabled?: boolean
+  workspaceListDensity?: $Enums.WorkspaceListDensity
   createdAt?: Date | string
   updatedAt?: Date | string
   ownedWorkspaces?: Prisma.WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   sentInvites?: Prisma.WorkspaceInviteUncheckedCreateNestedManyWithoutInvitedByInput
+  savedViews?: Prisma.SavedViewUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMembershipsInput = {
@@ -650,65 +797,85 @@ export type UserUpdateToOneWithWhereWithoutMembershipsInput = {
 export type UserUpdateWithoutMembershipsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  emailNotificationsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weeklyDigestEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  workspaceListDensity?: Prisma.EnumWorkspaceListDensityFieldUpdateOperationsInput | $Enums.WorkspaceListDensity
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ownedWorkspaces?: Prisma.WorkspaceUpdateManyWithoutOwnerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   sentInvites?: Prisma.WorkspaceInviteUpdateManyWithoutInvitedByNestedInput
+  savedViews?: Prisma.SavedViewUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMembershipsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  emailNotificationsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weeklyDigestEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  workspaceListDensity?: Prisma.EnumWorkspaceListDensityFieldUpdateOperationsInput | $Enums.WorkspaceListDensity
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ownedWorkspaces?: Prisma.WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   sentInvites?: Prisma.WorkspaceInviteUncheckedUpdateManyWithoutInvitedByNestedInput
+  savedViews?: Prisma.SavedViewUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
   id?: string
   name?: string | null
+  title?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   passwordHash?: string | null
   role?: string
+  emailNotificationsEnabled?: boolean
+  weeklyDigestEnabled?: boolean
+  workspaceListDensity?: $Enums.WorkspaceListDensity
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   ownedWorkspaces?: Prisma.WorkspaceCreateNestedManyWithoutOwnerInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   sentInvites?: Prisma.WorkspaceInviteCreateNestedManyWithoutInvitedByInput
+  savedViews?: Prisma.SavedViewCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
   id?: string
   name?: string | null
+  title?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   passwordHash?: string | null
   role?: string
+  emailNotificationsEnabled?: boolean
+  weeklyDigestEnabled?: boolean
+  workspaceListDensity?: $Enums.WorkspaceListDensity
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   ownedWorkspaces?: Prisma.WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   sentInvites?: Prisma.WorkspaceInviteUncheckedCreateNestedManyWithoutInvitedByInput
+  savedViews?: Prisma.SavedViewUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -730,65 +897,85 @@ export type UserUpdateToOneWithWhereWithoutAccountsInput = {
 export type UserUpdateWithoutAccountsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  emailNotificationsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weeklyDigestEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  workspaceListDensity?: Prisma.EnumWorkspaceListDensityFieldUpdateOperationsInput | $Enums.WorkspaceListDensity
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   ownedWorkspaces?: Prisma.WorkspaceUpdateManyWithoutOwnerNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   sentInvites?: Prisma.WorkspaceInviteUpdateManyWithoutInvitedByNestedInput
+  savedViews?: Prisma.SavedViewUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  emailNotificationsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weeklyDigestEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  workspaceListDensity?: Prisma.EnumWorkspaceListDensityFieldUpdateOperationsInput | $Enums.WorkspaceListDensity
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   ownedWorkspaces?: Prisma.WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   sentInvites?: Prisma.WorkspaceInviteUncheckedUpdateManyWithoutInvitedByNestedInput
+  savedViews?: Prisma.SavedViewUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
   id?: string
   name?: string | null
+  title?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   passwordHash?: string | null
   role?: string
+  emailNotificationsEnabled?: boolean
+  weeklyDigestEnabled?: boolean
+  workspaceListDensity?: $Enums.WorkspaceListDensity
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   ownedWorkspaces?: Prisma.WorkspaceCreateNestedManyWithoutOwnerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sentInvites?: Prisma.WorkspaceInviteCreateNestedManyWithoutInvitedByInput
+  savedViews?: Prisma.SavedViewCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
   id?: string
   name?: string | null
+  title?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   passwordHash?: string | null
   role?: string
+  emailNotificationsEnabled?: boolean
+  weeklyDigestEnabled?: boolean
+  workspaceListDensity?: $Enums.WorkspaceListDensity
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   ownedWorkspaces?: Prisma.WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sentInvites?: Prisma.WorkspaceInviteUncheckedCreateNestedManyWithoutInvitedByInput
+  savedViews?: Prisma.SavedViewUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -810,65 +997,85 @@ export type UserUpdateToOneWithWhereWithoutSessionsInput = {
 export type UserUpdateWithoutSessionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  emailNotificationsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weeklyDigestEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  workspaceListDensity?: Prisma.EnumWorkspaceListDensityFieldUpdateOperationsInput | $Enums.WorkspaceListDensity
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   ownedWorkspaces?: Prisma.WorkspaceUpdateManyWithoutOwnerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sentInvites?: Prisma.WorkspaceInviteUpdateManyWithoutInvitedByNestedInput
+  savedViews?: Prisma.SavedViewUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  emailNotificationsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weeklyDigestEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  workspaceListDensity?: Prisma.EnumWorkspaceListDensityFieldUpdateOperationsInput | $Enums.WorkspaceListDensity
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   ownedWorkspaces?: Prisma.WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sentInvites?: Prisma.WorkspaceInviteUncheckedUpdateManyWithoutInvitedByNestedInput
+  savedViews?: Prisma.SavedViewUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSentInvitesInput = {
   id?: string
   name?: string | null
+  title?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   passwordHash?: string | null
   role?: string
+  emailNotificationsEnabled?: boolean
+  weeklyDigestEnabled?: boolean
+  workspaceListDensity?: $Enums.WorkspaceListDensity
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   ownedWorkspaces?: Prisma.WorkspaceCreateNestedManyWithoutOwnerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  savedViews?: Prisma.SavedViewCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSentInvitesInput = {
   id?: string
   name?: string | null
+  title?: string | null
   email: string
   emailVerified?: Date | string | null
   image?: string | null
   passwordHash?: string | null
   role?: string
+  emailNotificationsEnabled?: boolean
+  weeklyDigestEnabled?: boolean
+  workspaceListDensity?: $Enums.WorkspaceListDensity
   createdAt?: Date | string
   updatedAt?: Date | string
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   ownedWorkspaces?: Prisma.WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  savedViews?: Prisma.SavedViewUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSentInvitesInput = {
@@ -890,33 +1097,143 @@ export type UserUpdateToOneWithWhereWithoutSentInvitesInput = {
 export type UserUpdateWithoutSentInvitesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  emailNotificationsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weeklyDigestEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  workspaceListDensity?: Prisma.EnumWorkspaceListDensityFieldUpdateOperationsInput | $Enums.WorkspaceListDensity
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   ownedWorkspaces?: Prisma.WorkspaceUpdateManyWithoutOwnerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  savedViews?: Prisma.SavedViewUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentInvitesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  emailNotificationsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weeklyDigestEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  workspaceListDensity?: Prisma.EnumWorkspaceListDensityFieldUpdateOperationsInput | $Enums.WorkspaceListDensity
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   ownedWorkspaces?: Prisma.WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  savedViews?: Prisma.SavedViewUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutSavedViewsInput = {
+  id?: string
+  name?: string | null
+  title?: string | null
+  email: string
+  emailVerified?: Date | string | null
+  image?: string | null
+  passwordHash?: string | null
+  role?: string
+  emailNotificationsEnabled?: boolean
+  weeklyDigestEnabled?: boolean
+  workspaceListDensity?: $Enums.WorkspaceListDensity
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
+  ownedWorkspaces?: Prisma.WorkspaceCreateNestedManyWithoutOwnerInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sentInvites?: Prisma.WorkspaceInviteCreateNestedManyWithoutInvitedByInput
+}
+
+export type UserUncheckedCreateWithoutSavedViewsInput = {
+  id?: string
+  name?: string | null
+  title?: string | null
+  email: string
+  emailVerified?: Date | string | null
+  image?: string | null
+  passwordHash?: string | null
+  role?: string
+  emailNotificationsEnabled?: boolean
+  weeklyDigestEnabled?: boolean
+  workspaceListDensity?: $Enums.WorkspaceListDensity
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
+  ownedWorkspaces?: Prisma.WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sentInvites?: Prisma.WorkspaceInviteUncheckedCreateNestedManyWithoutInvitedByInput
+}
+
+export type UserCreateOrConnectWithoutSavedViewsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSavedViewsInput, Prisma.UserUncheckedCreateWithoutSavedViewsInput>
+}
+
+export type UserUpsertWithoutSavedViewsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSavedViewsInput, Prisma.UserUncheckedUpdateWithoutSavedViewsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSavedViewsInput, Prisma.UserUncheckedCreateWithoutSavedViewsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSavedViewsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSavedViewsInput, Prisma.UserUncheckedUpdateWithoutSavedViewsInput>
+}
+
+export type UserUpdateWithoutSavedViewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  emailNotificationsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weeklyDigestEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  workspaceListDensity?: Prisma.EnumWorkspaceListDensityFieldUpdateOperationsInput | $Enums.WorkspaceListDensity
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
+  ownedWorkspaces?: Prisma.WorkspaceUpdateManyWithoutOwnerNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sentInvites?: Prisma.WorkspaceInviteUpdateManyWithoutInvitedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSavedViewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  emailNotificationsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weeklyDigestEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  workspaceListDensity?: Prisma.EnumWorkspaceListDensityFieldUpdateOperationsInput | $Enums.WorkspaceListDensity
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
+  ownedWorkspaces?: Prisma.WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sentInvites?: Prisma.WorkspaceInviteUncheckedUpdateManyWithoutInvitedByNestedInput
 }
 
 
@@ -930,6 +1247,7 @@ export type UserCountOutputType = {
   accounts: number
   sessions: number
   sentInvites: number
+  savedViews: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -938,6 +1256,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   accounts?: boolean | UserCountOutputTypeCountAccountsArgs
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   sentInvites?: boolean | UserCountOutputTypeCountSentInvitesArgs
+  savedViews?: boolean | UserCountOutputTypeCountSavedViewsArgs
 }
 
 /**
@@ -985,15 +1304,26 @@ export type UserCountOutputTypeCountSentInvitesArgs<ExtArgs extends runtime.Type
   where?: Prisma.WorkspaceInviteWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSavedViewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SavedViewWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  title?: boolean
   email?: boolean
   emailVerified?: boolean
   image?: boolean
   passwordHash?: boolean
   role?: boolean
+  emailNotificationsEnabled?: boolean
+  weeklyDigestEnabled?: boolean
+  workspaceListDensity?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   memberships?: boolean | Prisma.User$membershipsArgs<ExtArgs>
@@ -1001,17 +1331,22 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   sentInvites?: boolean | Prisma.User$sentInvitesArgs<ExtArgs>
+  savedViews?: boolean | Prisma.User$savedViewsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  title?: boolean
   email?: boolean
   emailVerified?: boolean
   image?: boolean
   passwordHash?: boolean
   role?: boolean
+  emailNotificationsEnabled?: boolean
+  weeklyDigestEnabled?: boolean
+  workspaceListDensity?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -1019,11 +1354,15 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  title?: boolean
   email?: boolean
   emailVerified?: boolean
   image?: boolean
   passwordHash?: boolean
   role?: boolean
+  emailNotificationsEnabled?: boolean
+  weeklyDigestEnabled?: boolean
+  workspaceListDensity?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -1031,22 +1370,27 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 export type UserSelectScalar = {
   id?: boolean
   name?: boolean
+  title?: boolean
   email?: boolean
   emailVerified?: boolean
   image?: boolean
   passwordHash?: boolean
   role?: boolean
+  emailNotificationsEnabled?: boolean
+  weeklyDigestEnabled?: boolean
+  workspaceListDensity?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "passwordHash" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "title" | "email" | "emailVerified" | "image" | "passwordHash" | "role" | "emailNotificationsEnabled" | "weeklyDigestEnabled" | "workspaceListDensity" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   memberships?: boolean | Prisma.User$membershipsArgs<ExtArgs>
   ownedWorkspaces?: boolean | Prisma.User$ownedWorkspacesArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   sentInvites?: boolean | Prisma.User$sentInvitesArgs<ExtArgs>
+  savedViews?: boolean | Prisma.User$savedViewsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1060,15 +1404,20 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     accounts: Prisma.$AccountPayload<ExtArgs>[]
     sessions: Prisma.$SessionPayload<ExtArgs>[]
     sentInvites: Prisma.$WorkspaceInvitePayload<ExtArgs>[]
+    savedViews: Prisma.$SavedViewPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string | null
+    title: string | null
     email: string
     emailVerified: Date | null
     image: string | null
     passwordHash: string | null
     role: string
+    emailNotificationsEnabled: boolean
+    weeklyDigestEnabled: boolean
+    workspaceListDensity: $Enums.WorkspaceListDensity
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["user"]>
@@ -1470,6 +1819,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sentInvites<T extends Prisma.User$sentInvitesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentInvitesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkspaceInvitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  savedViews<T extends Prisma.User$savedViewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$savedViewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SavedViewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1501,11 +1851,15 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
 export interface UserFieldRefs {
   readonly id: Prisma.FieldRef<"User", 'String'>
   readonly name: Prisma.FieldRef<"User", 'String'>
+  readonly title: Prisma.FieldRef<"User", 'String'>
   readonly email: Prisma.FieldRef<"User", 'String'>
   readonly emailVerified: Prisma.FieldRef<"User", 'DateTime'>
   readonly image: Prisma.FieldRef<"User", 'String'>
   readonly passwordHash: Prisma.FieldRef<"User", 'String'>
   readonly role: Prisma.FieldRef<"User", 'String'>
+  readonly emailNotificationsEnabled: Prisma.FieldRef<"User", 'Boolean'>
+  readonly weeklyDigestEnabled: Prisma.FieldRef<"User", 'Boolean'>
+  readonly workspaceListDensity: Prisma.FieldRef<"User", 'WorkspaceListDensity'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }
@@ -2018,6 +2372,30 @@ export type User$sentInvitesArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.WorkspaceInviteScalarFieldEnum | Prisma.WorkspaceInviteScalarFieldEnum[]
+}
+
+/**
+ * User.savedViews
+ */
+export type User$savedViewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SavedView
+   */
+  select?: Prisma.SavedViewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SavedView
+   */
+  omit?: Prisma.SavedViewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SavedViewInclude<ExtArgs> | null
+  where?: Prisma.SavedViewWhereInput
+  orderBy?: Prisma.SavedViewOrderByWithRelationInput | Prisma.SavedViewOrderByWithRelationInput[]
+  cursor?: Prisma.SavedViewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SavedViewScalarFieldEnum | Prisma.SavedViewScalarFieldEnum[]
 }
 
 /**

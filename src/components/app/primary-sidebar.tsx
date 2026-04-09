@@ -6,7 +6,7 @@ import {
   Mail,
   Bell,
   Settings,
-  Plus,
+  Rocket,
 } from "lucide-react";
 
 function NavItem({
@@ -46,6 +46,7 @@ export function PrimarySidebar() {
           <p className="px-2 text-xs text-neutral-500 uppercase mb-2">Main</p>
           <div className="space-y-1">
             <NavItem href="/" label="Dashboard" icon={<LayoutGrid size={16} />} />
+            <NavItem href="/onboarding" label="Onboarding" icon={<Rocket size={16} />} />
             <NavItem
               href="/workspaces"
               label="Workspaces"

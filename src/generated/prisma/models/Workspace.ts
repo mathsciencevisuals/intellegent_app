@@ -194,6 +194,14 @@ export type WorkspaceWhereInput = {
   memberships?: Prisma.MembershipListRelationFilter
   documents?: Prisma.DocumentListRelationFilter
   invites?: Prisma.WorkspaceInviteListRelationFilter
+  sources?: Prisma.SourceListRelationFilter
+  sourceSyncs?: Prisma.SourceSyncListRelationFilter
+  extractionJobs?: Prisma.ExtractionJobListRelationFilter
+  features?: Prisma.FeatureListRelationFilter
+  capabilities?: Prisma.CapabilityListRelationFilter
+  roadmapRecommendations?: Prisma.RoadmapRecommendationListRelationFilter
+  dashboardSnapshots?: Prisma.DashboardSnapshotListRelationFilter
+  savedViews?: Prisma.SavedViewListRelationFilter
 }
 
 export type WorkspaceOrderByWithRelationInput = {
@@ -207,6 +215,14 @@ export type WorkspaceOrderByWithRelationInput = {
   memberships?: Prisma.MembershipOrderByRelationAggregateInput
   documents?: Prisma.DocumentOrderByRelationAggregateInput
   invites?: Prisma.WorkspaceInviteOrderByRelationAggregateInput
+  sources?: Prisma.SourceOrderByRelationAggregateInput
+  sourceSyncs?: Prisma.SourceSyncOrderByRelationAggregateInput
+  extractionJobs?: Prisma.ExtractionJobOrderByRelationAggregateInput
+  features?: Prisma.FeatureOrderByRelationAggregateInput
+  capabilities?: Prisma.CapabilityOrderByRelationAggregateInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationOrderByRelationAggregateInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotOrderByRelationAggregateInput
+  savedViews?: Prisma.SavedViewOrderByRelationAggregateInput
 }
 
 export type WorkspaceWhereUniqueInput = Prisma.AtLeast<{
@@ -223,6 +239,14 @@ export type WorkspaceWhereUniqueInput = Prisma.AtLeast<{
   memberships?: Prisma.MembershipListRelationFilter
   documents?: Prisma.DocumentListRelationFilter
   invites?: Prisma.WorkspaceInviteListRelationFilter
+  sources?: Prisma.SourceListRelationFilter
+  sourceSyncs?: Prisma.SourceSyncListRelationFilter
+  extractionJobs?: Prisma.ExtractionJobListRelationFilter
+  features?: Prisma.FeatureListRelationFilter
+  capabilities?: Prisma.CapabilityListRelationFilter
+  roadmapRecommendations?: Prisma.RoadmapRecommendationListRelationFilter
+  dashboardSnapshots?: Prisma.DashboardSnapshotListRelationFilter
+  savedViews?: Prisma.SavedViewListRelationFilter
 }, "id" | "slug">
 
 export type WorkspaceOrderByWithAggregationInput = {
@@ -259,6 +283,14 @@ export type WorkspaceCreateInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutWorkspaceInput
   documents?: Prisma.DocumentCreateNestedManyWithoutWorkspaceInput
   invites?: Prisma.WorkspaceInviteCreateNestedManyWithoutWorkspaceInput
+  sources?: Prisma.SourceCreateNestedManyWithoutWorkspaceInput
+  sourceSyncs?: Prisma.SourceSyncCreateNestedManyWithoutWorkspaceInput
+  extractionJobs?: Prisma.ExtractionJobCreateNestedManyWithoutWorkspaceInput
+  features?: Prisma.FeatureCreateNestedManyWithoutWorkspaceInput
+  capabilities?: Prisma.CapabilityCreateNestedManyWithoutWorkspaceInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationCreateNestedManyWithoutWorkspaceInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotCreateNestedManyWithoutWorkspaceInput
+  savedViews?: Prisma.SavedViewCreateNestedManyWithoutWorkspaceInput
 }
 
 export type WorkspaceUncheckedCreateInput = {
@@ -271,6 +303,14 @@ export type WorkspaceUncheckedCreateInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutWorkspaceInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutWorkspaceInput
   invites?: Prisma.WorkspaceInviteUncheckedCreateNestedManyWithoutWorkspaceInput
+  sources?: Prisma.SourceUncheckedCreateNestedManyWithoutWorkspaceInput
+  sourceSyncs?: Prisma.SourceSyncUncheckedCreateNestedManyWithoutWorkspaceInput
+  extractionJobs?: Prisma.ExtractionJobUncheckedCreateNestedManyWithoutWorkspaceInput
+  features?: Prisma.FeatureUncheckedCreateNestedManyWithoutWorkspaceInput
+  capabilities?: Prisma.CapabilityUncheckedCreateNestedManyWithoutWorkspaceInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedCreateNestedManyWithoutWorkspaceInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedCreateNestedManyWithoutWorkspaceInput
+  savedViews?: Prisma.SavedViewUncheckedCreateNestedManyWithoutWorkspaceInput
 }
 
 export type WorkspaceUpdateInput = {
@@ -283,6 +323,14 @@ export type WorkspaceUpdateInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutWorkspaceNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutWorkspaceNestedInput
   invites?: Prisma.WorkspaceInviteUpdateManyWithoutWorkspaceNestedInput
+  sources?: Prisma.SourceUpdateManyWithoutWorkspaceNestedInput
+  sourceSyncs?: Prisma.SourceSyncUpdateManyWithoutWorkspaceNestedInput
+  extractionJobs?: Prisma.ExtractionJobUpdateManyWithoutWorkspaceNestedInput
+  features?: Prisma.FeatureUpdateManyWithoutWorkspaceNestedInput
+  capabilities?: Prisma.CapabilityUpdateManyWithoutWorkspaceNestedInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUpdateManyWithoutWorkspaceNestedInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUpdateManyWithoutWorkspaceNestedInput
+  savedViews?: Prisma.SavedViewUpdateManyWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceUncheckedUpdateInput = {
@@ -295,6 +343,14 @@ export type WorkspaceUncheckedUpdateInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutWorkspaceNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutWorkspaceNestedInput
   invites?: Prisma.WorkspaceInviteUncheckedUpdateManyWithoutWorkspaceNestedInput
+  sources?: Prisma.SourceUncheckedUpdateManyWithoutWorkspaceNestedInput
+  sourceSyncs?: Prisma.SourceSyncUncheckedUpdateManyWithoutWorkspaceNestedInput
+  extractionJobs?: Prisma.ExtractionJobUncheckedUpdateManyWithoutWorkspaceNestedInput
+  features?: Prisma.FeatureUncheckedUpdateManyWithoutWorkspaceNestedInput
+  capabilities?: Prisma.CapabilityUncheckedUpdateManyWithoutWorkspaceNestedInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedUpdateManyWithoutWorkspaceNestedInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedUpdateManyWithoutWorkspaceNestedInput
+  savedViews?: Prisma.SavedViewUncheckedUpdateManyWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceCreateManyInput = {
@@ -449,6 +505,118 @@ export type WorkspaceUpdateOneRequiredWithoutInvitesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.WorkspaceUpdateToOneWithWhereWithoutInvitesInput, Prisma.WorkspaceUpdateWithoutInvitesInput>, Prisma.WorkspaceUncheckedUpdateWithoutInvitesInput>
 }
 
+export type WorkspaceCreateNestedOneWithoutSourcesInput = {
+  create?: Prisma.XOR<Prisma.WorkspaceCreateWithoutSourcesInput, Prisma.WorkspaceUncheckedCreateWithoutSourcesInput>
+  connectOrCreate?: Prisma.WorkspaceCreateOrConnectWithoutSourcesInput
+  connect?: Prisma.WorkspaceWhereUniqueInput
+}
+
+export type WorkspaceUpdateOneRequiredWithoutSourcesNestedInput = {
+  create?: Prisma.XOR<Prisma.WorkspaceCreateWithoutSourcesInput, Prisma.WorkspaceUncheckedCreateWithoutSourcesInput>
+  connectOrCreate?: Prisma.WorkspaceCreateOrConnectWithoutSourcesInput
+  upsert?: Prisma.WorkspaceUpsertWithoutSourcesInput
+  connect?: Prisma.WorkspaceWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.WorkspaceUpdateToOneWithWhereWithoutSourcesInput, Prisma.WorkspaceUpdateWithoutSourcesInput>, Prisma.WorkspaceUncheckedUpdateWithoutSourcesInput>
+}
+
+export type WorkspaceCreateNestedOneWithoutSourceSyncsInput = {
+  create?: Prisma.XOR<Prisma.WorkspaceCreateWithoutSourceSyncsInput, Prisma.WorkspaceUncheckedCreateWithoutSourceSyncsInput>
+  connectOrCreate?: Prisma.WorkspaceCreateOrConnectWithoutSourceSyncsInput
+  connect?: Prisma.WorkspaceWhereUniqueInput
+}
+
+export type WorkspaceUpdateOneRequiredWithoutSourceSyncsNestedInput = {
+  create?: Prisma.XOR<Prisma.WorkspaceCreateWithoutSourceSyncsInput, Prisma.WorkspaceUncheckedCreateWithoutSourceSyncsInput>
+  connectOrCreate?: Prisma.WorkspaceCreateOrConnectWithoutSourceSyncsInput
+  upsert?: Prisma.WorkspaceUpsertWithoutSourceSyncsInput
+  connect?: Prisma.WorkspaceWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.WorkspaceUpdateToOneWithWhereWithoutSourceSyncsInput, Prisma.WorkspaceUpdateWithoutSourceSyncsInput>, Prisma.WorkspaceUncheckedUpdateWithoutSourceSyncsInput>
+}
+
+export type WorkspaceCreateNestedOneWithoutExtractionJobsInput = {
+  create?: Prisma.XOR<Prisma.WorkspaceCreateWithoutExtractionJobsInput, Prisma.WorkspaceUncheckedCreateWithoutExtractionJobsInput>
+  connectOrCreate?: Prisma.WorkspaceCreateOrConnectWithoutExtractionJobsInput
+  connect?: Prisma.WorkspaceWhereUniqueInput
+}
+
+export type WorkspaceUpdateOneRequiredWithoutExtractionJobsNestedInput = {
+  create?: Prisma.XOR<Prisma.WorkspaceCreateWithoutExtractionJobsInput, Prisma.WorkspaceUncheckedCreateWithoutExtractionJobsInput>
+  connectOrCreate?: Prisma.WorkspaceCreateOrConnectWithoutExtractionJobsInput
+  upsert?: Prisma.WorkspaceUpsertWithoutExtractionJobsInput
+  connect?: Prisma.WorkspaceWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.WorkspaceUpdateToOneWithWhereWithoutExtractionJobsInput, Prisma.WorkspaceUpdateWithoutExtractionJobsInput>, Prisma.WorkspaceUncheckedUpdateWithoutExtractionJobsInput>
+}
+
+export type WorkspaceCreateNestedOneWithoutFeaturesInput = {
+  create?: Prisma.XOR<Prisma.WorkspaceCreateWithoutFeaturesInput, Prisma.WorkspaceUncheckedCreateWithoutFeaturesInput>
+  connectOrCreate?: Prisma.WorkspaceCreateOrConnectWithoutFeaturesInput
+  connect?: Prisma.WorkspaceWhereUniqueInput
+}
+
+export type WorkspaceUpdateOneRequiredWithoutFeaturesNestedInput = {
+  create?: Prisma.XOR<Prisma.WorkspaceCreateWithoutFeaturesInput, Prisma.WorkspaceUncheckedCreateWithoutFeaturesInput>
+  connectOrCreate?: Prisma.WorkspaceCreateOrConnectWithoutFeaturesInput
+  upsert?: Prisma.WorkspaceUpsertWithoutFeaturesInput
+  connect?: Prisma.WorkspaceWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.WorkspaceUpdateToOneWithWhereWithoutFeaturesInput, Prisma.WorkspaceUpdateWithoutFeaturesInput>, Prisma.WorkspaceUncheckedUpdateWithoutFeaturesInput>
+}
+
+export type WorkspaceCreateNestedOneWithoutSavedViewsInput = {
+  create?: Prisma.XOR<Prisma.WorkspaceCreateWithoutSavedViewsInput, Prisma.WorkspaceUncheckedCreateWithoutSavedViewsInput>
+  connectOrCreate?: Prisma.WorkspaceCreateOrConnectWithoutSavedViewsInput
+  connect?: Prisma.WorkspaceWhereUniqueInput
+}
+
+export type WorkspaceUpdateOneRequiredWithoutSavedViewsNestedInput = {
+  create?: Prisma.XOR<Prisma.WorkspaceCreateWithoutSavedViewsInput, Prisma.WorkspaceUncheckedCreateWithoutSavedViewsInput>
+  connectOrCreate?: Prisma.WorkspaceCreateOrConnectWithoutSavedViewsInput
+  upsert?: Prisma.WorkspaceUpsertWithoutSavedViewsInput
+  connect?: Prisma.WorkspaceWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.WorkspaceUpdateToOneWithWhereWithoutSavedViewsInput, Prisma.WorkspaceUpdateWithoutSavedViewsInput>, Prisma.WorkspaceUncheckedUpdateWithoutSavedViewsInput>
+}
+
+export type WorkspaceCreateNestedOneWithoutCapabilitiesInput = {
+  create?: Prisma.XOR<Prisma.WorkspaceCreateWithoutCapabilitiesInput, Prisma.WorkspaceUncheckedCreateWithoutCapabilitiesInput>
+  connectOrCreate?: Prisma.WorkspaceCreateOrConnectWithoutCapabilitiesInput
+  connect?: Prisma.WorkspaceWhereUniqueInput
+}
+
+export type WorkspaceUpdateOneRequiredWithoutCapabilitiesNestedInput = {
+  create?: Prisma.XOR<Prisma.WorkspaceCreateWithoutCapabilitiesInput, Prisma.WorkspaceUncheckedCreateWithoutCapabilitiesInput>
+  connectOrCreate?: Prisma.WorkspaceCreateOrConnectWithoutCapabilitiesInput
+  upsert?: Prisma.WorkspaceUpsertWithoutCapabilitiesInput
+  connect?: Prisma.WorkspaceWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.WorkspaceUpdateToOneWithWhereWithoutCapabilitiesInput, Prisma.WorkspaceUpdateWithoutCapabilitiesInput>, Prisma.WorkspaceUncheckedUpdateWithoutCapabilitiesInput>
+}
+
+export type WorkspaceCreateNestedOneWithoutRoadmapRecommendationsInput = {
+  create?: Prisma.XOR<Prisma.WorkspaceCreateWithoutRoadmapRecommendationsInput, Prisma.WorkspaceUncheckedCreateWithoutRoadmapRecommendationsInput>
+  connectOrCreate?: Prisma.WorkspaceCreateOrConnectWithoutRoadmapRecommendationsInput
+  connect?: Prisma.WorkspaceWhereUniqueInput
+}
+
+export type WorkspaceUpdateOneRequiredWithoutRoadmapRecommendationsNestedInput = {
+  create?: Prisma.XOR<Prisma.WorkspaceCreateWithoutRoadmapRecommendationsInput, Prisma.WorkspaceUncheckedCreateWithoutRoadmapRecommendationsInput>
+  connectOrCreate?: Prisma.WorkspaceCreateOrConnectWithoutRoadmapRecommendationsInput
+  upsert?: Prisma.WorkspaceUpsertWithoutRoadmapRecommendationsInput
+  connect?: Prisma.WorkspaceWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.WorkspaceUpdateToOneWithWhereWithoutRoadmapRecommendationsInput, Prisma.WorkspaceUpdateWithoutRoadmapRecommendationsInput>, Prisma.WorkspaceUncheckedUpdateWithoutRoadmapRecommendationsInput>
+}
+
+export type WorkspaceCreateNestedOneWithoutDashboardSnapshotsInput = {
+  create?: Prisma.XOR<Prisma.WorkspaceCreateWithoutDashboardSnapshotsInput, Prisma.WorkspaceUncheckedCreateWithoutDashboardSnapshotsInput>
+  connectOrCreate?: Prisma.WorkspaceCreateOrConnectWithoutDashboardSnapshotsInput
+  connect?: Prisma.WorkspaceWhereUniqueInput
+}
+
+export type WorkspaceUpdateOneRequiredWithoutDashboardSnapshotsNestedInput = {
+  create?: Prisma.XOR<Prisma.WorkspaceCreateWithoutDashboardSnapshotsInput, Prisma.WorkspaceUncheckedCreateWithoutDashboardSnapshotsInput>
+  connectOrCreate?: Prisma.WorkspaceCreateOrConnectWithoutDashboardSnapshotsInput
+  upsert?: Prisma.WorkspaceUpsertWithoutDashboardSnapshotsInput
+  connect?: Prisma.WorkspaceWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.WorkspaceUpdateToOneWithWhereWithoutDashboardSnapshotsInput, Prisma.WorkspaceUpdateWithoutDashboardSnapshotsInput>, Prisma.WorkspaceUncheckedUpdateWithoutDashboardSnapshotsInput>
+}
+
 export type WorkspaceCreateWithoutOwnerInput = {
   id?: string
   name: string
@@ -458,6 +626,14 @@ export type WorkspaceCreateWithoutOwnerInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutWorkspaceInput
   documents?: Prisma.DocumentCreateNestedManyWithoutWorkspaceInput
   invites?: Prisma.WorkspaceInviteCreateNestedManyWithoutWorkspaceInput
+  sources?: Prisma.SourceCreateNestedManyWithoutWorkspaceInput
+  sourceSyncs?: Prisma.SourceSyncCreateNestedManyWithoutWorkspaceInput
+  extractionJobs?: Prisma.ExtractionJobCreateNestedManyWithoutWorkspaceInput
+  features?: Prisma.FeatureCreateNestedManyWithoutWorkspaceInput
+  capabilities?: Prisma.CapabilityCreateNestedManyWithoutWorkspaceInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationCreateNestedManyWithoutWorkspaceInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotCreateNestedManyWithoutWorkspaceInput
+  savedViews?: Prisma.SavedViewCreateNestedManyWithoutWorkspaceInput
 }
 
 export type WorkspaceUncheckedCreateWithoutOwnerInput = {
@@ -469,6 +645,14 @@ export type WorkspaceUncheckedCreateWithoutOwnerInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutWorkspaceInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutWorkspaceInput
   invites?: Prisma.WorkspaceInviteUncheckedCreateNestedManyWithoutWorkspaceInput
+  sources?: Prisma.SourceUncheckedCreateNestedManyWithoutWorkspaceInput
+  sourceSyncs?: Prisma.SourceSyncUncheckedCreateNestedManyWithoutWorkspaceInput
+  extractionJobs?: Prisma.ExtractionJobUncheckedCreateNestedManyWithoutWorkspaceInput
+  features?: Prisma.FeatureUncheckedCreateNestedManyWithoutWorkspaceInput
+  capabilities?: Prisma.CapabilityUncheckedCreateNestedManyWithoutWorkspaceInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedCreateNestedManyWithoutWorkspaceInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedCreateNestedManyWithoutWorkspaceInput
+  savedViews?: Prisma.SavedViewUncheckedCreateNestedManyWithoutWorkspaceInput
 }
 
 export type WorkspaceCreateOrConnectWithoutOwnerInput = {
@@ -518,6 +702,14 @@ export type WorkspaceCreateWithoutMembershipsInput = {
   owner: Prisma.UserCreateNestedOneWithoutOwnedWorkspacesInput
   documents?: Prisma.DocumentCreateNestedManyWithoutWorkspaceInput
   invites?: Prisma.WorkspaceInviteCreateNestedManyWithoutWorkspaceInput
+  sources?: Prisma.SourceCreateNestedManyWithoutWorkspaceInput
+  sourceSyncs?: Prisma.SourceSyncCreateNestedManyWithoutWorkspaceInput
+  extractionJobs?: Prisma.ExtractionJobCreateNestedManyWithoutWorkspaceInput
+  features?: Prisma.FeatureCreateNestedManyWithoutWorkspaceInput
+  capabilities?: Prisma.CapabilityCreateNestedManyWithoutWorkspaceInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationCreateNestedManyWithoutWorkspaceInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotCreateNestedManyWithoutWorkspaceInput
+  savedViews?: Prisma.SavedViewCreateNestedManyWithoutWorkspaceInput
 }
 
 export type WorkspaceUncheckedCreateWithoutMembershipsInput = {
@@ -529,6 +721,14 @@ export type WorkspaceUncheckedCreateWithoutMembershipsInput = {
   updatedAt?: Date | string
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutWorkspaceInput
   invites?: Prisma.WorkspaceInviteUncheckedCreateNestedManyWithoutWorkspaceInput
+  sources?: Prisma.SourceUncheckedCreateNestedManyWithoutWorkspaceInput
+  sourceSyncs?: Prisma.SourceSyncUncheckedCreateNestedManyWithoutWorkspaceInput
+  extractionJobs?: Prisma.ExtractionJobUncheckedCreateNestedManyWithoutWorkspaceInput
+  features?: Prisma.FeatureUncheckedCreateNestedManyWithoutWorkspaceInput
+  capabilities?: Prisma.CapabilityUncheckedCreateNestedManyWithoutWorkspaceInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedCreateNestedManyWithoutWorkspaceInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedCreateNestedManyWithoutWorkspaceInput
+  savedViews?: Prisma.SavedViewUncheckedCreateNestedManyWithoutWorkspaceInput
 }
 
 export type WorkspaceCreateOrConnectWithoutMembershipsInput = {
@@ -556,6 +756,14 @@ export type WorkspaceUpdateWithoutMembershipsInput = {
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedWorkspacesNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutWorkspaceNestedInput
   invites?: Prisma.WorkspaceInviteUpdateManyWithoutWorkspaceNestedInput
+  sources?: Prisma.SourceUpdateManyWithoutWorkspaceNestedInput
+  sourceSyncs?: Prisma.SourceSyncUpdateManyWithoutWorkspaceNestedInput
+  extractionJobs?: Prisma.ExtractionJobUpdateManyWithoutWorkspaceNestedInput
+  features?: Prisma.FeatureUpdateManyWithoutWorkspaceNestedInput
+  capabilities?: Prisma.CapabilityUpdateManyWithoutWorkspaceNestedInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUpdateManyWithoutWorkspaceNestedInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUpdateManyWithoutWorkspaceNestedInput
+  savedViews?: Prisma.SavedViewUpdateManyWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceUncheckedUpdateWithoutMembershipsInput = {
@@ -567,6 +775,14 @@ export type WorkspaceUncheckedUpdateWithoutMembershipsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutWorkspaceNestedInput
   invites?: Prisma.WorkspaceInviteUncheckedUpdateManyWithoutWorkspaceNestedInput
+  sources?: Prisma.SourceUncheckedUpdateManyWithoutWorkspaceNestedInput
+  sourceSyncs?: Prisma.SourceSyncUncheckedUpdateManyWithoutWorkspaceNestedInput
+  extractionJobs?: Prisma.ExtractionJobUncheckedUpdateManyWithoutWorkspaceNestedInput
+  features?: Prisma.FeatureUncheckedUpdateManyWithoutWorkspaceNestedInput
+  capabilities?: Prisma.CapabilityUncheckedUpdateManyWithoutWorkspaceNestedInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedUpdateManyWithoutWorkspaceNestedInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedUpdateManyWithoutWorkspaceNestedInput
+  savedViews?: Prisma.SavedViewUncheckedUpdateManyWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceCreateWithoutDocumentsInput = {
@@ -578,6 +794,14 @@ export type WorkspaceCreateWithoutDocumentsInput = {
   owner: Prisma.UserCreateNestedOneWithoutOwnedWorkspacesInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutWorkspaceInput
   invites?: Prisma.WorkspaceInviteCreateNestedManyWithoutWorkspaceInput
+  sources?: Prisma.SourceCreateNestedManyWithoutWorkspaceInput
+  sourceSyncs?: Prisma.SourceSyncCreateNestedManyWithoutWorkspaceInput
+  extractionJobs?: Prisma.ExtractionJobCreateNestedManyWithoutWorkspaceInput
+  features?: Prisma.FeatureCreateNestedManyWithoutWorkspaceInput
+  capabilities?: Prisma.CapabilityCreateNestedManyWithoutWorkspaceInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationCreateNestedManyWithoutWorkspaceInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotCreateNestedManyWithoutWorkspaceInput
+  savedViews?: Prisma.SavedViewCreateNestedManyWithoutWorkspaceInput
 }
 
 export type WorkspaceUncheckedCreateWithoutDocumentsInput = {
@@ -589,6 +813,14 @@ export type WorkspaceUncheckedCreateWithoutDocumentsInput = {
   updatedAt?: Date | string
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutWorkspaceInput
   invites?: Prisma.WorkspaceInviteUncheckedCreateNestedManyWithoutWorkspaceInput
+  sources?: Prisma.SourceUncheckedCreateNestedManyWithoutWorkspaceInput
+  sourceSyncs?: Prisma.SourceSyncUncheckedCreateNestedManyWithoutWorkspaceInput
+  extractionJobs?: Prisma.ExtractionJobUncheckedCreateNestedManyWithoutWorkspaceInput
+  features?: Prisma.FeatureUncheckedCreateNestedManyWithoutWorkspaceInput
+  capabilities?: Prisma.CapabilityUncheckedCreateNestedManyWithoutWorkspaceInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedCreateNestedManyWithoutWorkspaceInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedCreateNestedManyWithoutWorkspaceInput
+  savedViews?: Prisma.SavedViewUncheckedCreateNestedManyWithoutWorkspaceInput
 }
 
 export type WorkspaceCreateOrConnectWithoutDocumentsInput = {
@@ -616,6 +848,14 @@ export type WorkspaceUpdateWithoutDocumentsInput = {
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedWorkspacesNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutWorkspaceNestedInput
   invites?: Prisma.WorkspaceInviteUpdateManyWithoutWorkspaceNestedInput
+  sources?: Prisma.SourceUpdateManyWithoutWorkspaceNestedInput
+  sourceSyncs?: Prisma.SourceSyncUpdateManyWithoutWorkspaceNestedInput
+  extractionJobs?: Prisma.ExtractionJobUpdateManyWithoutWorkspaceNestedInput
+  features?: Prisma.FeatureUpdateManyWithoutWorkspaceNestedInput
+  capabilities?: Prisma.CapabilityUpdateManyWithoutWorkspaceNestedInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUpdateManyWithoutWorkspaceNestedInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUpdateManyWithoutWorkspaceNestedInput
+  savedViews?: Prisma.SavedViewUpdateManyWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceUncheckedUpdateWithoutDocumentsInput = {
@@ -627,6 +867,14 @@ export type WorkspaceUncheckedUpdateWithoutDocumentsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutWorkspaceNestedInput
   invites?: Prisma.WorkspaceInviteUncheckedUpdateManyWithoutWorkspaceNestedInput
+  sources?: Prisma.SourceUncheckedUpdateManyWithoutWorkspaceNestedInput
+  sourceSyncs?: Prisma.SourceSyncUncheckedUpdateManyWithoutWorkspaceNestedInput
+  extractionJobs?: Prisma.ExtractionJobUncheckedUpdateManyWithoutWorkspaceNestedInput
+  features?: Prisma.FeatureUncheckedUpdateManyWithoutWorkspaceNestedInput
+  capabilities?: Prisma.CapabilityUncheckedUpdateManyWithoutWorkspaceNestedInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedUpdateManyWithoutWorkspaceNestedInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedUpdateManyWithoutWorkspaceNestedInput
+  savedViews?: Prisma.SavedViewUncheckedUpdateManyWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceCreateWithoutInvitesInput = {
@@ -638,6 +886,14 @@ export type WorkspaceCreateWithoutInvitesInput = {
   owner: Prisma.UserCreateNestedOneWithoutOwnedWorkspacesInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutWorkspaceInput
   documents?: Prisma.DocumentCreateNestedManyWithoutWorkspaceInput
+  sources?: Prisma.SourceCreateNestedManyWithoutWorkspaceInput
+  sourceSyncs?: Prisma.SourceSyncCreateNestedManyWithoutWorkspaceInput
+  extractionJobs?: Prisma.ExtractionJobCreateNestedManyWithoutWorkspaceInput
+  features?: Prisma.FeatureCreateNestedManyWithoutWorkspaceInput
+  capabilities?: Prisma.CapabilityCreateNestedManyWithoutWorkspaceInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationCreateNestedManyWithoutWorkspaceInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotCreateNestedManyWithoutWorkspaceInput
+  savedViews?: Prisma.SavedViewCreateNestedManyWithoutWorkspaceInput
 }
 
 export type WorkspaceUncheckedCreateWithoutInvitesInput = {
@@ -649,6 +905,14 @@ export type WorkspaceUncheckedCreateWithoutInvitesInput = {
   updatedAt?: Date | string
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutWorkspaceInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutWorkspaceInput
+  sources?: Prisma.SourceUncheckedCreateNestedManyWithoutWorkspaceInput
+  sourceSyncs?: Prisma.SourceSyncUncheckedCreateNestedManyWithoutWorkspaceInput
+  extractionJobs?: Prisma.ExtractionJobUncheckedCreateNestedManyWithoutWorkspaceInput
+  features?: Prisma.FeatureUncheckedCreateNestedManyWithoutWorkspaceInput
+  capabilities?: Prisma.CapabilityUncheckedCreateNestedManyWithoutWorkspaceInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedCreateNestedManyWithoutWorkspaceInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedCreateNestedManyWithoutWorkspaceInput
+  savedViews?: Prisma.SavedViewUncheckedCreateNestedManyWithoutWorkspaceInput
 }
 
 export type WorkspaceCreateOrConnectWithoutInvitesInput = {
@@ -676,6 +940,14 @@ export type WorkspaceUpdateWithoutInvitesInput = {
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedWorkspacesNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutWorkspaceNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutWorkspaceNestedInput
+  sources?: Prisma.SourceUpdateManyWithoutWorkspaceNestedInput
+  sourceSyncs?: Prisma.SourceSyncUpdateManyWithoutWorkspaceNestedInput
+  extractionJobs?: Prisma.ExtractionJobUpdateManyWithoutWorkspaceNestedInput
+  features?: Prisma.FeatureUpdateManyWithoutWorkspaceNestedInput
+  capabilities?: Prisma.CapabilityUpdateManyWithoutWorkspaceNestedInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUpdateManyWithoutWorkspaceNestedInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUpdateManyWithoutWorkspaceNestedInput
+  savedViews?: Prisma.SavedViewUpdateManyWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceUncheckedUpdateWithoutInvitesInput = {
@@ -687,6 +959,750 @@ export type WorkspaceUncheckedUpdateWithoutInvitesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutWorkspaceNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutWorkspaceNestedInput
+  sources?: Prisma.SourceUncheckedUpdateManyWithoutWorkspaceNestedInput
+  sourceSyncs?: Prisma.SourceSyncUncheckedUpdateManyWithoutWorkspaceNestedInput
+  extractionJobs?: Prisma.ExtractionJobUncheckedUpdateManyWithoutWorkspaceNestedInput
+  features?: Prisma.FeatureUncheckedUpdateManyWithoutWorkspaceNestedInput
+  capabilities?: Prisma.CapabilityUncheckedUpdateManyWithoutWorkspaceNestedInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedUpdateManyWithoutWorkspaceNestedInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedUpdateManyWithoutWorkspaceNestedInput
+  savedViews?: Prisma.SavedViewUncheckedUpdateManyWithoutWorkspaceNestedInput
+}
+
+export type WorkspaceCreateWithoutSourcesInput = {
+  id?: string
+  name: string
+  slug: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutOwnedWorkspacesInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutWorkspaceInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutWorkspaceInput
+  invites?: Prisma.WorkspaceInviteCreateNestedManyWithoutWorkspaceInput
+  sourceSyncs?: Prisma.SourceSyncCreateNestedManyWithoutWorkspaceInput
+  extractionJobs?: Prisma.ExtractionJobCreateNestedManyWithoutWorkspaceInput
+  features?: Prisma.FeatureCreateNestedManyWithoutWorkspaceInput
+  capabilities?: Prisma.CapabilityCreateNestedManyWithoutWorkspaceInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationCreateNestedManyWithoutWorkspaceInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotCreateNestedManyWithoutWorkspaceInput
+  savedViews?: Prisma.SavedViewCreateNestedManyWithoutWorkspaceInput
+}
+
+export type WorkspaceUncheckedCreateWithoutSourcesInput = {
+  id?: string
+  name: string
+  slug: string
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutWorkspaceInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutWorkspaceInput
+  invites?: Prisma.WorkspaceInviteUncheckedCreateNestedManyWithoutWorkspaceInput
+  sourceSyncs?: Prisma.SourceSyncUncheckedCreateNestedManyWithoutWorkspaceInput
+  extractionJobs?: Prisma.ExtractionJobUncheckedCreateNestedManyWithoutWorkspaceInput
+  features?: Prisma.FeatureUncheckedCreateNestedManyWithoutWorkspaceInput
+  capabilities?: Prisma.CapabilityUncheckedCreateNestedManyWithoutWorkspaceInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedCreateNestedManyWithoutWorkspaceInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedCreateNestedManyWithoutWorkspaceInput
+  savedViews?: Prisma.SavedViewUncheckedCreateNestedManyWithoutWorkspaceInput
+}
+
+export type WorkspaceCreateOrConnectWithoutSourcesInput = {
+  where: Prisma.WorkspaceWhereUniqueInput
+  create: Prisma.XOR<Prisma.WorkspaceCreateWithoutSourcesInput, Prisma.WorkspaceUncheckedCreateWithoutSourcesInput>
+}
+
+export type WorkspaceUpsertWithoutSourcesInput = {
+  update: Prisma.XOR<Prisma.WorkspaceUpdateWithoutSourcesInput, Prisma.WorkspaceUncheckedUpdateWithoutSourcesInput>
+  create: Prisma.XOR<Prisma.WorkspaceCreateWithoutSourcesInput, Prisma.WorkspaceUncheckedCreateWithoutSourcesInput>
+  where?: Prisma.WorkspaceWhereInput
+}
+
+export type WorkspaceUpdateToOneWithWhereWithoutSourcesInput = {
+  where?: Prisma.WorkspaceWhereInput
+  data: Prisma.XOR<Prisma.WorkspaceUpdateWithoutSourcesInput, Prisma.WorkspaceUncheckedUpdateWithoutSourcesInput>
+}
+
+export type WorkspaceUpdateWithoutSourcesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedWorkspacesNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutWorkspaceNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutWorkspaceNestedInput
+  invites?: Prisma.WorkspaceInviteUpdateManyWithoutWorkspaceNestedInput
+  sourceSyncs?: Prisma.SourceSyncUpdateManyWithoutWorkspaceNestedInput
+  extractionJobs?: Prisma.ExtractionJobUpdateManyWithoutWorkspaceNestedInput
+  features?: Prisma.FeatureUpdateManyWithoutWorkspaceNestedInput
+  capabilities?: Prisma.CapabilityUpdateManyWithoutWorkspaceNestedInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUpdateManyWithoutWorkspaceNestedInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUpdateManyWithoutWorkspaceNestedInput
+  savedViews?: Prisma.SavedViewUpdateManyWithoutWorkspaceNestedInput
+}
+
+export type WorkspaceUncheckedUpdateWithoutSourcesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutWorkspaceNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutWorkspaceNestedInput
+  invites?: Prisma.WorkspaceInviteUncheckedUpdateManyWithoutWorkspaceNestedInput
+  sourceSyncs?: Prisma.SourceSyncUncheckedUpdateManyWithoutWorkspaceNestedInput
+  extractionJobs?: Prisma.ExtractionJobUncheckedUpdateManyWithoutWorkspaceNestedInput
+  features?: Prisma.FeatureUncheckedUpdateManyWithoutWorkspaceNestedInput
+  capabilities?: Prisma.CapabilityUncheckedUpdateManyWithoutWorkspaceNestedInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedUpdateManyWithoutWorkspaceNestedInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedUpdateManyWithoutWorkspaceNestedInput
+  savedViews?: Prisma.SavedViewUncheckedUpdateManyWithoutWorkspaceNestedInput
+}
+
+export type WorkspaceCreateWithoutSourceSyncsInput = {
+  id?: string
+  name: string
+  slug: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutOwnedWorkspacesInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutWorkspaceInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutWorkspaceInput
+  invites?: Prisma.WorkspaceInviteCreateNestedManyWithoutWorkspaceInput
+  sources?: Prisma.SourceCreateNestedManyWithoutWorkspaceInput
+  extractionJobs?: Prisma.ExtractionJobCreateNestedManyWithoutWorkspaceInput
+  features?: Prisma.FeatureCreateNestedManyWithoutWorkspaceInput
+  capabilities?: Prisma.CapabilityCreateNestedManyWithoutWorkspaceInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationCreateNestedManyWithoutWorkspaceInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotCreateNestedManyWithoutWorkspaceInput
+  savedViews?: Prisma.SavedViewCreateNestedManyWithoutWorkspaceInput
+}
+
+export type WorkspaceUncheckedCreateWithoutSourceSyncsInput = {
+  id?: string
+  name: string
+  slug: string
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutWorkspaceInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutWorkspaceInput
+  invites?: Prisma.WorkspaceInviteUncheckedCreateNestedManyWithoutWorkspaceInput
+  sources?: Prisma.SourceUncheckedCreateNestedManyWithoutWorkspaceInput
+  extractionJobs?: Prisma.ExtractionJobUncheckedCreateNestedManyWithoutWorkspaceInput
+  features?: Prisma.FeatureUncheckedCreateNestedManyWithoutWorkspaceInput
+  capabilities?: Prisma.CapabilityUncheckedCreateNestedManyWithoutWorkspaceInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedCreateNestedManyWithoutWorkspaceInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedCreateNestedManyWithoutWorkspaceInput
+  savedViews?: Prisma.SavedViewUncheckedCreateNestedManyWithoutWorkspaceInput
+}
+
+export type WorkspaceCreateOrConnectWithoutSourceSyncsInput = {
+  where: Prisma.WorkspaceWhereUniqueInput
+  create: Prisma.XOR<Prisma.WorkspaceCreateWithoutSourceSyncsInput, Prisma.WorkspaceUncheckedCreateWithoutSourceSyncsInput>
+}
+
+export type WorkspaceUpsertWithoutSourceSyncsInput = {
+  update: Prisma.XOR<Prisma.WorkspaceUpdateWithoutSourceSyncsInput, Prisma.WorkspaceUncheckedUpdateWithoutSourceSyncsInput>
+  create: Prisma.XOR<Prisma.WorkspaceCreateWithoutSourceSyncsInput, Prisma.WorkspaceUncheckedCreateWithoutSourceSyncsInput>
+  where?: Prisma.WorkspaceWhereInput
+}
+
+export type WorkspaceUpdateToOneWithWhereWithoutSourceSyncsInput = {
+  where?: Prisma.WorkspaceWhereInput
+  data: Prisma.XOR<Prisma.WorkspaceUpdateWithoutSourceSyncsInput, Prisma.WorkspaceUncheckedUpdateWithoutSourceSyncsInput>
+}
+
+export type WorkspaceUpdateWithoutSourceSyncsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedWorkspacesNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutWorkspaceNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutWorkspaceNestedInput
+  invites?: Prisma.WorkspaceInviteUpdateManyWithoutWorkspaceNestedInput
+  sources?: Prisma.SourceUpdateManyWithoutWorkspaceNestedInput
+  extractionJobs?: Prisma.ExtractionJobUpdateManyWithoutWorkspaceNestedInput
+  features?: Prisma.FeatureUpdateManyWithoutWorkspaceNestedInput
+  capabilities?: Prisma.CapabilityUpdateManyWithoutWorkspaceNestedInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUpdateManyWithoutWorkspaceNestedInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUpdateManyWithoutWorkspaceNestedInput
+  savedViews?: Prisma.SavedViewUpdateManyWithoutWorkspaceNestedInput
+}
+
+export type WorkspaceUncheckedUpdateWithoutSourceSyncsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutWorkspaceNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutWorkspaceNestedInput
+  invites?: Prisma.WorkspaceInviteUncheckedUpdateManyWithoutWorkspaceNestedInput
+  sources?: Prisma.SourceUncheckedUpdateManyWithoutWorkspaceNestedInput
+  extractionJobs?: Prisma.ExtractionJobUncheckedUpdateManyWithoutWorkspaceNestedInput
+  features?: Prisma.FeatureUncheckedUpdateManyWithoutWorkspaceNestedInput
+  capabilities?: Prisma.CapabilityUncheckedUpdateManyWithoutWorkspaceNestedInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedUpdateManyWithoutWorkspaceNestedInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedUpdateManyWithoutWorkspaceNestedInput
+  savedViews?: Prisma.SavedViewUncheckedUpdateManyWithoutWorkspaceNestedInput
+}
+
+export type WorkspaceCreateWithoutExtractionJobsInput = {
+  id?: string
+  name: string
+  slug: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutOwnedWorkspacesInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutWorkspaceInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutWorkspaceInput
+  invites?: Prisma.WorkspaceInviteCreateNestedManyWithoutWorkspaceInput
+  sources?: Prisma.SourceCreateNestedManyWithoutWorkspaceInput
+  sourceSyncs?: Prisma.SourceSyncCreateNestedManyWithoutWorkspaceInput
+  features?: Prisma.FeatureCreateNestedManyWithoutWorkspaceInput
+  capabilities?: Prisma.CapabilityCreateNestedManyWithoutWorkspaceInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationCreateNestedManyWithoutWorkspaceInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotCreateNestedManyWithoutWorkspaceInput
+  savedViews?: Prisma.SavedViewCreateNestedManyWithoutWorkspaceInput
+}
+
+export type WorkspaceUncheckedCreateWithoutExtractionJobsInput = {
+  id?: string
+  name: string
+  slug: string
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutWorkspaceInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutWorkspaceInput
+  invites?: Prisma.WorkspaceInviteUncheckedCreateNestedManyWithoutWorkspaceInput
+  sources?: Prisma.SourceUncheckedCreateNestedManyWithoutWorkspaceInput
+  sourceSyncs?: Prisma.SourceSyncUncheckedCreateNestedManyWithoutWorkspaceInput
+  features?: Prisma.FeatureUncheckedCreateNestedManyWithoutWorkspaceInput
+  capabilities?: Prisma.CapabilityUncheckedCreateNestedManyWithoutWorkspaceInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedCreateNestedManyWithoutWorkspaceInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedCreateNestedManyWithoutWorkspaceInput
+  savedViews?: Prisma.SavedViewUncheckedCreateNestedManyWithoutWorkspaceInput
+}
+
+export type WorkspaceCreateOrConnectWithoutExtractionJobsInput = {
+  where: Prisma.WorkspaceWhereUniqueInput
+  create: Prisma.XOR<Prisma.WorkspaceCreateWithoutExtractionJobsInput, Prisma.WorkspaceUncheckedCreateWithoutExtractionJobsInput>
+}
+
+export type WorkspaceUpsertWithoutExtractionJobsInput = {
+  update: Prisma.XOR<Prisma.WorkspaceUpdateWithoutExtractionJobsInput, Prisma.WorkspaceUncheckedUpdateWithoutExtractionJobsInput>
+  create: Prisma.XOR<Prisma.WorkspaceCreateWithoutExtractionJobsInput, Prisma.WorkspaceUncheckedCreateWithoutExtractionJobsInput>
+  where?: Prisma.WorkspaceWhereInput
+}
+
+export type WorkspaceUpdateToOneWithWhereWithoutExtractionJobsInput = {
+  where?: Prisma.WorkspaceWhereInput
+  data: Prisma.XOR<Prisma.WorkspaceUpdateWithoutExtractionJobsInput, Prisma.WorkspaceUncheckedUpdateWithoutExtractionJobsInput>
+}
+
+export type WorkspaceUpdateWithoutExtractionJobsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedWorkspacesNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutWorkspaceNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutWorkspaceNestedInput
+  invites?: Prisma.WorkspaceInviteUpdateManyWithoutWorkspaceNestedInput
+  sources?: Prisma.SourceUpdateManyWithoutWorkspaceNestedInput
+  sourceSyncs?: Prisma.SourceSyncUpdateManyWithoutWorkspaceNestedInput
+  features?: Prisma.FeatureUpdateManyWithoutWorkspaceNestedInput
+  capabilities?: Prisma.CapabilityUpdateManyWithoutWorkspaceNestedInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUpdateManyWithoutWorkspaceNestedInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUpdateManyWithoutWorkspaceNestedInput
+  savedViews?: Prisma.SavedViewUpdateManyWithoutWorkspaceNestedInput
+}
+
+export type WorkspaceUncheckedUpdateWithoutExtractionJobsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutWorkspaceNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutWorkspaceNestedInput
+  invites?: Prisma.WorkspaceInviteUncheckedUpdateManyWithoutWorkspaceNestedInput
+  sources?: Prisma.SourceUncheckedUpdateManyWithoutWorkspaceNestedInput
+  sourceSyncs?: Prisma.SourceSyncUncheckedUpdateManyWithoutWorkspaceNestedInput
+  features?: Prisma.FeatureUncheckedUpdateManyWithoutWorkspaceNestedInput
+  capabilities?: Prisma.CapabilityUncheckedUpdateManyWithoutWorkspaceNestedInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedUpdateManyWithoutWorkspaceNestedInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedUpdateManyWithoutWorkspaceNestedInput
+  savedViews?: Prisma.SavedViewUncheckedUpdateManyWithoutWorkspaceNestedInput
+}
+
+export type WorkspaceCreateWithoutFeaturesInput = {
+  id?: string
+  name: string
+  slug: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutOwnedWorkspacesInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutWorkspaceInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutWorkspaceInput
+  invites?: Prisma.WorkspaceInviteCreateNestedManyWithoutWorkspaceInput
+  sources?: Prisma.SourceCreateNestedManyWithoutWorkspaceInput
+  sourceSyncs?: Prisma.SourceSyncCreateNestedManyWithoutWorkspaceInput
+  extractionJobs?: Prisma.ExtractionJobCreateNestedManyWithoutWorkspaceInput
+  capabilities?: Prisma.CapabilityCreateNestedManyWithoutWorkspaceInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationCreateNestedManyWithoutWorkspaceInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotCreateNestedManyWithoutWorkspaceInput
+  savedViews?: Prisma.SavedViewCreateNestedManyWithoutWorkspaceInput
+}
+
+export type WorkspaceUncheckedCreateWithoutFeaturesInput = {
+  id?: string
+  name: string
+  slug: string
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutWorkspaceInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutWorkspaceInput
+  invites?: Prisma.WorkspaceInviteUncheckedCreateNestedManyWithoutWorkspaceInput
+  sources?: Prisma.SourceUncheckedCreateNestedManyWithoutWorkspaceInput
+  sourceSyncs?: Prisma.SourceSyncUncheckedCreateNestedManyWithoutWorkspaceInput
+  extractionJobs?: Prisma.ExtractionJobUncheckedCreateNestedManyWithoutWorkspaceInput
+  capabilities?: Prisma.CapabilityUncheckedCreateNestedManyWithoutWorkspaceInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedCreateNestedManyWithoutWorkspaceInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedCreateNestedManyWithoutWorkspaceInput
+  savedViews?: Prisma.SavedViewUncheckedCreateNestedManyWithoutWorkspaceInput
+}
+
+export type WorkspaceCreateOrConnectWithoutFeaturesInput = {
+  where: Prisma.WorkspaceWhereUniqueInput
+  create: Prisma.XOR<Prisma.WorkspaceCreateWithoutFeaturesInput, Prisma.WorkspaceUncheckedCreateWithoutFeaturesInput>
+}
+
+export type WorkspaceUpsertWithoutFeaturesInput = {
+  update: Prisma.XOR<Prisma.WorkspaceUpdateWithoutFeaturesInput, Prisma.WorkspaceUncheckedUpdateWithoutFeaturesInput>
+  create: Prisma.XOR<Prisma.WorkspaceCreateWithoutFeaturesInput, Prisma.WorkspaceUncheckedCreateWithoutFeaturesInput>
+  where?: Prisma.WorkspaceWhereInput
+}
+
+export type WorkspaceUpdateToOneWithWhereWithoutFeaturesInput = {
+  where?: Prisma.WorkspaceWhereInput
+  data: Prisma.XOR<Prisma.WorkspaceUpdateWithoutFeaturesInput, Prisma.WorkspaceUncheckedUpdateWithoutFeaturesInput>
+}
+
+export type WorkspaceUpdateWithoutFeaturesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedWorkspacesNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutWorkspaceNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutWorkspaceNestedInput
+  invites?: Prisma.WorkspaceInviteUpdateManyWithoutWorkspaceNestedInput
+  sources?: Prisma.SourceUpdateManyWithoutWorkspaceNestedInput
+  sourceSyncs?: Prisma.SourceSyncUpdateManyWithoutWorkspaceNestedInput
+  extractionJobs?: Prisma.ExtractionJobUpdateManyWithoutWorkspaceNestedInput
+  capabilities?: Prisma.CapabilityUpdateManyWithoutWorkspaceNestedInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUpdateManyWithoutWorkspaceNestedInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUpdateManyWithoutWorkspaceNestedInput
+  savedViews?: Prisma.SavedViewUpdateManyWithoutWorkspaceNestedInput
+}
+
+export type WorkspaceUncheckedUpdateWithoutFeaturesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutWorkspaceNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutWorkspaceNestedInput
+  invites?: Prisma.WorkspaceInviteUncheckedUpdateManyWithoutWorkspaceNestedInput
+  sources?: Prisma.SourceUncheckedUpdateManyWithoutWorkspaceNestedInput
+  sourceSyncs?: Prisma.SourceSyncUncheckedUpdateManyWithoutWorkspaceNestedInput
+  extractionJobs?: Prisma.ExtractionJobUncheckedUpdateManyWithoutWorkspaceNestedInput
+  capabilities?: Prisma.CapabilityUncheckedUpdateManyWithoutWorkspaceNestedInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedUpdateManyWithoutWorkspaceNestedInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedUpdateManyWithoutWorkspaceNestedInput
+  savedViews?: Prisma.SavedViewUncheckedUpdateManyWithoutWorkspaceNestedInput
+}
+
+export type WorkspaceCreateWithoutSavedViewsInput = {
+  id?: string
+  name: string
+  slug: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutOwnedWorkspacesInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutWorkspaceInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutWorkspaceInput
+  invites?: Prisma.WorkspaceInviteCreateNestedManyWithoutWorkspaceInput
+  sources?: Prisma.SourceCreateNestedManyWithoutWorkspaceInput
+  sourceSyncs?: Prisma.SourceSyncCreateNestedManyWithoutWorkspaceInput
+  extractionJobs?: Prisma.ExtractionJobCreateNestedManyWithoutWorkspaceInput
+  features?: Prisma.FeatureCreateNestedManyWithoutWorkspaceInput
+  capabilities?: Prisma.CapabilityCreateNestedManyWithoutWorkspaceInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationCreateNestedManyWithoutWorkspaceInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotCreateNestedManyWithoutWorkspaceInput
+}
+
+export type WorkspaceUncheckedCreateWithoutSavedViewsInput = {
+  id?: string
+  name: string
+  slug: string
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutWorkspaceInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutWorkspaceInput
+  invites?: Prisma.WorkspaceInviteUncheckedCreateNestedManyWithoutWorkspaceInput
+  sources?: Prisma.SourceUncheckedCreateNestedManyWithoutWorkspaceInput
+  sourceSyncs?: Prisma.SourceSyncUncheckedCreateNestedManyWithoutWorkspaceInput
+  extractionJobs?: Prisma.ExtractionJobUncheckedCreateNestedManyWithoutWorkspaceInput
+  features?: Prisma.FeatureUncheckedCreateNestedManyWithoutWorkspaceInput
+  capabilities?: Prisma.CapabilityUncheckedCreateNestedManyWithoutWorkspaceInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedCreateNestedManyWithoutWorkspaceInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedCreateNestedManyWithoutWorkspaceInput
+}
+
+export type WorkspaceCreateOrConnectWithoutSavedViewsInput = {
+  where: Prisma.WorkspaceWhereUniqueInput
+  create: Prisma.XOR<Prisma.WorkspaceCreateWithoutSavedViewsInput, Prisma.WorkspaceUncheckedCreateWithoutSavedViewsInput>
+}
+
+export type WorkspaceUpsertWithoutSavedViewsInput = {
+  update: Prisma.XOR<Prisma.WorkspaceUpdateWithoutSavedViewsInput, Prisma.WorkspaceUncheckedUpdateWithoutSavedViewsInput>
+  create: Prisma.XOR<Prisma.WorkspaceCreateWithoutSavedViewsInput, Prisma.WorkspaceUncheckedCreateWithoutSavedViewsInput>
+  where?: Prisma.WorkspaceWhereInput
+}
+
+export type WorkspaceUpdateToOneWithWhereWithoutSavedViewsInput = {
+  where?: Prisma.WorkspaceWhereInput
+  data: Prisma.XOR<Prisma.WorkspaceUpdateWithoutSavedViewsInput, Prisma.WorkspaceUncheckedUpdateWithoutSavedViewsInput>
+}
+
+export type WorkspaceUpdateWithoutSavedViewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedWorkspacesNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutWorkspaceNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutWorkspaceNestedInput
+  invites?: Prisma.WorkspaceInviteUpdateManyWithoutWorkspaceNestedInput
+  sources?: Prisma.SourceUpdateManyWithoutWorkspaceNestedInput
+  sourceSyncs?: Prisma.SourceSyncUpdateManyWithoutWorkspaceNestedInput
+  extractionJobs?: Prisma.ExtractionJobUpdateManyWithoutWorkspaceNestedInput
+  features?: Prisma.FeatureUpdateManyWithoutWorkspaceNestedInput
+  capabilities?: Prisma.CapabilityUpdateManyWithoutWorkspaceNestedInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUpdateManyWithoutWorkspaceNestedInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUpdateManyWithoutWorkspaceNestedInput
+}
+
+export type WorkspaceUncheckedUpdateWithoutSavedViewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutWorkspaceNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutWorkspaceNestedInput
+  invites?: Prisma.WorkspaceInviteUncheckedUpdateManyWithoutWorkspaceNestedInput
+  sources?: Prisma.SourceUncheckedUpdateManyWithoutWorkspaceNestedInput
+  sourceSyncs?: Prisma.SourceSyncUncheckedUpdateManyWithoutWorkspaceNestedInput
+  extractionJobs?: Prisma.ExtractionJobUncheckedUpdateManyWithoutWorkspaceNestedInput
+  features?: Prisma.FeatureUncheckedUpdateManyWithoutWorkspaceNestedInput
+  capabilities?: Prisma.CapabilityUncheckedUpdateManyWithoutWorkspaceNestedInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedUpdateManyWithoutWorkspaceNestedInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedUpdateManyWithoutWorkspaceNestedInput
+}
+
+export type WorkspaceCreateWithoutCapabilitiesInput = {
+  id?: string
+  name: string
+  slug: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutOwnedWorkspacesInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutWorkspaceInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutWorkspaceInput
+  invites?: Prisma.WorkspaceInviteCreateNestedManyWithoutWorkspaceInput
+  sources?: Prisma.SourceCreateNestedManyWithoutWorkspaceInput
+  sourceSyncs?: Prisma.SourceSyncCreateNestedManyWithoutWorkspaceInput
+  extractionJobs?: Prisma.ExtractionJobCreateNestedManyWithoutWorkspaceInput
+  features?: Prisma.FeatureCreateNestedManyWithoutWorkspaceInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationCreateNestedManyWithoutWorkspaceInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotCreateNestedManyWithoutWorkspaceInput
+  savedViews?: Prisma.SavedViewCreateNestedManyWithoutWorkspaceInput
+}
+
+export type WorkspaceUncheckedCreateWithoutCapabilitiesInput = {
+  id?: string
+  name: string
+  slug: string
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutWorkspaceInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutWorkspaceInput
+  invites?: Prisma.WorkspaceInviteUncheckedCreateNestedManyWithoutWorkspaceInput
+  sources?: Prisma.SourceUncheckedCreateNestedManyWithoutWorkspaceInput
+  sourceSyncs?: Prisma.SourceSyncUncheckedCreateNestedManyWithoutWorkspaceInput
+  extractionJobs?: Prisma.ExtractionJobUncheckedCreateNestedManyWithoutWorkspaceInput
+  features?: Prisma.FeatureUncheckedCreateNestedManyWithoutWorkspaceInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedCreateNestedManyWithoutWorkspaceInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedCreateNestedManyWithoutWorkspaceInput
+  savedViews?: Prisma.SavedViewUncheckedCreateNestedManyWithoutWorkspaceInput
+}
+
+export type WorkspaceCreateOrConnectWithoutCapabilitiesInput = {
+  where: Prisma.WorkspaceWhereUniqueInput
+  create: Prisma.XOR<Prisma.WorkspaceCreateWithoutCapabilitiesInput, Prisma.WorkspaceUncheckedCreateWithoutCapabilitiesInput>
+}
+
+export type WorkspaceUpsertWithoutCapabilitiesInput = {
+  update: Prisma.XOR<Prisma.WorkspaceUpdateWithoutCapabilitiesInput, Prisma.WorkspaceUncheckedUpdateWithoutCapabilitiesInput>
+  create: Prisma.XOR<Prisma.WorkspaceCreateWithoutCapabilitiesInput, Prisma.WorkspaceUncheckedCreateWithoutCapabilitiesInput>
+  where?: Prisma.WorkspaceWhereInput
+}
+
+export type WorkspaceUpdateToOneWithWhereWithoutCapabilitiesInput = {
+  where?: Prisma.WorkspaceWhereInput
+  data: Prisma.XOR<Prisma.WorkspaceUpdateWithoutCapabilitiesInput, Prisma.WorkspaceUncheckedUpdateWithoutCapabilitiesInput>
+}
+
+export type WorkspaceUpdateWithoutCapabilitiesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedWorkspacesNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutWorkspaceNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutWorkspaceNestedInput
+  invites?: Prisma.WorkspaceInviteUpdateManyWithoutWorkspaceNestedInput
+  sources?: Prisma.SourceUpdateManyWithoutWorkspaceNestedInput
+  sourceSyncs?: Prisma.SourceSyncUpdateManyWithoutWorkspaceNestedInput
+  extractionJobs?: Prisma.ExtractionJobUpdateManyWithoutWorkspaceNestedInput
+  features?: Prisma.FeatureUpdateManyWithoutWorkspaceNestedInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUpdateManyWithoutWorkspaceNestedInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUpdateManyWithoutWorkspaceNestedInput
+  savedViews?: Prisma.SavedViewUpdateManyWithoutWorkspaceNestedInput
+}
+
+export type WorkspaceUncheckedUpdateWithoutCapabilitiesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutWorkspaceNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutWorkspaceNestedInput
+  invites?: Prisma.WorkspaceInviteUncheckedUpdateManyWithoutWorkspaceNestedInput
+  sources?: Prisma.SourceUncheckedUpdateManyWithoutWorkspaceNestedInput
+  sourceSyncs?: Prisma.SourceSyncUncheckedUpdateManyWithoutWorkspaceNestedInput
+  extractionJobs?: Prisma.ExtractionJobUncheckedUpdateManyWithoutWorkspaceNestedInput
+  features?: Prisma.FeatureUncheckedUpdateManyWithoutWorkspaceNestedInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedUpdateManyWithoutWorkspaceNestedInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedUpdateManyWithoutWorkspaceNestedInput
+  savedViews?: Prisma.SavedViewUncheckedUpdateManyWithoutWorkspaceNestedInput
+}
+
+export type WorkspaceCreateWithoutRoadmapRecommendationsInput = {
+  id?: string
+  name: string
+  slug: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutOwnedWorkspacesInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutWorkspaceInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutWorkspaceInput
+  invites?: Prisma.WorkspaceInviteCreateNestedManyWithoutWorkspaceInput
+  sources?: Prisma.SourceCreateNestedManyWithoutWorkspaceInput
+  sourceSyncs?: Prisma.SourceSyncCreateNestedManyWithoutWorkspaceInput
+  extractionJobs?: Prisma.ExtractionJobCreateNestedManyWithoutWorkspaceInput
+  features?: Prisma.FeatureCreateNestedManyWithoutWorkspaceInput
+  capabilities?: Prisma.CapabilityCreateNestedManyWithoutWorkspaceInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotCreateNestedManyWithoutWorkspaceInput
+  savedViews?: Prisma.SavedViewCreateNestedManyWithoutWorkspaceInput
+}
+
+export type WorkspaceUncheckedCreateWithoutRoadmapRecommendationsInput = {
+  id?: string
+  name: string
+  slug: string
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutWorkspaceInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutWorkspaceInput
+  invites?: Prisma.WorkspaceInviteUncheckedCreateNestedManyWithoutWorkspaceInput
+  sources?: Prisma.SourceUncheckedCreateNestedManyWithoutWorkspaceInput
+  sourceSyncs?: Prisma.SourceSyncUncheckedCreateNestedManyWithoutWorkspaceInput
+  extractionJobs?: Prisma.ExtractionJobUncheckedCreateNestedManyWithoutWorkspaceInput
+  features?: Prisma.FeatureUncheckedCreateNestedManyWithoutWorkspaceInput
+  capabilities?: Prisma.CapabilityUncheckedCreateNestedManyWithoutWorkspaceInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedCreateNestedManyWithoutWorkspaceInput
+  savedViews?: Prisma.SavedViewUncheckedCreateNestedManyWithoutWorkspaceInput
+}
+
+export type WorkspaceCreateOrConnectWithoutRoadmapRecommendationsInput = {
+  where: Prisma.WorkspaceWhereUniqueInput
+  create: Prisma.XOR<Prisma.WorkspaceCreateWithoutRoadmapRecommendationsInput, Prisma.WorkspaceUncheckedCreateWithoutRoadmapRecommendationsInput>
+}
+
+export type WorkspaceUpsertWithoutRoadmapRecommendationsInput = {
+  update: Prisma.XOR<Prisma.WorkspaceUpdateWithoutRoadmapRecommendationsInput, Prisma.WorkspaceUncheckedUpdateWithoutRoadmapRecommendationsInput>
+  create: Prisma.XOR<Prisma.WorkspaceCreateWithoutRoadmapRecommendationsInput, Prisma.WorkspaceUncheckedCreateWithoutRoadmapRecommendationsInput>
+  where?: Prisma.WorkspaceWhereInput
+}
+
+export type WorkspaceUpdateToOneWithWhereWithoutRoadmapRecommendationsInput = {
+  where?: Prisma.WorkspaceWhereInput
+  data: Prisma.XOR<Prisma.WorkspaceUpdateWithoutRoadmapRecommendationsInput, Prisma.WorkspaceUncheckedUpdateWithoutRoadmapRecommendationsInput>
+}
+
+export type WorkspaceUpdateWithoutRoadmapRecommendationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedWorkspacesNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutWorkspaceNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutWorkspaceNestedInput
+  invites?: Prisma.WorkspaceInviteUpdateManyWithoutWorkspaceNestedInput
+  sources?: Prisma.SourceUpdateManyWithoutWorkspaceNestedInput
+  sourceSyncs?: Prisma.SourceSyncUpdateManyWithoutWorkspaceNestedInput
+  extractionJobs?: Prisma.ExtractionJobUpdateManyWithoutWorkspaceNestedInput
+  features?: Prisma.FeatureUpdateManyWithoutWorkspaceNestedInput
+  capabilities?: Prisma.CapabilityUpdateManyWithoutWorkspaceNestedInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUpdateManyWithoutWorkspaceNestedInput
+  savedViews?: Prisma.SavedViewUpdateManyWithoutWorkspaceNestedInput
+}
+
+export type WorkspaceUncheckedUpdateWithoutRoadmapRecommendationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutWorkspaceNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutWorkspaceNestedInput
+  invites?: Prisma.WorkspaceInviteUncheckedUpdateManyWithoutWorkspaceNestedInput
+  sources?: Prisma.SourceUncheckedUpdateManyWithoutWorkspaceNestedInput
+  sourceSyncs?: Prisma.SourceSyncUncheckedUpdateManyWithoutWorkspaceNestedInput
+  extractionJobs?: Prisma.ExtractionJobUncheckedUpdateManyWithoutWorkspaceNestedInput
+  features?: Prisma.FeatureUncheckedUpdateManyWithoutWorkspaceNestedInput
+  capabilities?: Prisma.CapabilityUncheckedUpdateManyWithoutWorkspaceNestedInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedUpdateManyWithoutWorkspaceNestedInput
+  savedViews?: Prisma.SavedViewUncheckedUpdateManyWithoutWorkspaceNestedInput
+}
+
+export type WorkspaceCreateWithoutDashboardSnapshotsInput = {
+  id?: string
+  name: string
+  slug: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutOwnedWorkspacesInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutWorkspaceInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutWorkspaceInput
+  invites?: Prisma.WorkspaceInviteCreateNestedManyWithoutWorkspaceInput
+  sources?: Prisma.SourceCreateNestedManyWithoutWorkspaceInput
+  sourceSyncs?: Prisma.SourceSyncCreateNestedManyWithoutWorkspaceInput
+  extractionJobs?: Prisma.ExtractionJobCreateNestedManyWithoutWorkspaceInput
+  features?: Prisma.FeatureCreateNestedManyWithoutWorkspaceInput
+  capabilities?: Prisma.CapabilityCreateNestedManyWithoutWorkspaceInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationCreateNestedManyWithoutWorkspaceInput
+  savedViews?: Prisma.SavedViewCreateNestedManyWithoutWorkspaceInput
+}
+
+export type WorkspaceUncheckedCreateWithoutDashboardSnapshotsInput = {
+  id?: string
+  name: string
+  slug: string
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutWorkspaceInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutWorkspaceInput
+  invites?: Prisma.WorkspaceInviteUncheckedCreateNestedManyWithoutWorkspaceInput
+  sources?: Prisma.SourceUncheckedCreateNestedManyWithoutWorkspaceInput
+  sourceSyncs?: Prisma.SourceSyncUncheckedCreateNestedManyWithoutWorkspaceInput
+  extractionJobs?: Prisma.ExtractionJobUncheckedCreateNestedManyWithoutWorkspaceInput
+  features?: Prisma.FeatureUncheckedCreateNestedManyWithoutWorkspaceInput
+  capabilities?: Prisma.CapabilityUncheckedCreateNestedManyWithoutWorkspaceInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedCreateNestedManyWithoutWorkspaceInput
+  savedViews?: Prisma.SavedViewUncheckedCreateNestedManyWithoutWorkspaceInput
+}
+
+export type WorkspaceCreateOrConnectWithoutDashboardSnapshotsInput = {
+  where: Prisma.WorkspaceWhereUniqueInput
+  create: Prisma.XOR<Prisma.WorkspaceCreateWithoutDashboardSnapshotsInput, Prisma.WorkspaceUncheckedCreateWithoutDashboardSnapshotsInput>
+}
+
+export type WorkspaceUpsertWithoutDashboardSnapshotsInput = {
+  update: Prisma.XOR<Prisma.WorkspaceUpdateWithoutDashboardSnapshotsInput, Prisma.WorkspaceUncheckedUpdateWithoutDashboardSnapshotsInput>
+  create: Prisma.XOR<Prisma.WorkspaceCreateWithoutDashboardSnapshotsInput, Prisma.WorkspaceUncheckedCreateWithoutDashboardSnapshotsInput>
+  where?: Prisma.WorkspaceWhereInput
+}
+
+export type WorkspaceUpdateToOneWithWhereWithoutDashboardSnapshotsInput = {
+  where?: Prisma.WorkspaceWhereInput
+  data: Prisma.XOR<Prisma.WorkspaceUpdateWithoutDashboardSnapshotsInput, Prisma.WorkspaceUncheckedUpdateWithoutDashboardSnapshotsInput>
+}
+
+export type WorkspaceUpdateWithoutDashboardSnapshotsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedWorkspacesNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutWorkspaceNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutWorkspaceNestedInput
+  invites?: Prisma.WorkspaceInviteUpdateManyWithoutWorkspaceNestedInput
+  sources?: Prisma.SourceUpdateManyWithoutWorkspaceNestedInput
+  sourceSyncs?: Prisma.SourceSyncUpdateManyWithoutWorkspaceNestedInput
+  extractionJobs?: Prisma.ExtractionJobUpdateManyWithoutWorkspaceNestedInput
+  features?: Prisma.FeatureUpdateManyWithoutWorkspaceNestedInput
+  capabilities?: Prisma.CapabilityUpdateManyWithoutWorkspaceNestedInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUpdateManyWithoutWorkspaceNestedInput
+  savedViews?: Prisma.SavedViewUpdateManyWithoutWorkspaceNestedInput
+}
+
+export type WorkspaceUncheckedUpdateWithoutDashboardSnapshotsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutWorkspaceNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutWorkspaceNestedInput
+  invites?: Prisma.WorkspaceInviteUncheckedUpdateManyWithoutWorkspaceNestedInput
+  sources?: Prisma.SourceUncheckedUpdateManyWithoutWorkspaceNestedInput
+  sourceSyncs?: Prisma.SourceSyncUncheckedUpdateManyWithoutWorkspaceNestedInput
+  extractionJobs?: Prisma.ExtractionJobUncheckedUpdateManyWithoutWorkspaceNestedInput
+  features?: Prisma.FeatureUncheckedUpdateManyWithoutWorkspaceNestedInput
+  capabilities?: Prisma.CapabilityUncheckedUpdateManyWithoutWorkspaceNestedInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedUpdateManyWithoutWorkspaceNestedInput
+  savedViews?: Prisma.SavedViewUncheckedUpdateManyWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceCreateManyOwnerInput = {
@@ -706,6 +1722,14 @@ export type WorkspaceUpdateWithoutOwnerInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutWorkspaceNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutWorkspaceNestedInput
   invites?: Prisma.WorkspaceInviteUpdateManyWithoutWorkspaceNestedInput
+  sources?: Prisma.SourceUpdateManyWithoutWorkspaceNestedInput
+  sourceSyncs?: Prisma.SourceSyncUpdateManyWithoutWorkspaceNestedInput
+  extractionJobs?: Prisma.ExtractionJobUpdateManyWithoutWorkspaceNestedInput
+  features?: Prisma.FeatureUpdateManyWithoutWorkspaceNestedInput
+  capabilities?: Prisma.CapabilityUpdateManyWithoutWorkspaceNestedInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUpdateManyWithoutWorkspaceNestedInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUpdateManyWithoutWorkspaceNestedInput
+  savedViews?: Prisma.SavedViewUpdateManyWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceUncheckedUpdateWithoutOwnerInput = {
@@ -717,6 +1741,14 @@ export type WorkspaceUncheckedUpdateWithoutOwnerInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutWorkspaceNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutWorkspaceNestedInput
   invites?: Prisma.WorkspaceInviteUncheckedUpdateManyWithoutWorkspaceNestedInput
+  sources?: Prisma.SourceUncheckedUpdateManyWithoutWorkspaceNestedInput
+  sourceSyncs?: Prisma.SourceSyncUncheckedUpdateManyWithoutWorkspaceNestedInput
+  extractionJobs?: Prisma.ExtractionJobUncheckedUpdateManyWithoutWorkspaceNestedInput
+  features?: Prisma.FeatureUncheckedUpdateManyWithoutWorkspaceNestedInput
+  capabilities?: Prisma.CapabilityUncheckedUpdateManyWithoutWorkspaceNestedInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedUpdateManyWithoutWorkspaceNestedInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedUpdateManyWithoutWorkspaceNestedInput
+  savedViews?: Prisma.SavedViewUncheckedUpdateManyWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceUncheckedUpdateManyWithoutOwnerInput = {
@@ -736,12 +1768,28 @@ export type WorkspaceCountOutputType = {
   memberships: number
   documents: number
   invites: number
+  sources: number
+  sourceSyncs: number
+  extractionJobs: number
+  features: number
+  capabilities: number
+  roadmapRecommendations: number
+  dashboardSnapshots: number
+  savedViews: number
 }
 
 export type WorkspaceCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   memberships?: boolean | WorkspaceCountOutputTypeCountMembershipsArgs
   documents?: boolean | WorkspaceCountOutputTypeCountDocumentsArgs
   invites?: boolean | WorkspaceCountOutputTypeCountInvitesArgs
+  sources?: boolean | WorkspaceCountOutputTypeCountSourcesArgs
+  sourceSyncs?: boolean | WorkspaceCountOutputTypeCountSourceSyncsArgs
+  extractionJobs?: boolean | WorkspaceCountOutputTypeCountExtractionJobsArgs
+  features?: boolean | WorkspaceCountOutputTypeCountFeaturesArgs
+  capabilities?: boolean | WorkspaceCountOutputTypeCountCapabilitiesArgs
+  roadmapRecommendations?: boolean | WorkspaceCountOutputTypeCountRoadmapRecommendationsArgs
+  dashboardSnapshots?: boolean | WorkspaceCountOutputTypeCountDashboardSnapshotsArgs
+  savedViews?: boolean | WorkspaceCountOutputTypeCountSavedViewsArgs
 }
 
 /**
@@ -775,6 +1823,62 @@ export type WorkspaceCountOutputTypeCountInvitesArgs<ExtArgs extends runtime.Typ
   where?: Prisma.WorkspaceInviteWhereInput
 }
 
+/**
+ * WorkspaceCountOutputType without action
+ */
+export type WorkspaceCountOutputTypeCountSourcesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SourceWhereInput
+}
+
+/**
+ * WorkspaceCountOutputType without action
+ */
+export type WorkspaceCountOutputTypeCountSourceSyncsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SourceSyncWhereInput
+}
+
+/**
+ * WorkspaceCountOutputType without action
+ */
+export type WorkspaceCountOutputTypeCountExtractionJobsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ExtractionJobWhereInput
+}
+
+/**
+ * WorkspaceCountOutputType without action
+ */
+export type WorkspaceCountOutputTypeCountFeaturesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FeatureWhereInput
+}
+
+/**
+ * WorkspaceCountOutputType without action
+ */
+export type WorkspaceCountOutputTypeCountCapabilitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CapabilityWhereInput
+}
+
+/**
+ * WorkspaceCountOutputType without action
+ */
+export type WorkspaceCountOutputTypeCountRoadmapRecommendationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RoadmapRecommendationWhereInput
+}
+
+/**
+ * WorkspaceCountOutputType without action
+ */
+export type WorkspaceCountOutputTypeCountDashboardSnapshotsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DashboardSnapshotWhereInput
+}
+
+/**
+ * WorkspaceCountOutputType without action
+ */
+export type WorkspaceCountOutputTypeCountSavedViewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SavedViewWhereInput
+}
+
 
 export type WorkspaceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -787,6 +1891,14 @@ export type WorkspaceSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   memberships?: boolean | Prisma.Workspace$membershipsArgs<ExtArgs>
   documents?: boolean | Prisma.Workspace$documentsArgs<ExtArgs>
   invites?: boolean | Prisma.Workspace$invitesArgs<ExtArgs>
+  sources?: boolean | Prisma.Workspace$sourcesArgs<ExtArgs>
+  sourceSyncs?: boolean | Prisma.Workspace$sourceSyncsArgs<ExtArgs>
+  extractionJobs?: boolean | Prisma.Workspace$extractionJobsArgs<ExtArgs>
+  features?: boolean | Prisma.Workspace$featuresArgs<ExtArgs>
+  capabilities?: boolean | Prisma.Workspace$capabilitiesArgs<ExtArgs>
+  roadmapRecommendations?: boolean | Prisma.Workspace$roadmapRecommendationsArgs<ExtArgs>
+  dashboardSnapshots?: boolean | Prisma.Workspace$dashboardSnapshotsArgs<ExtArgs>
+  savedViews?: boolean | Prisma.Workspace$savedViewsArgs<ExtArgs>
   _count?: boolean | Prisma.WorkspaceCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["workspace"]>
 
@@ -825,6 +1937,14 @@ export type WorkspaceInclude<ExtArgs extends runtime.Types.Extensions.InternalAr
   memberships?: boolean | Prisma.Workspace$membershipsArgs<ExtArgs>
   documents?: boolean | Prisma.Workspace$documentsArgs<ExtArgs>
   invites?: boolean | Prisma.Workspace$invitesArgs<ExtArgs>
+  sources?: boolean | Prisma.Workspace$sourcesArgs<ExtArgs>
+  sourceSyncs?: boolean | Prisma.Workspace$sourceSyncsArgs<ExtArgs>
+  extractionJobs?: boolean | Prisma.Workspace$extractionJobsArgs<ExtArgs>
+  features?: boolean | Prisma.Workspace$featuresArgs<ExtArgs>
+  capabilities?: boolean | Prisma.Workspace$capabilitiesArgs<ExtArgs>
+  roadmapRecommendations?: boolean | Prisma.Workspace$roadmapRecommendationsArgs<ExtArgs>
+  dashboardSnapshots?: boolean | Prisma.Workspace$dashboardSnapshotsArgs<ExtArgs>
+  savedViews?: boolean | Prisma.Workspace$savedViewsArgs<ExtArgs>
   _count?: boolean | Prisma.WorkspaceCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type WorkspaceIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -841,6 +1961,14 @@ export type $WorkspacePayload<ExtArgs extends runtime.Types.Extensions.InternalA
     memberships: Prisma.$MembershipPayload<ExtArgs>[]
     documents: Prisma.$DocumentPayload<ExtArgs>[]
     invites: Prisma.$WorkspaceInvitePayload<ExtArgs>[]
+    sources: Prisma.$SourcePayload<ExtArgs>[]
+    sourceSyncs: Prisma.$SourceSyncPayload<ExtArgs>[]
+    extractionJobs: Prisma.$ExtractionJobPayload<ExtArgs>[]
+    features: Prisma.$FeaturePayload<ExtArgs>[]
+    capabilities: Prisma.$CapabilityPayload<ExtArgs>[]
+    roadmapRecommendations: Prisma.$RoadmapRecommendationPayload<ExtArgs>[]
+    dashboardSnapshots: Prisma.$DashboardSnapshotPayload<ExtArgs>[]
+    savedViews: Prisma.$SavedViewPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1247,6 +2375,14 @@ export interface Prisma__WorkspaceClient<T, Null = never, ExtArgs extends runtim
   memberships<T extends Prisma.Workspace$membershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Workspace$membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   documents<T extends Prisma.Workspace$documentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Workspace$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   invites<T extends Prisma.Workspace$invitesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Workspace$invitesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkspaceInvitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  sources<T extends Prisma.Workspace$sourcesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Workspace$sourcesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SourcePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  sourceSyncs<T extends Prisma.Workspace$sourceSyncsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Workspace$sourceSyncsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SourceSyncPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  extractionJobs<T extends Prisma.Workspace$extractionJobsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Workspace$extractionJobsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExtractionJobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  features<T extends Prisma.Workspace$featuresArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Workspace$featuresArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FeaturePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  capabilities<T extends Prisma.Workspace$capabilitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Workspace$capabilitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CapabilityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  roadmapRecommendations<T extends Prisma.Workspace$roadmapRecommendationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Workspace$roadmapRecommendationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RoadmapRecommendationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  dashboardSnapshots<T extends Prisma.Workspace$dashboardSnapshotsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Workspace$dashboardSnapshotsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DashboardSnapshotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  savedViews<T extends Prisma.Workspace$savedViewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Workspace$savedViewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SavedViewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1752,6 +2888,198 @@ export type Workspace$invitesArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.WorkspaceInviteScalarFieldEnum | Prisma.WorkspaceInviteScalarFieldEnum[]
+}
+
+/**
+ * Workspace.sources
+ */
+export type Workspace$sourcesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Source
+   */
+  select?: Prisma.SourceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Source
+   */
+  omit?: Prisma.SourceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SourceInclude<ExtArgs> | null
+  where?: Prisma.SourceWhereInput
+  orderBy?: Prisma.SourceOrderByWithRelationInput | Prisma.SourceOrderByWithRelationInput[]
+  cursor?: Prisma.SourceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SourceScalarFieldEnum | Prisma.SourceScalarFieldEnum[]
+}
+
+/**
+ * Workspace.sourceSyncs
+ */
+export type Workspace$sourceSyncsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SourceSync
+   */
+  select?: Prisma.SourceSyncSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SourceSync
+   */
+  omit?: Prisma.SourceSyncOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SourceSyncInclude<ExtArgs> | null
+  where?: Prisma.SourceSyncWhereInput
+  orderBy?: Prisma.SourceSyncOrderByWithRelationInput | Prisma.SourceSyncOrderByWithRelationInput[]
+  cursor?: Prisma.SourceSyncWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SourceSyncScalarFieldEnum | Prisma.SourceSyncScalarFieldEnum[]
+}
+
+/**
+ * Workspace.extractionJobs
+ */
+export type Workspace$extractionJobsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ExtractionJob
+   */
+  select?: Prisma.ExtractionJobSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ExtractionJob
+   */
+  omit?: Prisma.ExtractionJobOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ExtractionJobInclude<ExtArgs> | null
+  where?: Prisma.ExtractionJobWhereInput
+  orderBy?: Prisma.ExtractionJobOrderByWithRelationInput | Prisma.ExtractionJobOrderByWithRelationInput[]
+  cursor?: Prisma.ExtractionJobWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ExtractionJobScalarFieldEnum | Prisma.ExtractionJobScalarFieldEnum[]
+}
+
+/**
+ * Workspace.features
+ */
+export type Workspace$featuresArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Feature
+   */
+  select?: Prisma.FeatureSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Feature
+   */
+  omit?: Prisma.FeatureOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FeatureInclude<ExtArgs> | null
+  where?: Prisma.FeatureWhereInput
+  orderBy?: Prisma.FeatureOrderByWithRelationInput | Prisma.FeatureOrderByWithRelationInput[]
+  cursor?: Prisma.FeatureWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FeatureScalarFieldEnum | Prisma.FeatureScalarFieldEnum[]
+}
+
+/**
+ * Workspace.capabilities
+ */
+export type Workspace$capabilitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Capability
+   */
+  select?: Prisma.CapabilitySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Capability
+   */
+  omit?: Prisma.CapabilityOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CapabilityInclude<ExtArgs> | null
+  where?: Prisma.CapabilityWhereInput
+  orderBy?: Prisma.CapabilityOrderByWithRelationInput | Prisma.CapabilityOrderByWithRelationInput[]
+  cursor?: Prisma.CapabilityWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CapabilityScalarFieldEnum | Prisma.CapabilityScalarFieldEnum[]
+}
+
+/**
+ * Workspace.roadmapRecommendations
+ */
+export type Workspace$roadmapRecommendationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RoadmapRecommendation
+   */
+  select?: Prisma.RoadmapRecommendationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RoadmapRecommendation
+   */
+  omit?: Prisma.RoadmapRecommendationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RoadmapRecommendationInclude<ExtArgs> | null
+  where?: Prisma.RoadmapRecommendationWhereInput
+  orderBy?: Prisma.RoadmapRecommendationOrderByWithRelationInput | Prisma.RoadmapRecommendationOrderByWithRelationInput[]
+  cursor?: Prisma.RoadmapRecommendationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RoadmapRecommendationScalarFieldEnum | Prisma.RoadmapRecommendationScalarFieldEnum[]
+}
+
+/**
+ * Workspace.dashboardSnapshots
+ */
+export type Workspace$dashboardSnapshotsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DashboardSnapshot
+   */
+  select?: Prisma.DashboardSnapshotSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DashboardSnapshot
+   */
+  omit?: Prisma.DashboardSnapshotOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DashboardSnapshotInclude<ExtArgs> | null
+  where?: Prisma.DashboardSnapshotWhereInput
+  orderBy?: Prisma.DashboardSnapshotOrderByWithRelationInput | Prisma.DashboardSnapshotOrderByWithRelationInput[]
+  cursor?: Prisma.DashboardSnapshotWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DashboardSnapshotScalarFieldEnum | Prisma.DashboardSnapshotScalarFieldEnum[]
+}
+
+/**
+ * Workspace.savedViews
+ */
+export type Workspace$savedViewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SavedView
+   */
+  select?: Prisma.SavedViewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SavedView
+   */
+  omit?: Prisma.SavedViewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SavedViewInclude<ExtArgs> | null
+  where?: Prisma.SavedViewWhereInput
+  orderBy?: Prisma.SavedViewOrderByWithRelationInput | Prisma.SavedViewOrderByWithRelationInput[]
+  cursor?: Prisma.SavedViewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SavedViewScalarFieldEnum | Prisma.SavedViewScalarFieldEnum[]
 }
 
 /**

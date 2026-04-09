@@ -17,11 +17,12 @@ export async function WorkspaceBrowserPane({
     session?.user?.email
       ? await prisma.user.findUnique({
           where: { email: session.user.email },
-          select: {
-            id: true,
-            memberships: {
-              orderBy: {
-                createdAt: "desc",
+        select: {
+          id: true,
+          workspaceListDensity: true,
+          memberships: {
+            orderBy: {
+              createdAt: "desc",
               },
               include: {
                 workspace: {
@@ -45,5 +46,11 @@ export async function WorkspaceBrowserPane({
     role: membership.role,
   }));
 
-  return <WorkspaceBrowserList activeSlug={activeSlug} workspaces={workspaces} />;
+  return (
+    <WorkspaceBrowserList
+      activeSlug={activeSlug}
+      workspaces={workspaces}
+      density={user?.workspaceListDensity ?? "COMFORTABLE"}
+    />
+  );
 }

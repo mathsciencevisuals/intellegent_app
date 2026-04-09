@@ -7,9 +7,11 @@ import {
   Clock3,
   Loader2,
   Plus,
+  Rocket,
   Upload,
   UserPlus,
   ArrowRight,
+  Sparkles,
 } from "lucide-react";
 
 import { authConfig } from "@/lib/auth";
@@ -78,7 +80,7 @@ export default async function AppDashboardPage() {
   const workspaceIds = user.memberships.map((m) => m.workspaceId);
   const workspaceSlugs = user.memberships.map((m) => m.workspace.slug);
 
-  const [documents, pendingInvites] = await Promise.all([
+  const [documents, pendingInvites, features] = await Promise.all([
     workspaceIds.length
       ? prisma.document.findMany({
           where: {
@@ -125,6 +127,19 @@ export default async function AppDashboardPage() {
         },
       },
     }),
+    workspaceIds.length
+      ? prisma.feature.findMany({
+          where: {
+            workspaceId: {
+              in: workspaceIds,
+            },
+          },
+          select: {
+            id: true,
+            status: true,
+          },
+        })
+      : Promise.resolve([]),
   ]);
 
   const totals = {
@@ -132,6 +147,7 @@ export default async function AppDashboardPage() {
     documents: documents.length,
     pendingInvites: pendingInvites.length,
     processingJobs: documents.filter((doc) => doc.status === "PROCESSING").length,
+    approvedFeatures: features.filter((feature) => feature.status === "APPROVED").length,
   };
 
   const recentDocuments = documents.slice(0, 5);
@@ -145,6 +161,15 @@ export default async function AppDashboardPage() {
         description="Monitor workspaces, documents, pending invites, and processing activity from a single enterprise view."
         actions={
           <div className="flex flex-wrap gap-2">
+            <Link
+              href="/onboarding"
+              className="rounded-xl border px-4 py-2 text-sm font-medium transition hover:bg-neutral-100"
+            >
+              <span className="inline-flex items-center gap-2">
+                <Rocket className="h-4 w-4" />
+                First-value setup
+              </span>
+            </Link>
             <Link
               href="/invites"
               className="rounded-xl border px-4 py-2 text-sm font-medium transition hover:bg-neutral-100"
@@ -164,7 +189,7 @@ export default async function AppDashboardPage() {
         }
       />
 
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
         <StatCard
           title="Workspaces"
           value={totals.workspaces}
@@ -189,6 +214,12 @@ export default async function AppDashboardPage() {
           description="Documents currently processing"
           icon={<Loader2 className="h-5 w-5" />}
         />
+        <StatCard
+          title="Approved features"
+          value={totals.approvedFeatures}
+          description="Reviewed feature candidates"
+          icon={<Sparkles className="h-5 w-5" />}
+        />
       </div>
 
       <div className="grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">
@@ -199,7 +230,18 @@ export default async function AppDashboardPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid gap-3 md:grid-cols-3">
+            <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+              <Link
+                href="/onboarding"
+                className="rounded-2xl border p-4 transition hover:bg-neutral-50"
+              >
+                <Rocket className="mb-3 h-5 w-5" />
+                <div className="font-medium">Run onboarding</div>
+                <div className="mt-1 text-sm text-neutral-500">
+                  Create a workspace, connect a source, and trigger the first scan.
+                </div>
+              </Link>
+
               <Link
                 href="/workspaces/new"
                 className="rounded-2xl border p-4 transition hover:bg-neutral-50"

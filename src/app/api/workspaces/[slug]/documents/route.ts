@@ -6,6 +6,8 @@ import { getServerSession } from "next-auth";
 
 import { prisma } from "@/lib/prisma";
 import { authConfig } from "@/lib/auth";
+import { processDocumentFile } from "@/lib/documents/process-document";
+import { runMockExtractionJob } from "@/lib/features/run-mock-extraction-job";
 
 type RouteContext = {
   params: Promise<{
@@ -89,6 +91,7 @@ export async function GET(_req: NextRequest, { params }: RouteContext) {
 
 export async function POST(req: NextRequest, { params }: RouteContext) {
   let documentId: string | null = null;
+  let extractionJobId: string | null = null;
 
   try {
     const session = await getServerSession(authConfig);
@@ -132,6 +135,11 @@ export async function POST(req: NextRequest, { params }: RouteContext) {
 
     const formData = await req.formData();
     const file = formData.get("file");
+    const sourceIdValue = formData.get("sourceId");
+    const sourceId =
+      typeof sourceIdValue === "string" && sourceIdValue.trim().length > 0
+        ? sourceIdValue.trim()
+        : null;
 
     if (!(file instanceof File)) {
       return NextResponse.json(
@@ -161,18 +169,55 @@ export async function POST(req: NextRequest, { params }: RouteContext) {
       );
     }
 
+    if (sourceId) {
+      const source = await prisma.source.findFirst({
+        where: {
+          id: sourceId,
+          workspaceId: workspace.id,
+        },
+        select: {
+          id: true,
+        },
+      });
+
+      if (!source) {
+        return NextResponse.json(
+          { error: "Selected source does not belong to this workspace" },
+          { status: 400 }
+        );
+      }
+    }
+
     const document = await prisma.document.create({
       data: {
         workspaceId: workspace.id,
+        sourceId,
         title: file.name,
         fileName: file.name,
         mimeType: file.type || null,
         fileSize: file.size,
         status: "PROCESSING",
+        processingStartedAt: new Date(),
       },
     });
 
     documentId = document.id;
+
+    const extractionJob = await prisma.extractionJob.create({
+      data: {
+        workspaceId: workspace.id,
+        documentId: document.id,
+        status: "QUEUED",
+        trigger: "UPLOAD",
+        provider: "mock-parser",
+        logs: "Upload accepted. Waiting for mock extraction to start.",
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    extractionJobId = extractionJob.id;
 
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
@@ -186,16 +231,42 @@ export async function POST(req: NextRequest, { params }: RouteContext) {
     await mkdir(workspaceUploadDir, { recursive: true });
     await writeFile(filePath, buffer);
 
+    const processed = await processDocumentFile({
+      filePath,
+      fileName: document.fileName,
+      mimeType: document.mimeType,
+      fileSize: document.fileSize,
+    });
+
     const updatedDocument = await prisma.document.update({
       where: { id: document.id },
       data: {
         storageKey,
         status: "READY",
         errorMessage: null,
+        extractedText: processed.extractedText,
+        processingSummary: processed.processingSummary,
+        processedAt: new Date(),
       },
     });
 
-    return NextResponse.json(updatedDocument, { status: 201 });
+    const extractionResult = await runMockExtractionJob({
+      jobId: extractionJob.id,
+      workspaceId: workspace.id,
+      documentId: document.id,
+      documentTitle: updatedDocument.title,
+      extractedText: updatedDocument.extractedText,
+      sourceId,
+    });
+
+    return NextResponse.json(
+      {
+        document: updatedDocument,
+        extractionJobId: extractionJob.id,
+        createdFeatureCount: extractionResult.createdFeatureCount,
+      },
+      { status: 201 }
+    );
   } catch (error) {
     console.error("POST /api/workspaces/[slug]/documents failed:", error);
 
@@ -211,6 +282,24 @@ export async function POST(req: NextRequest, { params }: RouteContext) {
         });
       } catch (updateError) {
         console.error("Failed to mark document as FAILED:", updateError);
+      }
+    }
+
+    if (extractionJobId) {
+      try {
+        await prisma.extractionJob.update({
+          where: { id: extractionJobId },
+          data: {
+            status: "FAILED",
+            completedAt: new Date(),
+            logs:
+              error instanceof Error
+                ? error.message
+                : "Unknown extraction failure during upload.",
+          },
+        });
+      } catch (updateError) {
+        console.error("Failed to mark extraction job as FAILED:", updateError);
       }
     }
 

@@ -7,12 +7,14 @@ import { Button } from "@/components/ui/button";
 
 type Props = {
   initialName: string;
+  initialTitle: string;
   email: string;
 };
 
-export function ProfileSettingsForm({ initialName, email }: Props) {
+export function ProfileSettingsForm({ initialName, initialTitle, email }: Props) {
   const router = useRouter();
   const [name, setName] = useState(initialName);
+  const [title, setTitle] = useState(initialTitle);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -32,6 +34,7 @@ export function ProfileSettingsForm({ initialName, email }: Props) {
         body: JSON.stringify({
           action: "profile",
           name,
+          title,
         }),
       });
 
@@ -69,6 +72,23 @@ export function ProfileSettingsForm({ initialName, email }: Props) {
           />
           <p className="mt-1 text-xs text-neutral-500">
             This name is shown throughout the workspace UI.
+          </p>
+        </div>
+
+        <div>
+          <label className="mb-1 block text-sm font-medium text-neutral-700">
+            Title
+          </label>
+          <input
+            type="text"
+            value={title}
+            onChange={(event) => setTitle(event.target.value)}
+            className="w-full rounded-xl border border-neutral-300 px-3 py-2.5 text-sm outline-none transition focus:border-neutral-500"
+            maxLength={80}
+            placeholder="Operations lead"
+          />
+          <p className="mt-1 text-xs text-neutral-500">
+            Optional role or job title shown in account context.
           </p>
         </div>
 

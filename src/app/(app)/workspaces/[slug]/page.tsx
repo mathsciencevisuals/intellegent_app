@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { FileText, Upload } from "lucide-react";
@@ -46,6 +47,36 @@ export default async function WorkspaceDocumentsPage({ params }: Props) {
         orderBy: {
           createdAt: "desc",
         },
+        include: {
+          source: {
+            select: {
+              id: true,
+              name: true,
+              type: true,
+            },
+          },
+          extractionJobs: {
+            orderBy: {
+              createdAt: "desc",
+            },
+            take: 1,
+            select: {
+              id: true,
+              status: true,
+              featureCount: true,
+            },
+          },
+        },
+      },
+      sources: {
+        orderBy: {
+          createdAt: "desc",
+        },
+        select: {
+          id: true,
+          name: true,
+          type: true,
+        },
       },
     },
   });
@@ -60,6 +91,14 @@ export default async function WorkspaceDocumentsPage({ params }: Props) {
         eyebrow="Workspace"
         title="Documents"
         description={`Upload and manage documents for ${workspace.name}.`}
+        actions={
+          <Link
+            href={`/workspaces/${workspace.slug}/pipeline`}
+            className="rounded-xl border px-4 py-2 text-sm font-medium transition hover:bg-neutral-100"
+          >
+            Open pipeline
+          </Link>
+        }
       />
 
       <Card className="rounded-2xl border-0 shadow-sm">
@@ -70,7 +109,7 @@ export default async function WorkspaceDocumentsPage({ params }: Props) {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <UploadDocumentForm slug={workspace.slug} />
+          <UploadDocumentForm slug={workspace.slug} sources={workspace.sources} />
         </CardContent>
       </Card>
 
@@ -98,6 +137,8 @@ export default async function WorkspaceDocumentsPage({ params }: Props) {
                   <tr>
                     <th className="px-4 py-3 font-medium">Title</th>
                     <th className="px-4 py-3 font-medium">Status</th>
+                    <th className="px-4 py-3 font-medium">Source</th>
+                    <th className="px-4 py-3 font-medium">Latest job</th>
                     <th className="px-4 py-3 font-medium">File name</th>
                     <th className="px-4 py-3 font-medium">Size</th>
                     <th className="px-4 py-3 font-medium">Created</th>
@@ -114,9 +155,30 @@ export default async function WorkspaceDocumentsPage({ params }: Props) {
                             {doc.errorMessage}
                           </div>
                         ) : null}
+                        {doc.processingSummary ? (
+                          <div className="mt-1 text-xs text-neutral-500">
+                            {doc.processingSummary}
+                          </div>
+                        ) : null}
                       </td>
                       <td className="px-4 py-3">
                         <StatusBadge status={doc.status} />
+                      </td>
+                      <td className="px-4 py-3 text-neutral-600">
+                        {doc.source ? `${doc.source.name}` : "Manual"}
+                      </td>
+                      <td className="px-4 py-3 text-neutral-600">
+                        {doc.extractionJobs[0] ? (
+                          <div className="space-y-1">
+                            <StatusBadge status={doc.extractionJobs[0].status} />
+                            <div className="text-xs text-neutral-500">
+                              {doc.extractionJobs[0].featureCount} feature
+                              {doc.extractionJobs[0].featureCount === 1 ? "" : "s"}
+                            </div>
+                          </div>
+                        ) : (
+                          "—"
+                        )}
                       </td>
                       <td className="px-4 py-3 text-neutral-600">
                         {doc.fileName || "—"}
@@ -133,6 +195,7 @@ export default async function WorkspaceDocumentsPage({ params }: Props) {
                         <DocumentActions
                           slug={workspace.slug}
                           documentId={doc.id}
+                          status={doc.status}
                         />
                       </td>
                     </tr>

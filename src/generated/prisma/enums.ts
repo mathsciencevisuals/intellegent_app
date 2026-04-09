@@ -18,6 +18,46 @@ export const WorkspaceRole = {
 export type WorkspaceRole = (typeof WorkspaceRole)[keyof typeof WorkspaceRole]
 
 
+export const SourceType = {
+  MANUAL_UPLOAD: 'MANUAL_UPLOAD',
+  JIRA: 'JIRA',
+  AZURE_DEVOPS: 'AZURE_DEVOPS',
+  CONFLUENCE: 'CONFLUENCE',
+  NOTION: 'NOTION',
+  SHAREPOINT: 'SHAREPOINT'
+} as const
+
+export type SourceType = (typeof SourceType)[keyof typeof SourceType]
+
+
+export const SourceStatus = {
+  ACTIVE: 'ACTIVE',
+  NEEDS_ATTENTION: 'NEEDS_ATTENTION',
+  DISCONNECTED: 'DISCONNECTED'
+} as const
+
+export type SourceStatus = (typeof SourceStatus)[keyof typeof SourceStatus]
+
+
+export const SyncFrequency = {
+  MANUAL: 'MANUAL',
+  DAILY: 'DAILY',
+  WEEKLY: 'WEEKLY'
+} as const
+
+export type SyncFrequency = (typeof SyncFrequency)[keyof typeof SyncFrequency]
+
+
+export const SourceSyncStatus = {
+  QUEUED: 'QUEUED',
+  RUNNING: 'RUNNING',
+  COMPLETED: 'COMPLETED',
+  FAILED: 'FAILED'
+} as const
+
+export type SourceSyncStatus = (typeof SourceSyncStatus)[keyof typeof SourceSyncStatus]
+
+
 export const DocumentStatus = {
   DRAFT: 'DRAFT',
   PROCESSING: 'PROCESSING',
@@ -28,6 +68,35 @@ export const DocumentStatus = {
 export type DocumentStatus = (typeof DocumentStatus)[keyof typeof DocumentStatus]
 
 
+export const ExtractionJobStatus = {
+  QUEUED: 'QUEUED',
+  PROCESSING: 'PROCESSING',
+  COMPLETED: 'COMPLETED',
+  FAILED: 'FAILED'
+} as const
+
+export type ExtractionJobStatus = (typeof ExtractionJobStatus)[keyof typeof ExtractionJobStatus]
+
+
+export const ExtractionTrigger = {
+  UPLOAD: 'UPLOAD',
+  REPROCESS: 'REPROCESS',
+  MANUAL: 'MANUAL'
+} as const
+
+export type ExtractionTrigger = (typeof ExtractionTrigger)[keyof typeof ExtractionTrigger]
+
+
+export const FeatureStatus = {
+  CANDIDATE: 'CANDIDATE',
+  APPROVED: 'APPROVED',
+  MERGED: 'MERGED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type FeatureStatus = (typeof FeatureStatus)[keyof typeof FeatureStatus]
+
+
 export const WorkspaceInviteStatus = {
   PENDING: 'PENDING',
   ACCEPTED: 'ACCEPTED',
@@ -36,3 +105,28 @@ export const WorkspaceInviteStatus = {
 } as const
 
 export type WorkspaceInviteStatus = (typeof WorkspaceInviteStatus)[keyof typeof WorkspaceInviteStatus]
+
+
+export const WorkspaceListDensity = {
+  COMFORTABLE: 'COMFORTABLE',
+  COMPACT: 'COMPACT'
+} as const
+
+export type WorkspaceListDensity = (typeof WorkspaceListDensity)[keyof typeof WorkspaceListDensity]
+
+
+export const SavedViewScope = {
+  FEATURES: 'FEATURES',
+  REPORTS: 'REPORTS'
+} as const
+
+export type SavedViewScope = (typeof SavedViewScope)[keyof typeof SavedViewScope]
+
+
+export const MaturityTier = {
+  NON_AGENTIC: 'NON_AGENTIC',
+  PARTIAL: 'PARTIAL',
+  AGENTIC: 'AGENTIC'
+} as const
+
+export type MaturityTier = (typeof MaturityTier)[keyof typeof MaturityTier]

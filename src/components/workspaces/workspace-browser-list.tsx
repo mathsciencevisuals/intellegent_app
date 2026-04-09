@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useDeferredValue, useState } from "react";
-import { BriefcaseBusiness, Plus, Search } from "lucide-react";
+import { ArrowDown, ArrowUp, ArrowUpRight, Plus, Search } from "lucide-react";
 
 type WorkspaceItem = {
   id: string;
@@ -14,12 +14,17 @@ type WorkspaceItem = {
 type Props = {
   activeSlug?: string;
   workspaces: WorkspaceItem[];
+  density: "COMFORTABLE" | "COMPACT";
 };
 
-export function WorkspaceBrowserList({ activeSlug, workspaces }: Props) {
+type SortDirection = "asc" | "desc";
+
+export function WorkspaceBrowserList({ activeSlug, workspaces, density }: Props) {
   const [query, setQuery] = useState("");
+  const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
   const deferredQuery = useDeferredValue(query);
   const normalizedQuery = deferredQuery.trim().toLowerCase();
+  const rowPadding = density === "COMPACT" ? "px-3 py-2.5" : "px-4 py-3";
 
   const filteredWorkspaces = normalizedQuery
     ? workspaces.filter((workspace) => {
@@ -27,6 +32,17 @@ export function WorkspaceBrowserList({ activeSlug, workspaces }: Props) {
         return haystack.includes(normalizedQuery);
       })
     : workspaces;
+  const sortedWorkspaces = [...filteredWorkspaces].sort((left, right) => {
+    const comparison = left.name.localeCompare(right.name, undefined, {
+      sensitivity: "base",
+    });
+
+    return sortDirection === "asc" ? comparison : -comparison;
+  });
+
+  function toggleSort() {
+    setSortDirection((current) => (current === "asc" ? "desc" : "asc"));
+  }
 
   return (
     <aside className="flex h-full min-h-screen w-full flex-col border-r bg-white">
@@ -68,7 +84,7 @@ export function WorkspaceBrowserList({ activeSlug, workspaces }: Props) {
           </div>
         </div>
 
-        <div className="space-y-2">
+        <div>
           {workspaces.length === 0 ? (
             <div className="rounded-2xl border border-dashed p-4 text-sm text-neutral-500">
               No workspaces yet.
@@ -78,51 +94,88 @@ export function WorkspaceBrowserList({ activeSlug, workspaces }: Props) {
               No workspaces match <span className="font-medium">{query}</span>.
             </div>
           ) : (
-            filteredWorkspaces.map((workspace) => {
-              const isActive = workspace.slug === activeSlug;
+            <div className="overflow-hidden rounded-2xl border">
+              <div className="overflow-x-auto">
+                <table className="w-full min-w-[520px] text-sm">
+                  <thead className="bg-neutral-50 text-left text-neutral-500">
+                    <tr>
+                      <th className={rowPadding + " font-medium"}>
+                        <button
+                          type="button"
+                          onClick={toggleSort}
+                          className="inline-flex items-center gap-1.5 hover:text-neutral-700"
+                        >
+                          Workspace
+                          {sortDirection === "asc" ? (
+                            <ArrowUp className="h-3.5 w-3.5" />
+                          ) : (
+                            <ArrowDown className="h-3.5 w-3.5" />
+                          )}
+                        </button>
+                      </th>
+                      <th className={rowPadding + " font-medium"}>Role</th>
+                      <th className={rowPadding + " font-medium"}>Slug</th>
+                      <th className={rowPadding + " font-medium text-right"}>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {sortedWorkspaces.map((workspace) => {
+                      const isActive = workspace.slug === activeSlug;
 
-              return (
-                <Link
-                  key={workspace.id}
-                  href={`/workspaces/${workspace.slug}`}
-                  className={`block rounded-2xl border p-4 transition ${
-                    isActive
-                      ? "border-neutral-900 bg-neutral-900 text-white"
-                      : "bg-white text-neutral-900 hover:bg-neutral-50"
-                  }`}
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="min-w-0">
-                      <div className="truncate font-medium">{workspace.name}</div>
-                      <div
-                        className={`mt-1 text-xs ${
-                          isActive ? "text-neutral-300" : "text-neutral-500"
-                        }`}
-                      >
-                        Role: {workspace.role}
-                      </div>
-                      <div
-                        className={`mt-1 truncate text-xs ${
-                          isActive ? "text-neutral-400" : "text-neutral-400"
-                        }`}
-                      >
-                        {workspace.slug}
-                      </div>
-                    </div>
-
-                    <div
-                      className={`flex h-9 w-9 items-center justify-center rounded-xl border ${
-                        isActive
-                          ? "border-white/20 bg-white/10 text-white"
-                          : "border-neutral-200 bg-neutral-50 text-neutral-600"
-                      }`}
-                    >
-                      <BriefcaseBusiness className="h-4 w-4" />
-                    </div>
-                  </div>
-                </Link>
-              );
-            })
+                      return (
+                        <tr
+                          key={workspace.id}
+                          className={`border-t transition ${
+                            isActive ? "bg-neutral-900 text-white" : "bg-white hover:bg-neutral-50"
+                          }`}
+                        >
+                          <td className={rowPadding}>
+                            <Link
+                              href={`/workspaces/${workspace.slug}`}
+                              className="block min-w-0"
+                            >
+                              <div className="truncate font-medium">{workspace.name}</div>
+                            </Link>
+                          </td>
+                          <td
+                            className={`${rowPadding} ${
+                              isActive ? "text-neutral-200" : "text-neutral-600"
+                            }`}
+                          >
+                            {workspace.role}
+                          </td>
+                          <td
+                            className={`${rowPadding} ${
+                              isActive ? "text-neutral-300" : "text-neutral-500"
+                            }`}
+                          >
+                            <Link
+                              href={`/workspaces/${workspace.slug}`}
+                              className="block truncate"
+                            >
+                              {workspace.slug}
+                            </Link>
+                          </td>
+                          <td className={rowPadding + " text-right"}>
+                            <Link
+                              href={`/workspaces/${workspace.slug}`}
+                              className={`inline-flex items-center gap-1 font-medium ${
+                                isActive
+                                  ? "text-white hover:text-neutral-200"
+                                  : "text-neutral-700 hover:text-neutral-900"
+                              }`}
+                            >
+                              Open
+                              <ArrowUpRight className="h-4 w-4" />
+                            </Link>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           )}
         </div>
       </div>

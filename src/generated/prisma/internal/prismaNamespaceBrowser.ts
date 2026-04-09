@@ -58,7 +58,17 @@ export const ModelName = {
   Account: 'Account',
   Session: 'Session',
   VerificationToken: 'VerificationToken',
-  WorkspaceInvite: 'WorkspaceInvite'
+  WorkspaceInvite: 'WorkspaceInvite',
+  Source: 'Source',
+  SourceSync: 'SourceSync',
+  ExtractionJob: 'ExtractionJob',
+  Feature: 'Feature',
+  FeatureSource: 'FeatureSource',
+  SavedView: 'SavedView',
+  Capability: 'Capability',
+  CapabilityAssessment: 'CapabilityAssessment',
+  RoadmapRecommendation: 'RoadmapRecommendation',
+  DashboardSnapshot: 'DashboardSnapshot'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -80,11 +90,15 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  title: 'title',
   email: 'email',
   emailVerified: 'emailVerified',
   image: 'image',
   passwordHash: 'passwordHash',
   role: 'role',
+  emailNotificationsEnabled: 'emailNotificationsEnabled',
+  weeklyDigestEnabled: 'weeklyDigestEnabled',
+  workspaceListDensity: 'workspaceListDensity',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -118,6 +132,7 @@ export type MembershipScalarFieldEnum = (typeof MembershipScalarFieldEnum)[keyof
 export const DocumentScalarFieldEnum = {
   id: 'id',
   workspaceId: 'workspaceId',
+  sourceId: 'sourceId',
   title: 'title',
   fileName: 'fileName',
   mimeType: 'mimeType',
@@ -125,6 +140,10 @@ export const DocumentScalarFieldEnum = {
   status: 'status',
   storageKey: 'storageKey',
   errorMessage: 'errorMessage',
+  processingSummary: 'processingSummary',
+  extractedText: 'extractedText',
+  processingStartedAt: 'processingStartedAt',
+  processedAt: 'processedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -186,12 +205,200 @@ export const WorkspaceInviteScalarFieldEnum = {
 export type WorkspaceInviteScalarFieldEnum = (typeof WorkspaceInviteScalarFieldEnum)[keyof typeof WorkspaceInviteScalarFieldEnum]
 
 
+export const SourceScalarFieldEnum = {
+  id: 'id',
+  workspaceId: 'workspaceId',
+  name: 'name',
+  type: 'type',
+  status: 'status',
+  syncFrequency: 'syncFrequency',
+  connectionNotes: 'connectionNotes',
+  lastSyncedAt: 'lastSyncedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SourceScalarFieldEnum = (typeof SourceScalarFieldEnum)[keyof typeof SourceScalarFieldEnum]
+
+
+export const SourceSyncScalarFieldEnum = {
+  id: 'id',
+  workspaceId: 'workspaceId',
+  sourceId: 'sourceId',
+  status: 'status',
+  recordsFound: 'recordsFound',
+  summary: 'summary',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SourceSyncScalarFieldEnum = (typeof SourceSyncScalarFieldEnum)[keyof typeof SourceSyncScalarFieldEnum]
+
+
+export const ExtractionJobScalarFieldEnum = {
+  id: 'id',
+  workspaceId: 'workspaceId',
+  documentId: 'documentId',
+  status: 'status',
+  trigger: 'trigger',
+  provider: 'provider',
+  logs: 'logs',
+  featureCount: 'featureCount',
+  confidenceAvg: 'confidenceAvg',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ExtractionJobScalarFieldEnum = (typeof ExtractionJobScalarFieldEnum)[keyof typeof ExtractionJobScalarFieldEnum]
+
+
+export const FeatureScalarFieldEnum = {
+  id: 'id',
+  workspaceId: 'workspaceId',
+  capabilityId: 'capabilityId',
+  mergedIntoFeatureId: 'mergedIntoFeatureId',
+  title: 'title',
+  module: 'module',
+  description: 'description',
+  status: 'status',
+  tags: 'tags',
+  confidenceScore: 'confidenceScore',
+  owner: 'owner',
+  reviewedAt: 'reviewedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FeatureScalarFieldEnum = (typeof FeatureScalarFieldEnum)[keyof typeof FeatureScalarFieldEnum]
+
+
+export const FeatureSourceScalarFieldEnum = {
+  id: 'id',
+  featureId: 'featureId',
+  documentId: 'documentId',
+  sourceId: 'sourceId',
+  excerpt: 'excerpt',
+  createdAt: 'createdAt'
+} as const
+
+export type FeatureSourceScalarFieldEnum = (typeof FeatureSourceScalarFieldEnum)[keyof typeof FeatureSourceScalarFieldEnum]
+
+
+export const SavedViewScalarFieldEnum = {
+  id: 'id',
+  workspaceId: 'workspaceId',
+  userId: 'userId',
+  scope: 'scope',
+  name: 'name',
+  filters: 'filters',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SavedViewScalarFieldEnum = (typeof SavedViewScalarFieldEnum)[keyof typeof SavedViewScalarFieldEnum]
+
+
+export const CapabilityScalarFieldEnum = {
+  id: 'id',
+  workspaceId: 'workspaceId',
+  extractionJobId: 'extractionJobId',
+  name: 'name',
+  module: 'module',
+  description: 'description',
+  extractedFeatureCount: 'extractedFeatureCount',
+  hiddenFeatureEstimate: 'hiddenFeatureEstimate',
+  currentMaturityTier: 'currentMaturityTier',
+  confidenceAvg: 'confidenceAvg',
+  summaryNarrative: 'summaryNarrative',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CapabilityScalarFieldEnum = (typeof CapabilityScalarFieldEnum)[keyof typeof CapabilityScalarFieldEnum]
+
+
+export const CapabilityAssessmentScalarFieldEnum = {
+  id: 'id',
+  capabilityId: 'capabilityId',
+  maturityTier: 'maturityTier',
+  rationale: 'rationale',
+  complexityScore: 'complexityScore',
+  agentTypeLabel: 'agentTypeLabel',
+  weeklyHoursWasted: 'weeklyHoursWasted',
+  yearlyHoursWasted: 'yearlyHoursWasted',
+  annualDollarImpact: 'annualDollarImpact',
+  repeatabilityScore: 'repeatabilityScore',
+  roiScore: 'roiScore',
+  dataAvailabilityScore: 'dataAvailabilityScore',
+  riskScore: 'riskScore',
+  compositeOpportunityScore: 'compositeOpportunityScore',
+  impactTags: 'impactTags',
+  scoreExplanations: 'scoreExplanations',
+  implementationGuidance: 'implementationGuidance',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CapabilityAssessmentScalarFieldEnum = (typeof CapabilityAssessmentScalarFieldEnum)[keyof typeof CapabilityAssessmentScalarFieldEnum]
+
+
+export const RoadmapRecommendationScalarFieldEnum = {
+  id: 'id',
+  workspaceId: 'workspaceId',
+  extractionJobId: 'extractionJobId',
+  capabilityId: 'capabilityId',
+  priority: 'priority',
+  phase: 'phase',
+  title: 'title',
+  summary: 'summary',
+  quickWin: 'quickWin',
+  kpisJson: 'kpisJson',
+  risksJson: 'risksJson',
+  breakEvenMonths: 'breakEvenMonths',
+  implementationNotes: 'implementationNotes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RoadmapRecommendationScalarFieldEnum = (typeof RoadmapRecommendationScalarFieldEnum)[keyof typeof RoadmapRecommendationScalarFieldEnum]
+
+
+export const DashboardSnapshotScalarFieldEnum = {
+  id: 'id',
+  workspaceId: 'workspaceId',
+  extractionJobId: 'extractionJobId',
+  kpiJson: 'kpiJson',
+  moduleBreakdownJson: 'moduleBreakdownJson',
+  donutChartJson: 'donutChartJson',
+  topOpportunitiesJson: 'topOpportunitiesJson',
+  roadmapStatsJson: 'roadmapStatsJson',
+  riskRegisterJson: 'riskRegisterJson',
+  quickWinsJson: 'quickWinsJson',
+  uiCopyJson: 'uiCopyJson',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DashboardSnapshotScalarFieldEnum = (typeof DashboardSnapshotScalarFieldEnum)[keyof typeof DashboardSnapshotScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
@@ -208,4 +415,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

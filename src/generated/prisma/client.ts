@@ -81,3 +81,53 @@ export type VerificationToken = Prisma.VerificationTokenModel
  * 
  */
 export type WorkspaceInvite = Prisma.WorkspaceInviteModel
+/**
+ * Model Source
+ * 
+ */
+export type Source = Prisma.SourceModel
+/**
+ * Model SourceSync
+ * 
+ */
+export type SourceSync = Prisma.SourceSyncModel
+/**
+ * Model ExtractionJob
+ * 
+ */
+export type ExtractionJob = Prisma.ExtractionJobModel
+/**
+ * Model Feature
+ * 
+ */
+export type Feature = Prisma.FeatureModel
+/**
+ * Model FeatureSource
+ * 
+ */
+export type FeatureSource = Prisma.FeatureSourceModel
+/**
+ * Model SavedView
+ * 
+ */
+export type SavedView = Prisma.SavedViewModel
+/**
+ * Model Capability
+ * 
+ */
+export type Capability = Prisma.CapabilityModel
+/**
+ * Model CapabilityAssessment
+ * 
+ */
+export type CapabilityAssessment = Prisma.CapabilityAssessmentModel
+/**
+ * Model RoadmapRecommendation
+ * 
+ */
+export type RoadmapRecommendation = Prisma.RoadmapRecommendationModel
+/**
+ * Model DashboardSnapshot
+ * 
+ */
+export type DashboardSnapshot = Prisma.DashboardSnapshotModel

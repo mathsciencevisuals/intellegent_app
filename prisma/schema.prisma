@@ -10,11 +10,15 @@ datasource db {
 model User {
   id            String    @id @default(cuid())
   name          String?
+  title         String?
   email         String    @unique
   emailVerified DateTime?
   image         String?
   passwordHash  String?
   role          String    @default("member")
+  emailNotificationsEnabled Boolean @default(true)
+  weeklyDigestEnabled       Boolean @default(false)
+  workspaceListDensity      WorkspaceListDensity @default(COMFORTABLE)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
@@ -23,6 +27,7 @@ model User {
   accounts        Account[]
   sessions        Session[]
   sentInvites     WorkspaceInvite[] @relation("WorkspaceInviteInvitedBy")
+  savedViews      SavedView[]
 }
 
 model Workspace {
@@ -37,6 +42,14 @@ model Workspace {
   memberships Membership[]
   documents   Document[]
   invites     WorkspaceInvite[]
+  sources     Source[]
+  sourceSyncs SourceSync[]
+  extractionJobs ExtractionJob[]
+  features    Feature[]
+  capabilities Capability[]
+  roadmapRecommendations RoadmapRecommendation[]
+  dashboardSnapshots DashboardSnapshot[]
+  savedViews  SavedView[]
 }
 
 model Membership {
@@ -55,6 +68,7 @@ model Membership {
 model Document {
   id           String         @id @default(cuid())
   workspaceId  String
+  sourceId     String?
   title        String
   fileName     String?
   mimeType     String?
@@ -62,10 +76,17 @@ model Document {
   status       DocumentStatus @default(DRAFT)
   storageKey   String?
   errorMessage String?
+  processingSummary   String?
+  extractedText       String?
+  processingStartedAt DateTime?
+  processedAt         DateTime?
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
 
   workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  source Source? @relation(fields: [sourceId], references: [id], onDelete: SetNull)
+  extractionJobs ExtractionJob[]
+  featureSources FeatureSource[]
 }
 
 model Account {
@@ -126,10 +147,259 @@ model WorkspaceInvite {
   @@index([workspaceId, email])
 }
 
+model Source {
+  id              String              @id @default(cuid())
+  workspaceId     String
+  name            String
+  type            SourceType
+  status          SourceStatus        @default(ACTIVE)
+  syncFrequency   SyncFrequency       @default(MANUAL)
+  connectionNotes String?
+  lastSyncedAt    DateTime?
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  documents Document[]
+  syncs     SourceSync[]
+  featureSources FeatureSource[]
+
+  @@index([workspaceId, type])
+}
+
+model SourceSync {
+  id           String           @id @default(cuid())
+  workspaceId  String
+  sourceId     String
+  status       SourceSyncStatus @default(QUEUED)
+  recordsFound Int              @default(0)
+  summary      String?
+  startedAt    DateTime?
+  completedAt  DateTime?
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  source    Source    @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId, createdAt])
+  @@index([sourceId, createdAt])
+}
+
+model ExtractionJob {
+  id               String              @id @default(cuid())
+  workspaceId      String
+  documentId       String
+  status           ExtractionJobStatus @default(QUEUED)
+  trigger          ExtractionTrigger   @default(UPLOAD)
+  provider         String?
+  logs             String?
+  featureCount     Int                 @default(0)
+  confidenceAvg    Int?
+  startedAt        DateTime?
+  completedAt      DateTime?
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  document  Document  @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  capabilities Capability[]
+  roadmapRecommendations RoadmapRecommendation[]
+  dashboardSnapshot DashboardSnapshot?
+
+  @@index([workspaceId, createdAt])
+  @@index([documentId, createdAt])
+}
+
+model Feature {
+  id              String            @id @default(cuid())
+  workspaceId     String
+  capabilityId    String?
+  mergedIntoFeatureId String?
+  title           String
+  module          String?
+  description     String?
+  status          FeatureStatus     @default(CANDIDATE)
+  tags            String[]
+  confidenceScore Int               @default(50)
+  owner           String?
+  reviewedAt      DateTime?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  capability Capability? @relation(fields: [capabilityId], references: [id], onDelete: SetNull)
+  mergedInto Feature? @relation("FeatureMerge", fields: [mergedIntoFeatureId], references: [id], onDelete: SetNull)
+  mergedFeatures Feature[] @relation("FeatureMerge")
+  sources   FeatureSource[]
+
+  @@index([workspaceId, status])
+  @@index([workspaceId, confidenceScore])
+  @@index([capabilityId])
+  @@index([mergedIntoFeatureId])
+}
+
+model FeatureSource {
+  id         String   @id @default(cuid())
+  featureId  String
+  documentId String
+  sourceId   String?
+  excerpt    String?
+  createdAt  DateTime @default(now())
+
+  feature  Feature  @relation(fields: [featureId], references: [id], onDelete: Cascade)
+  document Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  source   Source?  @relation(fields: [sourceId], references: [id], onDelete: SetNull)
+
+  @@index([featureId])
+  @@index([documentId])
+  @@index([sourceId])
+}
+
+model SavedView {
+  id         String         @id @default(cuid())
+  workspaceId String
+  userId     String
+  scope      SavedViewScope
+  name       String
+  filters    Json
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId, userId, scope, createdAt])
+  @@unique([workspaceId, userId, scope, name])
+}
+
+model Capability {
+  id                    String                 @id @default(cuid())
+  workspaceId           String
+  extractionJobId       String
+  name                  String
+  module                String
+  description           String?
+  extractedFeatureCount Int                    @default(0)
+  hiddenFeatureEstimate Int                    @default(0)
+  currentMaturityTier   MaturityTier
+  confidenceAvg         Int?
+  summaryNarrative      String?
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+
+  workspace             Workspace              @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  extractionJob         ExtractionJob          @relation(fields: [extractionJobId], references: [id], onDelete: Cascade)
+  features              Feature[]
+  assessment            CapabilityAssessment?
+  roadmapRecommendations RoadmapRecommendation[]
+
+  @@index([workspaceId, extractionJobId])
+  @@index([workspaceId, module])
+}
+
+model CapabilityAssessment {
+  id                     String       @id @default(cuid())
+  capabilityId           String       @unique
+  maturityTier           MaturityTier
+  rationale              String
+  complexityScore        Int
+  agentTypeLabel         String
+  weeklyHoursWasted      Int
+  yearlyHoursWasted      Int
+  annualDollarImpact     Int
+  repeatabilityScore     Int
+  roiScore               Int
+  dataAvailabilityScore  Int
+  riskScore              Int
+  compositeOpportunityScore Int
+  impactTags             String[]
+  scoreExplanations      Json
+  implementationGuidance Json
+  createdAt              DateTime     @default(now())
+  updatedAt              DateTime     @updatedAt
+
+  capability Capability @relation(fields: [capabilityId], references: [id], onDelete: Cascade)
+}
+
+model RoadmapRecommendation {
+  id                  String   @id @default(cuid())
+  workspaceId         String
+  extractionJobId     String
+  capabilityId        String?
+  priority            Int
+  phase               String
+  title               String
+  summary             String
+  quickWin            Boolean  @default(false)
+  kpisJson            Json
+  risksJson           Json
+  breakEvenMonths     Int
+  implementationNotes String
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  extractionJob ExtractionJob @relation(fields: [extractionJobId], references: [id], onDelete: Cascade)
+  capability Capability? @relation(fields: [capabilityId], references: [id], onDelete: SetNull)
+
+  @@index([workspaceId, extractionJobId, priority])
+  @@index([capabilityId])
+}
+
+model DashboardSnapshot {
+  id                   String   @id @default(cuid())
+  workspaceId          String
+  extractionJobId      String   @unique
+  kpiJson              Json
+  moduleBreakdownJson  Json
+  donutChartJson       Json
+  topOpportunitiesJson Json
+  roadmapStatsJson     Json
+  riskRegisterJson     Json
+  quickWinsJson        Json
+  uiCopyJson           Json
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  extractionJob ExtractionJob @relation(fields: [extractionJobId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId, createdAt])
+}
+
 enum WorkspaceRole {
   OWNER
   ADMIN
   MEMBER
+}
+
+enum SourceType {
+  MANUAL_UPLOAD
+  JIRA
+  AZURE_DEVOPS
+  CONFLUENCE
+  NOTION
+  SHAREPOINT
+}
+
+enum SourceStatus {
+  ACTIVE
+  NEEDS_ATTENTION
+  DISCONNECTED
+}
+
+enum SyncFrequency {
+  MANUAL
+  DAILY
+  WEEKLY
+}
+
+enum SourceSyncStatus {
+  QUEUED
+  RUNNING
+  COMPLETED
+  FAILED
 }
 
 enum DocumentStatus {
@@ -139,9 +409,45 @@ enum DocumentStatus {
   FAILED
 }
 
+enum ExtractionJobStatus {
+  QUEUED
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+enum ExtractionTrigger {
+  UPLOAD
+  REPROCESS
+  MANUAL
+}
+
+enum FeatureStatus {
+  CANDIDATE
+  APPROVED
+  MERGED
+  REJECTED
+}
+
 enum WorkspaceInviteStatus {
   PENDING
   ACCEPTED
   DECLINED
   EXPIRED
+}
+
+enum WorkspaceListDensity {
+  COMFORTABLE
+  COMPACT
+}
+
+enum SavedViewScope {
+  FEATURES
+  REPORTS
+}
+
+enum MaturityTier {
+  NON_AGENTIC
+  PARTIAL
+  AGENTIC
 }
