@@ -98,6 +98,14 @@ export type AutomationOpportunity = {
   scores: OpportunityScores;
   impact: OpportunityImpact;
   priorityScore: number;
+  trust: {
+    confidence: number;
+    confidenceLabel: string;
+    sourceCount: number;
+    evidenceCount: number;
+    reviewGuidance: string;
+    pipelineVersion: string;
+  };
   evidenceFeatureIds: string[];
   currentAutomationLevel: number;
   scoreExplanation: OpportunityScoreExplanation;
@@ -208,4 +216,12 @@ export type OpportunityResponse = {
   scores: OpportunityScores;
   impact: OpportunityImpact;
   priorityScore: number;
+  trust: {
+    confidence: number;
+    confidenceLabel: string;
+    sourceCount: number;
+    evidenceCount: number;
+    reviewGuidance: string;
+    pipelineVersion: string;
+  };
 };

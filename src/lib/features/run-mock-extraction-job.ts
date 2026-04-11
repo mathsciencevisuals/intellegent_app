@@ -1,5 +1,17 @@
+import { Prisma } from "@/generated/prisma/client";
 import { prisma } from "@/lib/prisma";
+import { buildDocumentAnalysisFromPipeline } from "@/lib/document-analysis";
 import { PipelineOrchestrator } from "@/lib/pipeline/pipeline-orchestrator";
+import { resolveWorkspaceAiRuntime } from "@/lib/ai-config/workspace-ai-config";
+
+function isMissingExtractionJobColumnError(error: unknown) {
+  return (
+    error instanceof Prisma.PrismaClientKnownRequestError &&
+    /ExtractionJob\.(providerUsed|modelUsed|promptVersionUsed|temperatureUsed|maxTokensUsed).*does not exist/i.test(
+      error.message
+    )
+  );
+}
 
 export async function runMockExtractionJob(input: {
   jobId: string;
@@ -10,15 +22,39 @@ export async function runMockExtractionJob(input: {
   sourceId?: string | null;
 }) {
   const orchestrator = new PipelineOrchestrator();
+  const aiRuntime = await resolveWorkspaceAiRuntime(
+    input.workspaceId,
+    "featureExtraction"
+  );
 
-  await prisma.extractionJob.update({
-    where: { id: input.jobId },
-    data: {
-      status: "PROCESSING",
-      startedAt: new Date(),
-      logs: "Mock extraction started from parsed document text.",
-    },
-  });
+  try {
+    await prisma.extractionJob.update({
+      where: { id: input.jobId },
+      data: {
+        status: "PROCESSING",
+        startedAt: new Date(),
+        providerUsed: aiRuntime.provider,
+        modelUsed: aiRuntime.model,
+        promptVersionUsed: aiRuntime.promptVersion,
+        temperatureUsed: aiRuntime.temperature,
+        maxTokensUsed: aiRuntime.maxTokens,
+        logs: "Mock extraction started from parsed document text.",
+      },
+    });
+  } catch (error) {
+    if (!isMissingExtractionJobColumnError(error)) {
+      throw error;
+    }
+
+    await prisma.extractionJob.update({
+      where: { id: input.jobId },
+      data: {
+        status: "PROCESSING",
+        startedAt: new Date(),
+        logs: "Mock extraction started from parsed document text.",
+      },
+    });
+  }
 
   const candidates = orchestrator.buildFeatureSeeds({
     documentTitle: input.documentTitle,
@@ -79,6 +115,7 @@ export async function runMockExtractionJob(input: {
     sourceId: input.sourceId,
   });
   const output = orchestrator.buildOutput(createdFeatures);
+  const documentAnalysis = buildDocumentAnalysisFromPipeline(input.documentTitle, output);
   const analyticsPersisted = await orchestrator.persistAnalytics({
     extractionJobId: input.jobId,
     workspaceId: input.workspaceId,
@@ -92,6 +129,15 @@ export async function runMockExtractionJob(input: {
             createdFeatures.length
         )
       : null;
+
+  await prisma.document.update({
+    where: { id: input.documentId },
+    data: {
+      analysisStatus: "done",
+      analysisResult: documentAnalysis.analysisResult as object,
+      roadmapResult: documentAnalysis.roadmapResult as object,
+    },
+  });
 
   await prisma.extractionJob.update({
     where: { id: input.jobId },
@@ -117,5 +163,6 @@ export async function runMockExtractionJob(input: {
   return {
     createdFeatureCount: createdFeatures.length,
     confidenceAvg,
+    documentAnalysis,
   };
 }

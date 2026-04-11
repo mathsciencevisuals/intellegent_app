@@ -16,7 +16,7 @@ test("computeRoiPotential applies the configured weighted formula", () => {
     normalizedStrategicValue: 40,
   });
 
-  assert.equal(score, 63);
+  assert.equal(score, 55);
 });
 
 test("computeRiskScore applies the configured weighted formula", () => {
@@ -27,7 +27,7 @@ test("computeRiskScore applies the configured weighted formula", () => {
     changeManagementRisk: 50,
   });
 
-  assert.equal(score, 67);
+  assert.equal(score, 75);
 });
 
 test("computePriorityScore includes maturity gap bonus", () => {
@@ -76,8 +76,8 @@ test("ScoringService returns deterministic bounded scores", () => {
 
   assert.deepEqual(scores, {
     repeatability: 74,
-    roiPotential: 76,
+    roiPotential: 68,
     dataAvailability: 71,
-    risk: 36,
+    risk: 44,
   });
 });

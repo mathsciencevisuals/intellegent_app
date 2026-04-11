@@ -91,7 +91,16 @@ test("OpportunityAggregationService builds a stable opportunity response", () =>
   assert.equal(opportunity.agentType, "Decision-support agent");
   assert.equal(opportunity.impact.yearlyHoursSaved, 700);
   assert.equal(opportunity.impact.annualDollarValue, 45500);
-  assert.equal(opportunity.priorityScore, 55);
+  assert.equal(opportunity.priorityScore, 51);
+  assert.deepEqual(opportunity.trust, {
+    confidence: 78,
+    confidenceLabel: "Moderate confidence",
+    sourceCount: 3,
+    evidenceCount: 2,
+    reviewGuidance:
+      "Review supporting evidence and edge cases before treating this as roadmap input.",
+    pipelineVersion: "trust-v1",
+  });
   assert.deepEqual(opportunity.tags, [
     "Time savings",
     "Compliance",

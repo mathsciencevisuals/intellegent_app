@@ -49,6 +49,7 @@ export type DocumentMinAggregateOutputType = {
   extractedText: string | null
   processingStartedAt: Date | null
   processedAt: Date | null
+  analysisStatus: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -68,6 +69,7 @@ export type DocumentMaxAggregateOutputType = {
   extractedText: string | null
   processingStartedAt: Date | null
   processedAt: Date | null
+  analysisStatus: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -87,6 +89,9 @@ export type DocumentCountAggregateOutputType = {
   extractedText: number
   processingStartedAt: number
   processedAt: number
+  analysisStatus: number
+  analysisResult: number
+  roadmapResult: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -116,6 +121,7 @@ export type DocumentMinAggregateInputType = {
   extractedText?: true
   processingStartedAt?: true
   processedAt?: true
+  analysisStatus?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -135,6 +141,7 @@ export type DocumentMaxAggregateInputType = {
   extractedText?: true
   processingStartedAt?: true
   processedAt?: true
+  analysisStatus?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -154,6 +161,9 @@ export type DocumentCountAggregateInputType = {
   extractedText?: true
   processingStartedAt?: true
   processedAt?: true
+  analysisStatus?: true
+  analysisResult?: true
+  roadmapResult?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -260,6 +270,9 @@ export type DocumentGroupByOutputType = {
   extractedText: string | null
   processingStartedAt: Date | null
   processedAt: Date | null
+  analysisStatus: string | null
+  analysisResult: runtime.JsonValue | null
+  roadmapResult: runtime.JsonValue | null
   createdAt: Date
   updatedAt: Date
   _count: DocumentCountAggregateOutputType | null
@@ -302,6 +315,9 @@ export type DocumentWhereInput = {
   extractedText?: Prisma.StringNullableFilter<"Document"> | string | null
   processingStartedAt?: Prisma.DateTimeNullableFilter<"Document"> | Date | string | null
   processedAt?: Prisma.DateTimeNullableFilter<"Document"> | Date | string | null
+  analysisStatus?: Prisma.StringNullableFilter<"Document"> | string | null
+  analysisResult?: Prisma.JsonNullableFilter<"Document">
+  roadmapResult?: Prisma.JsonNullableFilter<"Document">
   createdAt?: Prisma.DateTimeFilter<"Document"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Document"> | Date | string
   workspace?: Prisma.XOR<Prisma.WorkspaceScalarRelationFilter, Prisma.WorkspaceWhereInput>
@@ -325,6 +341,9 @@ export type DocumentOrderByWithRelationInput = {
   extractedText?: Prisma.SortOrderInput | Prisma.SortOrder
   processingStartedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   processedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  analysisStatus?: Prisma.SortOrderInput | Prisma.SortOrder
+  analysisResult?: Prisma.SortOrderInput | Prisma.SortOrder
+  roadmapResult?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   workspace?: Prisma.WorkspaceOrderByWithRelationInput
@@ -351,6 +370,9 @@ export type DocumentWhereUniqueInput = Prisma.AtLeast<{
   extractedText?: Prisma.StringNullableFilter<"Document"> | string | null
   processingStartedAt?: Prisma.DateTimeNullableFilter<"Document"> | Date | string | null
   processedAt?: Prisma.DateTimeNullableFilter<"Document"> | Date | string | null
+  analysisStatus?: Prisma.StringNullableFilter<"Document"> | string | null
+  analysisResult?: Prisma.JsonNullableFilter<"Document">
+  roadmapResult?: Prisma.JsonNullableFilter<"Document">
   createdAt?: Prisma.DateTimeFilter<"Document"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Document"> | Date | string
   workspace?: Prisma.XOR<Prisma.WorkspaceScalarRelationFilter, Prisma.WorkspaceWhereInput>
@@ -374,6 +396,9 @@ export type DocumentOrderByWithAggregationInput = {
   extractedText?: Prisma.SortOrderInput | Prisma.SortOrder
   processingStartedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   processedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  analysisStatus?: Prisma.SortOrderInput | Prisma.SortOrder
+  analysisResult?: Prisma.SortOrderInput | Prisma.SortOrder
+  roadmapResult?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.DocumentCountOrderByAggregateInput
@@ -401,6 +426,9 @@ export type DocumentScalarWhereWithAggregatesInput = {
   extractedText?: Prisma.StringNullableWithAggregatesFilter<"Document"> | string | null
   processingStartedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Document"> | Date | string | null
   processedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Document"> | Date | string | null
+  analysisStatus?: Prisma.StringNullableWithAggregatesFilter<"Document"> | string | null
+  analysisResult?: Prisma.JsonNullableWithAggregatesFilter<"Document">
+  roadmapResult?: Prisma.JsonNullableWithAggregatesFilter<"Document">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Document"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Document"> | Date | string
 }
@@ -418,6 +446,9 @@ export type DocumentCreateInput = {
   extractedText?: string | null
   processingStartedAt?: Date | string | null
   processedAt?: Date | string | null
+  analysisStatus?: string | null
+  analysisResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  roadmapResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   workspace: Prisma.WorkspaceCreateNestedOneWithoutDocumentsInput
@@ -441,6 +472,9 @@ export type DocumentUncheckedCreateInput = {
   extractedText?: string | null
   processingStartedAt?: Date | string | null
   processedAt?: Date | string | null
+  analysisStatus?: string | null
+  analysisResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  roadmapResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   extractionJobs?: Prisma.ExtractionJobUncheckedCreateNestedManyWithoutDocumentInput
@@ -460,6 +494,9 @@ export type DocumentUpdateInput = {
   extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   processingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  analysisStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  analysisResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  roadmapResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   workspace?: Prisma.WorkspaceUpdateOneRequiredWithoutDocumentsNestedInput
@@ -483,6 +520,9 @@ export type DocumentUncheckedUpdateInput = {
   extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   processingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  analysisStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  analysisResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  roadmapResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   extractionJobs?: Prisma.ExtractionJobUncheckedUpdateManyWithoutDocumentNestedInput
@@ -504,6 +544,9 @@ export type DocumentCreateManyInput = {
   extractedText?: string | null
   processingStartedAt?: Date | string | null
   processedAt?: Date | string | null
+  analysisStatus?: string | null
+  analysisResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  roadmapResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -521,6 +564,9 @@ export type DocumentUpdateManyMutationInput = {
   extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   processingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  analysisStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  analysisResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  roadmapResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -540,6 +586,9 @@ export type DocumentUncheckedUpdateManyInput = {
   extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   processingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  analysisStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  analysisResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  roadmapResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -569,6 +618,9 @@ export type DocumentCountOrderByAggregateInput = {
   extractedText?: Prisma.SortOrder
   processingStartedAt?: Prisma.SortOrder
   processedAt?: Prisma.SortOrder
+  analysisStatus?: Prisma.SortOrder
+  analysisResult?: Prisma.SortOrder
+  roadmapResult?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -592,6 +644,7 @@ export type DocumentMaxOrderByAggregateInput = {
   extractedText?: Prisma.SortOrder
   processingStartedAt?: Prisma.SortOrder
   processedAt?: Prisma.SortOrder
+  analysisStatus?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -611,6 +664,7 @@ export type DocumentMinOrderByAggregateInput = {
   extractedText?: Prisma.SortOrder
   processingStartedAt?: Prisma.SortOrder
   processedAt?: Prisma.SortOrder
+  analysisStatus?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -761,6 +815,9 @@ export type DocumentCreateWithoutWorkspaceInput = {
   extractedText?: string | null
   processingStartedAt?: Date | string | null
   processedAt?: Date | string | null
+  analysisStatus?: string | null
+  analysisResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  roadmapResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   source?: Prisma.SourceCreateNestedOneWithoutDocumentsInput
@@ -782,6 +839,9 @@ export type DocumentUncheckedCreateWithoutWorkspaceInput = {
   extractedText?: string | null
   processingStartedAt?: Date | string | null
   processedAt?: Date | string | null
+  analysisStatus?: string | null
+  analysisResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  roadmapResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   extractionJobs?: Prisma.ExtractionJobUncheckedCreateNestedManyWithoutDocumentInput
@@ -832,6 +892,9 @@ export type DocumentScalarWhereInput = {
   extractedText?: Prisma.StringNullableFilter<"Document"> | string | null
   processingStartedAt?: Prisma.DateTimeNullableFilter<"Document"> | Date | string | null
   processedAt?: Prisma.DateTimeNullableFilter<"Document"> | Date | string | null
+  analysisStatus?: Prisma.StringNullableFilter<"Document"> | string | null
+  analysisResult?: Prisma.JsonNullableFilter<"Document">
+  roadmapResult?: Prisma.JsonNullableFilter<"Document">
   createdAt?: Prisma.DateTimeFilter<"Document"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Document"> | Date | string
 }
@@ -849,6 +912,9 @@ export type DocumentCreateWithoutSourceInput = {
   extractedText?: string | null
   processingStartedAt?: Date | string | null
   processedAt?: Date | string | null
+  analysisStatus?: string | null
+  analysisResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  roadmapResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   workspace: Prisma.WorkspaceCreateNestedOneWithoutDocumentsInput
@@ -870,6 +936,9 @@ export type DocumentUncheckedCreateWithoutSourceInput = {
   extractedText?: string | null
   processingStartedAt?: Date | string | null
   processedAt?: Date | string | null
+  analysisStatus?: string | null
+  analysisResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  roadmapResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   extractionJobs?: Prisma.ExtractionJobUncheckedCreateNestedManyWithoutDocumentInput
@@ -915,6 +984,9 @@ export type DocumentCreateWithoutExtractionJobsInput = {
   extractedText?: string | null
   processingStartedAt?: Date | string | null
   processedAt?: Date | string | null
+  analysisStatus?: string | null
+  analysisResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  roadmapResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   workspace: Prisma.WorkspaceCreateNestedOneWithoutDocumentsInput
@@ -937,6 +1009,9 @@ export type DocumentUncheckedCreateWithoutExtractionJobsInput = {
   extractedText?: string | null
   processingStartedAt?: Date | string | null
   processedAt?: Date | string | null
+  analysisStatus?: string | null
+  analysisResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  roadmapResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   featureSources?: Prisma.FeatureSourceUncheckedCreateNestedManyWithoutDocumentInput
@@ -971,6 +1046,9 @@ export type DocumentUpdateWithoutExtractionJobsInput = {
   extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   processingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  analysisStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  analysisResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  roadmapResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   workspace?: Prisma.WorkspaceUpdateOneRequiredWithoutDocumentsNestedInput
@@ -993,6 +1071,9 @@ export type DocumentUncheckedUpdateWithoutExtractionJobsInput = {
   extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   processingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  analysisStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  analysisResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  roadmapResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   featureSources?: Prisma.FeatureSourceUncheckedUpdateManyWithoutDocumentNestedInput
@@ -1011,6 +1092,9 @@ export type DocumentCreateWithoutFeatureSourcesInput = {
   extractedText?: string | null
   processingStartedAt?: Date | string | null
   processedAt?: Date | string | null
+  analysisStatus?: string | null
+  analysisResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  roadmapResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   workspace: Prisma.WorkspaceCreateNestedOneWithoutDocumentsInput
@@ -1033,6 +1117,9 @@ export type DocumentUncheckedCreateWithoutFeatureSourcesInput = {
   extractedText?: string | null
   processingStartedAt?: Date | string | null
   processedAt?: Date | string | null
+  analysisStatus?: string | null
+  analysisResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  roadmapResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   extractionJobs?: Prisma.ExtractionJobUncheckedCreateNestedManyWithoutDocumentInput
@@ -1067,6 +1154,9 @@ export type DocumentUpdateWithoutFeatureSourcesInput = {
   extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   processingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  analysisStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  analysisResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  roadmapResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   workspace?: Prisma.WorkspaceUpdateOneRequiredWithoutDocumentsNestedInput
@@ -1089,6 +1179,9 @@ export type DocumentUncheckedUpdateWithoutFeatureSourcesInput = {
   extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   processingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  analysisStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  analysisResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  roadmapResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   extractionJobs?: Prisma.ExtractionJobUncheckedUpdateManyWithoutDocumentNestedInput
@@ -1108,6 +1201,9 @@ export type DocumentCreateManyWorkspaceInput = {
   extractedText?: string | null
   processingStartedAt?: Date | string | null
   processedAt?: Date | string | null
+  analysisStatus?: string | null
+  analysisResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  roadmapResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1125,6 +1221,9 @@ export type DocumentUpdateWithoutWorkspaceInput = {
   extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   processingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  analysisStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  analysisResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  roadmapResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   source?: Prisma.SourceUpdateOneWithoutDocumentsNestedInput
@@ -1146,6 +1245,9 @@ export type DocumentUncheckedUpdateWithoutWorkspaceInput = {
   extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   processingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  analysisStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  analysisResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  roadmapResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   extractionJobs?: Prisma.ExtractionJobUncheckedUpdateManyWithoutDocumentNestedInput
@@ -1166,6 +1268,9 @@ export type DocumentUncheckedUpdateManyWithoutWorkspaceInput = {
   extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   processingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  analysisStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  analysisResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  roadmapResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1184,6 +1289,9 @@ export type DocumentCreateManySourceInput = {
   extractedText?: string | null
   processingStartedAt?: Date | string | null
   processedAt?: Date | string | null
+  analysisStatus?: string | null
+  analysisResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  roadmapResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1201,6 +1309,9 @@ export type DocumentUpdateWithoutSourceInput = {
   extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   processingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  analysisStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  analysisResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  roadmapResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   workspace?: Prisma.WorkspaceUpdateOneRequiredWithoutDocumentsNestedInput
@@ -1222,6 +1333,9 @@ export type DocumentUncheckedUpdateWithoutSourceInput = {
   extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   processingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  analysisStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  analysisResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  roadmapResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   extractionJobs?: Prisma.ExtractionJobUncheckedUpdateManyWithoutDocumentNestedInput
@@ -1242,6 +1356,9 @@ export type DocumentUncheckedUpdateManyWithoutSourceInput = {
   extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   processingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  analysisStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  analysisResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  roadmapResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1301,6 +1418,9 @@ export type DocumentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   extractedText?: boolean
   processingStartedAt?: boolean
   processedAt?: boolean
+  analysisStatus?: boolean
+  analysisResult?: boolean
+  roadmapResult?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>
@@ -1325,6 +1445,9 @@ export type DocumentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   extractedText?: boolean
   processingStartedAt?: boolean
   processedAt?: boolean
+  analysisStatus?: boolean
+  analysisResult?: boolean
+  roadmapResult?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>
@@ -1346,6 +1469,9 @@ export type DocumentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   extractedText?: boolean
   processingStartedAt?: boolean
   processedAt?: boolean
+  analysisStatus?: boolean
+  analysisResult?: boolean
+  roadmapResult?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>
@@ -1367,11 +1493,14 @@ export type DocumentSelectScalar = {
   extractedText?: boolean
   processingStartedAt?: boolean
   processedAt?: boolean
+  analysisStatus?: boolean
+  analysisResult?: boolean
+  roadmapResult?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type DocumentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "workspaceId" | "sourceId" | "title" | "fileName" | "mimeType" | "fileSize" | "status" | "storageKey" | "errorMessage" | "processingSummary" | "extractedText" | "processingStartedAt" | "processedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["document"]>
+export type DocumentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "workspaceId" | "sourceId" | "title" | "fileName" | "mimeType" | "fileSize" | "status" | "storageKey" | "errorMessage" | "processingSummary" | "extractedText" | "processingStartedAt" | "processedAt" | "analysisStatus" | "analysisResult" | "roadmapResult" | "createdAt" | "updatedAt", ExtArgs["result"]["document"]>
 export type DocumentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>
   source?: boolean | Prisma.Document$sourceArgs<ExtArgs>
@@ -1411,6 +1540,9 @@ export type $DocumentPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     extractedText: string | null
     processingStartedAt: Date | null
     processedAt: Date | null
+    analysisStatus: string | null
+    analysisResult: runtime.JsonValue | null
+    roadmapResult: runtime.JsonValue | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["document"]>
@@ -1854,6 +1986,9 @@ export interface DocumentFieldRefs {
   readonly extractedText: Prisma.FieldRef<"Document", 'String'>
   readonly processingStartedAt: Prisma.FieldRef<"Document", 'DateTime'>
   readonly processedAt: Prisma.FieldRef<"Document", 'DateTime'>
+  readonly analysisStatus: Prisma.FieldRef<"Document", 'String'>
+  readonly analysisResult: Prisma.FieldRef<"Document", 'Json'>
+  readonly roadmapResult: Prisma.FieldRef<"Document", 'Json'>
   readonly createdAt: Prisma.FieldRef<"Document", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Document", 'DateTime'>
 }

@@ -11,6 +11,7 @@ export const featuresSavedViewFiltersSchema = z.object({
 });
 
 export const reportsSavedViewFiltersSchema = z.object({
+  job: z.string().trim().min(1).max(80).optional(),
   status: z.enum(["CANDIDATE", "APPROVED", "MERGED", "REJECTED"]).optional(),
   module: z.string().trim().max(80).optional(),
   sourceId: z.string().trim().min(1).max(80).optional(),

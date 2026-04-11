@@ -56,7 +56,8 @@ export function computeRoiPotential(input: RoiInput) {
       roiWeights.normalizedTimeSavings * input.normalizedTimeSavings +
         roiWeights.normalizedErrorReduction * input.normalizedErrorReduction +
         roiWeights.normalizedVolume * input.normalizedVolume +
-        roiWeights.normalizedStrategicValue * input.normalizedStrategicValue
+        roiWeights.normalizedStrategicValue * input.normalizedStrategicValue -
+        PIPELINE_CONFIG.conservativeRoiPenalty
     )
   );
 }
@@ -78,7 +79,8 @@ export function computeRiskScore(input: RiskInput) {
       riskWeights.regulatoryRisk * input.regulatoryRisk +
         riskWeights.exceptionComplexity * input.exceptionComplexity +
         riskWeights.accuracySensitivity * input.accuracySensitivity +
-        riskWeights.changeManagementRisk * input.changeManagementRisk
+        riskWeights.changeManagementRisk * input.changeManagementRisk +
+        PIPELINE_CONFIG.conservativeRiskBuffer
     )
   );
 }

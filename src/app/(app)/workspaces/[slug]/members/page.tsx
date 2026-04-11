@@ -6,6 +6,7 @@ import { prisma } from "@/lib/prisma";
 import { AddMemberForm } from "@/components/workspaces/add-member-form";
 import { MemberActions } from "@/components/workspaces/member-actions";
 import { canManageMembers } from "@/lib/permissions/workspace";
+import { formatUtcDateTime } from "@/lib/utils";
 import { RoleBadge } from "@/components/ui/role-badge";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -159,7 +160,7 @@ export default async function WorkspaceMembersPage({ params }: Props) {
                     Invited by: {invite.invitedBy.name || invite.invitedBy.email}
                   </div>
                   <div className="mt-1 text-sm text-neutral-600">
-                    Sent: {new Date(invite.createdAt).toLocaleString()}
+                    Sent: {formatUtcDateTime(invite.createdAt)}
                   </div>
                 </div>
               ))}
@@ -186,7 +187,7 @@ export default async function WorkspaceMembersPage({ params }: Props) {
                   <RoleBadge role={membership.role} />
                 </div>
                 <div className="mt-2 text-sm text-neutral-600">
-                  Joined: {new Date(membership.createdAt).toLocaleString()}
+                  Joined: {formatUtcDateTime(membership.createdAt)}
                 </div>
 
                 {canManage ? (

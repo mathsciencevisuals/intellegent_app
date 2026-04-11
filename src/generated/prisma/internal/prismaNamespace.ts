@@ -401,7 +401,8 @@ export const ModelName = {
   Capability: 'Capability',
   CapabilityAssessment: 'CapabilityAssessment',
   RoadmapRecommendation: 'RoadmapRecommendation',
-  DashboardSnapshot: 'DashboardSnapshot'
+  DashboardSnapshot: 'DashboardSnapshot',
+  WorkspaceAIConfig: 'WorkspaceAIConfig'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -417,7 +418,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "workspace" | "membership" | "document" | "account" | "session" | "verificationToken" | "workspaceInvite" | "source" | "sourceSync" | "extractionJob" | "feature" | "featureSource" | "savedView" | "capability" | "capabilityAssessment" | "roadmapRecommendation" | "dashboardSnapshot"
+    modelProps: "user" | "workspace" | "membership" | "document" | "account" | "session" | "verificationToken" | "workspaceInvite" | "source" | "sourceSync" | "extractionJob" | "feature" | "featureSource" | "savedView" | "capability" | "capabilityAssessment" | "roadmapRecommendation" | "dashboardSnapshot" | "workspaceAIConfig"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1753,6 +1754,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    WorkspaceAIConfig: {
+      payload: Prisma.$WorkspaceAIConfigPayload<ExtArgs>
+      fields: Prisma.WorkspaceAIConfigFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.WorkspaceAIConfigFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkspaceAIConfigPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.WorkspaceAIConfigFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkspaceAIConfigPayload>
+        }
+        findFirst: {
+          args: Prisma.WorkspaceAIConfigFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkspaceAIConfigPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.WorkspaceAIConfigFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkspaceAIConfigPayload>
+        }
+        findMany: {
+          args: Prisma.WorkspaceAIConfigFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkspaceAIConfigPayload>[]
+        }
+        create: {
+          args: Prisma.WorkspaceAIConfigCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkspaceAIConfigPayload>
+        }
+        createMany: {
+          args: Prisma.WorkspaceAIConfigCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.WorkspaceAIConfigCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkspaceAIConfigPayload>[]
+        }
+        delete: {
+          args: Prisma.WorkspaceAIConfigDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkspaceAIConfigPayload>
+        }
+        update: {
+          args: Prisma.WorkspaceAIConfigUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkspaceAIConfigPayload>
+        }
+        deleteMany: {
+          args: Prisma.WorkspaceAIConfigDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.WorkspaceAIConfigUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.WorkspaceAIConfigUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkspaceAIConfigPayload>[]
+        }
+        upsert: {
+          args: Prisma.WorkspaceAIConfigUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkspaceAIConfigPayload>
+        }
+        aggregate: {
+          args: Prisma.WorkspaceAIConfigAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateWorkspaceAIConfig>
+        }
+        groupBy: {
+          args: Prisma.WorkspaceAIConfigGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WorkspaceAIConfigGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.WorkspaceAIConfigCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WorkspaceAIConfigCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1849,6 +1924,9 @@ export const DocumentScalarFieldEnum = {
   extractedText: 'extractedText',
   processingStartedAt: 'processingStartedAt',
   processedAt: 'processedAt',
+  analysisStatus: 'analysisStatus',
+  analysisResult: 'analysisResult',
+  roadmapResult: 'roadmapResult',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1952,6 +2030,11 @@ export const ExtractionJobScalarFieldEnum = {
   logs: 'logs',
   featureCount: 'featureCount',
   confidenceAvg: 'confidenceAvg',
+  providerUsed: 'providerUsed',
+  modelUsed: 'modelUsed',
+  promptVersionUsed: 'promptVersionUsed',
+  temperatureUsed: 'temperatureUsed',
+  maxTokensUsed: 'maxTokensUsed',
   startedAt: 'startedAt',
   completedAt: 'completedAt',
   createdAt: 'createdAt',
@@ -2091,12 +2174,39 @@ export const DashboardSnapshotScalarFieldEnum = {
 export type DashboardSnapshotScalarFieldEnum = (typeof DashboardSnapshotScalarFieldEnum)[keyof typeof DashboardSnapshotScalarFieldEnum]
 
 
+export const WorkspaceAIConfigScalarFieldEnum = {
+  id: 'id',
+  workspaceId: 'workspaceId',
+  provider: 'provider',
+  featureExtractionModel: 'featureExtractionModel',
+  summarizationModel: 'summarizationModel',
+  reportGenerationModel: 'reportGenerationModel',
+  temperature: 'temperature',
+  maxTokens: 'maxTokens',
+  useWorkspaceApiKey: 'useWorkspaceApiKey',
+  workspaceApiKeyEncrypted: 'workspaceApiKeyEncrypted',
+  promptVersion: 'promptVersion',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WorkspaceAIConfigScalarFieldEnum = (typeof WorkspaceAIConfigScalarFieldEnum)[keyof typeof WorkspaceAIConfigScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const JsonNullValueInput = {
@@ -2229,6 +2339,20 @@ export type ListEnumDocumentStatusFieldRefInput<$PrismaModel> = FieldRefInputTyp
 
 
 /**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+/**
  * Reference to a field of type 'WorkspaceInviteStatus'
  */
 export type EnumWorkspaceInviteStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WorkspaceInviteStatus'>
@@ -2327,6 +2451,20 @@ export type ListEnumExtractionTriggerFieldRefInput<$PrismaModel> = FieldRefInput
 
 
 /**
+ * Reference to a field of type 'Float'
+ */
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+/**
+ * Reference to a field of type 'Float[]'
+ */
+export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+/**
  * Reference to a field of type 'FeatureStatus'
  */
 export type EnumFeatureStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FeatureStatus'>
@@ -2355,20 +2493,6 @@ export type ListEnumSavedViewScopeFieldRefInput<$PrismaModel> = FieldRefInputTyp
 
 
 /**
- * Reference to a field of type 'Json'
- */
-export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
-
-
-/**
- * Reference to a field of type 'QueryMode'
- */
-export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
-    
-
-
-/**
  * Reference to a field of type 'MaturityTier'
  */
 export type EnumMaturityTierFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MaturityTier'>
@@ -2379,20 +2503,6 @@ export type EnumMaturityTierFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
  * Reference to a field of type 'MaturityTier[]'
  */
 export type ListEnumMaturityTierFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MaturityTier[]'>
-    
-
-
-/**
- * Reference to a field of type 'Float'
- */
-export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-/**
- * Reference to a field of type 'Float[]'
- */
-export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 /**
@@ -2508,6 +2618,7 @@ export type GlobalOmitConfig = {
   capabilityAssessment?: Prisma.CapabilityAssessmentOmit
   roadmapRecommendation?: Prisma.RoadmapRecommendationOmit
   dashboardSnapshot?: Prisma.DashboardSnapshotOmit
+  workspaceAIConfig?: Prisma.WorkspaceAIConfigOmit
 }
 
 /* Types for Logging */

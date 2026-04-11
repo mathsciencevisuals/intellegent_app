@@ -29,7 +29,25 @@ export async function GET(
       where: {
         workspaceId: access.workspace.id,
       },
-      include: {
+      select: {
+        id: true,
+        workspaceId: true,
+        documentId: true,
+        status: true,
+        trigger: true,
+        provider: true,
+        logs: true,
+        featureCount: true,
+        confidenceAvg: true,
+        providerUsed: true,
+        modelUsed: true,
+        promptVersionUsed: true,
+        temperatureUsed: true,
+        maxTokensUsed: true,
+        createdAt: true,
+        updatedAt: true,
+        startedAt: true,
+        completedAt: true,
         document: {
           select: {
             id: true,
@@ -125,7 +143,25 @@ export async function POST(
       where: {
         id: job.id,
       },
-      include: {
+      select: {
+        id: true,
+        workspaceId: true,
+        documentId: true,
+        status: true,
+        trigger: true,
+        provider: true,
+        logs: true,
+        featureCount: true,
+        confidenceAvg: true,
+        providerUsed: true,
+        modelUsed: true,
+        promptVersionUsed: true,
+        temperatureUsed: true,
+        maxTokensUsed: true,
+        createdAt: true,
+        updatedAt: true,
+        startedAt: true,
+        completedAt: true,
         document: {
           select: {
             id: true,

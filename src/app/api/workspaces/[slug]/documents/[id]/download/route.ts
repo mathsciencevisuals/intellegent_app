@@ -25,7 +25,7 @@ export async function GET(_req: NextRequest, context: RouteContext) {
     const { slug, id } = await context.params;
 
     const user = await prisma.user.findUnique({
-      where: { email: session.user.email },
+      where: { email: session.user.email.toLowerCase() },
     });
 
     if (!user) {
@@ -64,7 +64,13 @@ export async function GET(_req: NextRequest, context: RouteContext) {
       );
     }
 
-    const absolutePath = path.join(process.cwd(), document.storageKey);
+    const uploadsRoot = path.resolve(process.cwd(), "uploads");
+    const absolutePath = path.resolve(process.cwd(), document.storageKey);
+
+    if (!absolutePath.startsWith(uploadsRoot + path.sep)) {
+      return NextResponse.json({ error: "Access denied" }, { status: 403 });
+    }
+
     const fileBuffer = await readFile(absolutePath);
 
     return new NextResponse(fileBuffer, {

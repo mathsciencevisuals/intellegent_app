@@ -12,6 +12,7 @@ import {
 
 import { authConfig } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { formatUtcDateTime } from "@/lib/utils";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { StatusBadge } from "@/components/ui/status-badge";
@@ -213,7 +214,7 @@ export default async function WorkspaceActivityPage({ params }: Props) {
                           {event.description}
                         </div>
                         <div className="mt-2 text-xs text-neutral-500">
-                          {new Date(event.timestamp).toLocaleString()}
+                          {formatUtcDateTime(event.timestamp)}
                         </div>
                       </div>
                       {event.kind === "member" ? (

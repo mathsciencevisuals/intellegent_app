@@ -4,12 +4,16 @@ import { getServerSession } from "next-auth";
 import { ArrowLeft, GitBranchPlus, Sparkles, Tags } from "lucide-react";
 
 import { authConfig } from "@/lib/auth";
+import { PIPELINE_CONFIG } from "@/lib/pipeline/constants";
 import { prisma } from "@/lib/prisma";
+import { getConfidenceClasses, getConfidenceLabel, getReviewGuidance } from "@/lib/trust";
 import { buildDuplicateCandidateMap } from "@/lib/features/duplicate-candidates";
+import { formatUtcDateTime } from "@/lib/utils";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { FeatureReviewForm } from "@/components/features/feature-review-form";
+import { TrustCallout } from "@/components/ui/trust-callout";
 
 type Props = {
   params: Promise<{ slug: string; featureId: string }>;
@@ -67,6 +71,12 @@ export default async function WorkspaceFeatureDetailPage({ params }: Props) {
     include: {
       capability: {
         include: {
+          extractionJob: {
+            select: {
+              id: true,
+              createdAt: true,
+            },
+          },
           assessment: true,
           roadmapRecommendations: {
             orderBy: {
@@ -210,6 +220,9 @@ export default async function WorkspaceFeatureDetailPage({ params }: Props) {
         score: number;
       } => Boolean(item)
     );
+  const confidenceLabel = getConfidenceLabel(feature.confidenceScore);
+  const confidenceGuidance = getReviewGuidance(feature.confidenceScore);
+  const sourceCount = feature.sources.length;
 
   return (
     <div className="space-y-6">
@@ -230,6 +243,17 @@ export default async function WorkspaceFeatureDetailPage({ params }: Props) {
         }
       />
 
+      <TrustCallout
+        title="AI-assisted feature candidate"
+        body="This record is generated from extracted evidence and heuristic scoring. Use it to accelerate review, not as an automated source of truth for delivery or compliance decisions."
+        points={[
+          `${feature.confidenceScore}% ${confidenceLabel.toLowerCase()}`,
+          `${sourceCount} linked evidence source${sourceCount === 1 ? "" : "s"}`,
+          `Pipeline ${PIPELINE_CONFIG.version}`,
+        ]}
+        tone={feature.confidenceScore < 65 ? "warning" : "neutral"}
+      />
+
       <div className="grid gap-4 md:grid-cols-4">
         <div className="rounded-2xl border bg-white p-5 shadow-sm">
           <div className="text-sm text-neutral-500">Status</div>
@@ -238,19 +262,22 @@ export default async function WorkspaceFeatureDetailPage({ params }: Props) {
           </div>
         </div>
         <div className="rounded-2xl border bg-white p-5 shadow-sm">
-          <div className="text-sm text-neutral-500">Maturity</div>
-          <div className="mt-2 text-3xl font-semibold text-neutral-900">
-            {feature.capability?.assessment
-              ? feature.capability.assessment.maturityTier.replace("_", " ")
-              : feature.confidenceScore}
+          <div className="text-sm text-neutral-500">Confidence</div>
+          <div className="mt-3">
+            <span
+              className={`inline-flex rounded-full border px-3 py-1 text-sm font-medium ${getConfidenceClasses(feature.confidenceScore)}`}
+            >
+              {feature.confidenceScore}% {confidenceLabel.toLowerCase()}
+            </span>
           </div>
         </div>
         <div className="rounded-2xl border bg-white p-5 shadow-sm">
-          <div className="text-sm text-neutral-500">Impact / week</div>
+          <div className="text-sm text-neutral-500">Evidence coverage</div>
           <div className="mt-2 text-3xl font-semibold text-neutral-900">
-            {feature.capability?.assessment
-              ? `${feature.capability.assessment.weeklyHoursWasted}h`
-              : feature.sources.length}
+            {sourceCount}
+          </div>
+          <div className="mt-2 text-xs text-neutral-500">
+            Linked document excerpts for reviewer validation
           </div>
         </div>
         <div className="rounded-2xl border bg-white p-5 shadow-sm">
@@ -271,6 +298,12 @@ export default async function WorkspaceFeatureDetailPage({ params }: Props) {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 text-sm text-neutral-700">
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <div className="text-xs font-semibold uppercase tracking-[0.15em] text-neutral-500">
+                  Reviewer guidance
+                </div>
+                <p className="mt-2 leading-6">{confidenceGuidance}</p>
+              </div>
               <div>
                 <div className="text-xs font-semibold uppercase tracking-[0.15em] text-neutral-500">
                   Module
@@ -289,11 +322,23 @@ export default async function WorkspaceFeatureDetailPage({ params }: Props) {
               </div>
               <div>
                 <div className="text-xs font-semibold uppercase tracking-[0.15em] text-neutral-500">
+                  Audit trail
+                </div>
+                <div className="mt-2 text-neutral-700">
+                  Created {formatUtcDateTime(feature.createdAt)} • Updated{" "}
+                  {formatUtcDateTime(feature.updatedAt)}
+                  {feature.capability?.extractionJob
+                    ? ` • Derived from run ${formatUtcDateTime(feature.capability.extractionJob.createdAt)}`
+                    : ""}
+                </div>
+              </div>
+              <div>
+                <div className="text-xs font-semibold uppercase tracking-[0.15em] text-neutral-500">
                   Reviewed at
                 </div>
                 <div className="mt-2 text-neutral-700">
                   {feature.reviewedAt
-                    ? new Date(feature.reviewedAt).toLocaleString()
+                    ? formatUtcDateTime(feature.reviewedAt)
                     : "Not reviewed yet"}
                 </div>
               </div>
@@ -439,6 +484,9 @@ export default async function WorkspaceFeatureDetailPage({ params }: Props) {
               <FeatureReviewForm
                 slug={workspace.slug}
                 featureId={feature.id}
+                initialTitle={feature.title}
+                initialDescription={feature.description || ""}
+                initialConfidenceScore={feature.confidenceScore}
                 initialStatus={feature.status}
                 initialOwner={feature.owner || ""}
                 initialTags={feature.tags}

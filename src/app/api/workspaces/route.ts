@@ -5,6 +5,7 @@ import { Prisma, WorkspaceRole } from "@/generated/prisma/client";
 
 import { prisma } from "@/lib/prisma";
 import { authConfig } from "@/lib/auth";
+import { slugify } from "@/lib/utils";
 
 const createWorkspaceSchema = z.object({
   name: z
@@ -13,15 +14,6 @@ const createWorkspaceSchema = z.object({
     .min(2, "Workspace name must be at least 2 characters")
     .max(100, "Workspace name must be 100 characters or less"),
 });
-
-function slugify(value: string) {
-  return value
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-    .replace(/-{2,}/g, "-");
-}
 
 function normalizeWorkspaceName(value: string) {
   return value.trim().toLowerCase().replace(/\s+/g, " ");

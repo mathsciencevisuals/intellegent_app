@@ -4,6 +4,11 @@ import {
   ScoringService,
   computePriorityScore,
 } from "@/lib/pipeline/scoring-service";
+import {
+  getConfidenceLabel,
+  getPipelineVersion,
+  getReviewGuidance,
+} from "@/lib/trust";
 import type {
   AutomationOpportunity,
   GapRecord,
@@ -101,6 +106,17 @@ export class OpportunityAggregationService {
             risks: recommendation.risks,
             breakEvenMonths: recommendation.breakEvenMonths,
             implementationNotes: recommendation.implementationNotes,
+          },
+          trust: {
+            confidence: group.averageConfidence,
+            confidenceLabel: getConfidenceLabel(group.averageConfidence),
+            sourceCount: group.features.reduce(
+              (sum, feature) => sum + feature.sourceCount,
+              0
+            ),
+            evidenceCount: group.featureIds.length,
+            reviewGuidance: getReviewGuidance(group.averageConfidence),
+            pipelineVersion: getPipelineVersion(),
           },
         };
 

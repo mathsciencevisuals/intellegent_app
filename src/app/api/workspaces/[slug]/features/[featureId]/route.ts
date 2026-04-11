@@ -6,6 +6,9 @@ import { getWorkspaceAccess } from "@/lib/workspaces";
 
 const reviewFeatureSchema = z.object({
   action: z.literal("review"),
+  title: z.string().trim().min(1).max(160).optional(),
+  description: z.string().trim().max(1500).optional().or(z.literal("")),
+  confidenceScore: z.number().int().min(0).max(100).optional(),
   status: z.enum(["CANDIDATE", "APPROVED", "REJECTED"]).optional(),
   owner: z.string().trim().max(80).optional().or(z.literal("")),
   tags: z.array(z.string().trim().min(1).max(30)).max(10).optional(),
@@ -208,6 +211,13 @@ export async function PATCH(
         id: feature.id,
       },
       data: {
+        ...(parsed.title ? { title: parsed.title } : {}),
+        ...(parsed.description !== undefined
+          ? { description: parsed.description.trim() || null }
+          : {}),
+        ...(parsed.confidenceScore !== undefined
+          ? { confidenceScore: parsed.confidenceScore }
+          : {}),
         ...(parsed.status === "CANDIDATE" || parsed.status === "APPROVED" || parsed.status === "REJECTED"
           ? { mergedIntoFeatureId: null }
           : {}),

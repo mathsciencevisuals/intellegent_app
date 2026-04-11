@@ -5,6 +5,7 @@ import { z } from "zod";
 import { authConfig } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { isWorkspaceOwner } from "@/lib/permissions/workspace";
+import { slugify } from "@/lib/utils";
 
 const renameWorkspaceSchema = z.object({
   action: z.literal("rename"),
@@ -20,15 +21,6 @@ const deleteWorkspaceSchema = z.object({
   action: z.literal("delete"),
   confirmSlug: z.string().min(1),
 });
-
-function slugify(value: string) {
-  return value
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, "")
-    .replace(/\s+/g, "-")
-    .replace(/-+/g, "-");
-}
 
 type RouteContext = {
   params: Promise<{
@@ -196,7 +188,7 @@ export async function DELETE(req: NextRequest, context: RouteContext) {
 
     const parsed = deleteWorkspaceSchema.parse({
       action: "delete",
-      confirmSlug: body?.confirmSlug ?? "",
+      confirmSlug: body?.confirmSlug,
     });
 
     const actor = await prisma.user.findUnique({

@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 
 type ReportFilterInput = {
+  job?: string;
   status?: string;
   module?: string;
   sourceId?: string;
@@ -21,6 +22,7 @@ export function getSingleSearchParam(value: string | string[] | undefined) {
 
 export function normalizeReportFilters(input: ReportFilterInput) {
   return {
+    job: input.job?.trim() || undefined,
     status: isFeatureStatus(input.status) ? input.status : undefined,
     module: input.module?.trim() || undefined,
     sourceId: input.sourceId?.trim() || undefined,
@@ -56,6 +58,11 @@ export async function getWorkspaceReportData(input: {
       },
       features: {
         include: {
+          capability: {
+            select: {
+              extractionJobId: true,
+            },
+          },
           sources: {
             include: {
               source: {
@@ -87,6 +94,10 @@ export async function getWorkspaceReportData(input: {
   const filters = normalizeReportFilters(input.filters);
 
   const filteredFeatures = workspace.features.filter((feature) => {
+    if (filters.job && feature.capability?.extractionJobId !== filters.job) {
+      return false;
+    }
+
     if (filters.status && feature.status !== filters.status) {
       return false;
     }

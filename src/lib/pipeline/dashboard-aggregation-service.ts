@@ -23,6 +23,7 @@ function toOpportunityResponse(
     scores: opportunity.scores,
     impact: opportunity.impact,
     priorityScore: opportunity.priorityScore,
+    trust: opportunity.trust,
   };
 }
 

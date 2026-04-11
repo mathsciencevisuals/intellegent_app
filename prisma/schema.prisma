@@ -50,6 +50,7 @@ model Workspace {
   roadmapRecommendations RoadmapRecommendation[]
   dashboardSnapshots DashboardSnapshot[]
   savedViews  SavedView[]
+  aiConfig    WorkspaceAIConfig?
 }
 
 model Membership {
@@ -80,6 +81,9 @@ model Document {
   extractedText       String?
   processingStartedAt DateTime?
   processedAt         DateTime?
+  analysisStatus      String?        @default("pending")
+  analysisResult      Json?
+  roadmapResult       Json?
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
 
@@ -196,6 +200,11 @@ model ExtractionJob {
   logs             String?
   featureCount     Int                 @default(0)
   confidenceAvg    Int?
+  providerUsed     String?
+  modelUsed        String?
+  promptVersionUsed String?
+  temperatureUsed  Float?
+  maxTokensUsed    Int?
   startedAt        DateTime?
   completedAt      DateTime?
   createdAt        DateTime            @default(now())
@@ -366,6 +375,24 @@ model DashboardSnapshot {
   extractionJob ExtractionJob @relation(fields: [extractionJobId], references: [id], onDelete: Cascade)
 
   @@index([workspaceId, createdAt])
+}
+
+model WorkspaceAIConfig {
+  id                       String   @id @default(cuid())
+  workspaceId              String   @unique
+  provider                 String   @default("anthropic")
+  featureExtractionModel   String   @default("claude-opus-4-6")
+  summarizationModel       String   @default("claude-opus-4-6")
+  reportGenerationModel    String   @default("claude-opus-4-6")
+  temperature              Float    @default(1.0)
+  maxTokens                Int      @default(8000)
+  useWorkspaceApiKey       Boolean  @default(false)
+  workspaceApiKeyEncrypted String?
+  promptVersion            String   @default("v1")
+  createdAt                DateTime @default(now())
+  updatedAt                DateTime @updatedAt
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
 }
 
 enum WorkspaceRole {

@@ -68,7 +68,8 @@ export const ModelName = {
   Capability: 'Capability',
   CapabilityAssessment: 'CapabilityAssessment',
   RoadmapRecommendation: 'RoadmapRecommendation',
-  DashboardSnapshot: 'DashboardSnapshot'
+  DashboardSnapshot: 'DashboardSnapshot',
+  WorkspaceAIConfig: 'WorkspaceAIConfig'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -144,6 +145,9 @@ export const DocumentScalarFieldEnum = {
   extractedText: 'extractedText',
   processingStartedAt: 'processingStartedAt',
   processedAt: 'processedAt',
+  analysisStatus: 'analysisStatus',
+  analysisResult: 'analysisResult',
+  roadmapResult: 'roadmapResult',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -247,6 +251,11 @@ export const ExtractionJobScalarFieldEnum = {
   logs: 'logs',
   featureCount: 'featureCount',
   confidenceAvg: 'confidenceAvg',
+  providerUsed: 'providerUsed',
+  modelUsed: 'modelUsed',
+  promptVersionUsed: 'promptVersionUsed',
+  temperatureUsed: 'temperatureUsed',
+  maxTokensUsed: 'maxTokensUsed',
   startedAt: 'startedAt',
   completedAt: 'completedAt',
   createdAt: 'createdAt',
@@ -386,12 +395,39 @@ export const DashboardSnapshotScalarFieldEnum = {
 export type DashboardSnapshotScalarFieldEnum = (typeof DashboardSnapshotScalarFieldEnum)[keyof typeof DashboardSnapshotScalarFieldEnum]
 
 
+export const WorkspaceAIConfigScalarFieldEnum = {
+  id: 'id',
+  workspaceId: 'workspaceId',
+  provider: 'provider',
+  featureExtractionModel: 'featureExtractionModel',
+  summarizationModel: 'summarizationModel',
+  reportGenerationModel: 'reportGenerationModel',
+  temperature: 'temperature',
+  maxTokens: 'maxTokens',
+  useWorkspaceApiKey: 'useWorkspaceApiKey',
+  workspaceApiKeyEncrypted: 'workspaceApiKeyEncrypted',
+  promptVersion: 'promptVersion',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WorkspaceAIConfigScalarFieldEnum = (typeof WorkspaceAIConfigScalarFieldEnum)[keyof typeof WorkspaceAIConfigScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const JsonNullValueInput = {

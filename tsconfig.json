@@ -31,12 +31,23 @@
   },
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "prisma/**/*.ts",
+    "next.config.ts",
+    "prisma.config.ts",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "auth_workspace_skeleton",
+    "featureintel-nextjs",
+    "frontend-auth-workspace-wiring",
+    "intelligent-app",
+    "nextjs-upload-extraction-wiring",
+    "nextjs_api_wiring",
+    "prisma_service_layer_bundle",
+    "uploads"
   ]
 }

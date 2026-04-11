@@ -6,9 +6,16 @@ import { useState } from "react";
 type Props = {
   slug: string;
   documentId: string;
+  label?: string;
+  className?: string;
 };
 
-export function RunExtractionJobButton({ slug, documentId }: Props) {
+export function RunExtractionJobButton({
+  slug,
+  documentId,
+  label = "Run extraction",
+  className,
+}: Props) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -49,9 +56,12 @@ export function RunExtractionJobButton({ slug, documentId }: Props) {
         type="button"
         onClick={onClick}
         disabled={loading}
-        className="rounded-lg border px-3 py-1.5 text-xs font-medium text-neutral-700 hover:bg-neutral-100 disabled:opacity-50"
+        className={
+          className ??
+          "rounded-lg border px-3 py-1.5 text-xs font-medium text-neutral-700 hover:bg-neutral-100 disabled:opacity-50"
+        }
       >
-        {loading ? "Running..." : "Run extraction"}
+        {loading ? "Running..." : label}
       </button>
       {error ? <div className="text-xs text-red-600">{error}</div> : null}
     </div>

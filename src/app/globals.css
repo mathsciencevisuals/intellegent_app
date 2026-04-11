@@ -10,3 +10,16 @@ body {
 body {
   min-height: 100vh;
 }
+
+.workspace-pages :is(
+  .font-medium,
+  .font-semibold,
+  .font-bold,
+  .font-extrabold,
+  .font-black,
+  strong,
+  b
+) {
+  font-family: Calibri, Carlito, "Segoe UI", sans-serif;
+  font-size: 11pt;
+}

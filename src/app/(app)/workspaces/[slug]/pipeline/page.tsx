@@ -1,72 +1,140 @@
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
-import { ActivitySquare, Bot, FileText, Layers3, Sparkles } from "lucide-react";
+import { ActivitySquare, ArrowRight, FileText, RotateCcw } from "lucide-react";
 
+import type { AnalysisResult } from "@/lib/analysis-service";
 import { authConfig } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { getLatestWorkspaceAnalytics } from "@/lib/features/workspace-analytics";
+import { formatUtcDateTime } from "@/lib/utils";
 import { PageHeader } from "@/components/ui/page-header";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { StatusBadge } from "@/components/ui/status-badge";
+import { TrustCallout } from "@/components/ui/trust-callout";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { RunExtractionJobButton } from "@/components/workspaces/run-extraction-job-button";
 
 type Props = {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{
+    job?: string | string[];
+  }>;
 };
 
-export default async function WorkspacePipelinePage({ params }: Props) {
-  const session = await getServerSession(authConfig);
-
-  if (!session?.user?.email) {
-    redirect("/login");
+function getGapCount(job: {
+  capabilities: Array<{ id: string }>;
+  document: { analysisResult: unknown };
+}) {
+  if (job.capabilities.length > 0) {
+    return job.capabilities.length;
   }
 
-  const { slug } = await params;
+  const analysisResult = job.document.analysisResult as AnalysisResult | null;
+  return analysisResult?.features.filter((feature) => feature.gap.trim().length > 0).length ?? 0;
+}
 
-  const user = await prisma.user.findUnique({
-    where: { email: session.user.email.toLowerCase() },
-    select: { id: true },
-  });
+function getMaturityPercent(job: {
+  dashboardSnapshot: { donutChartJson: unknown } | null;
+  document: { analysisResult: unknown };
+}) {
+  if (job.dashboardSnapshot) {
+    const rows = Array.isArray(job.dashboardSnapshot.donutChartJson)
+      ? (job.dashboardSnapshot.donutChartJson as Array<{ label?: string; value?: number }>)
+      : [];
+    const total = rows.reduce((sum, row) => sum + (typeof row.value === "number" ? row.value : 0), 0);
+    const agentic = rows.reduce((sum, row) => {
+      if (typeof row.value !== "number") {
+        return sum;
+      }
 
-  if (!user) {
-    redirect("/login");
+      return row.label === "Already Agentic" ? sum + row.value : sum;
+    }, 0);
+
+    return total > 0 ? Math.round((agentic / total) * 100) : 0;
   }
 
+  const analysisResult = job.document.analysisResult as AnalysisResult | null;
+  const scores: number[] =
+    analysisResult?.features.map((feature) => {
+      if (feature.status === "agentic") {
+        return 100;
+      }
+
+      if (feature.status === "partial") {
+        return 50;
+      }
+
+      return 0;
+    }) ?? [];
+
+  if (scores.length === 0) {
+    return 0;
+  }
+
+  return Math.round(scores.reduce((sum, value) => sum + value, 0) / scores.length);
+}
+
+export async function WorkspacePipelineView({
+  slug,
+  userId,
+}: {
+  slug: string;
+  userId: string;
+  job?: string | string[];
+}) {
   const workspace = await prisma.workspace.findFirst({
     where: {
       slug,
       memberships: {
         some: {
-          userId: user.id,
+          userId,
         },
       },
     },
-    include: {
-      documents: {
-        include: {
-          source: {
-            select: {
-              id: true,
-              name: true,
-            },
-          },
-        },
+    select: {
+      id: true,
+      slug: true,
+      name: true,
+      extractionJobs: {
         orderBy: {
           createdAt: "desc",
         },
-      },
-      extractionJobs: {
-        include: {
+        select: {
+          id: true,
+          status: true,
+          trigger: true,
+          provider: true,
+          providerUsed: true,
+          modelUsed: true,
+          promptVersionUsed: true,
+          temperatureUsed: true,
+          maxTokensUsed: true,
+          featureCount: true,
+          confidenceAvg: true,
+          createdAt: true,
+          completedAt: true,
           document: {
             select: {
               id: true,
               title: true,
+              analysisResult: true,
+              source: {
+                select: {
+                  id: true,
+                  name: true,
+                },
+              },
             },
           },
-        },
-        orderBy: {
-          createdAt: "desc",
+          capabilities: {
+            select: {
+              id: true,
+            },
+          },
+          dashboardSnapshot: {
+            select: {
+              donutChartJson: true,
+            },
+          },
         },
       },
     },
@@ -76,254 +144,249 @@ export default async function WorkspacePipelinePage({ params }: Props) {
     notFound();
   }
 
-  const analytics = await getLatestWorkspaceAnalytics(workspace.id);
-  const completedJobs = workspace.extractionJobs.filter(
-    (job) => job.status === "COMPLETED"
+  const completedRuns = workspace.extractionJobs.filter((item) => item.status === "COMPLETED");
+  const runningRuns = workspace.extractionJobs.filter(
+    (item) => item.status === "QUEUED" || item.status === "PROCESSING"
   );
-  const snapshot = analytics?.dashboardSnapshot;
-  const latestJob = analytics?.latestJob;
-  const kpis =
-    snapshot?.kpiJson ?? [
-      {
-        label: "Jobs created",
-        value: String(workspace.extractionJobs.length),
-        helper: "Run the pipeline to generate stored analytics.",
-      },
-      {
-        label: "Completed jobs",
-        value: String(completedJobs.length),
-        helper: "Completed runs will unlock capability assessments here.",
-      },
-      {
-        label: "Features generated",
-        value: String(completedJobs.reduce((sum, job) => sum + job.featureCount, 0)),
-        helper: "Current pipeline output is still limited to raw extracted features.",
-      },
-    ];
+  const totalFeatures = workspace.extractionJobs.reduce((sum, item) => sum + item.featureCount, 0);
+  const averageMaturity =
+    completedRuns.length > 0
+      ? Math.round(
+          completedRuns.reduce((sum, item) => sum + getMaturityPercent(item), 0) /
+            completedRuns.length
+        )
+      : 0;
 
   return (
     <div className="space-y-6">
       <PageHeader
         eyebrow="Workspace"
-        title="Pipeline"
-        description={`Run extraction, analysis, and dashboard snapshot generation for ${workspace.name}.`}
-        actions={
-          <div className="flex flex-wrap gap-2">
-            <Link
-              href={`/workspaces/${workspace.slug}/features`}
-              className="rounded-xl border px-4 py-2 text-sm font-medium transition hover:bg-neutral-100"
-            >
-              Open repository
-            </Link>
-            <Link
-              href={`/workspaces/${workspace.slug}/reports`}
-              className="rounded-xl border px-4 py-2 text-sm font-medium transition hover:bg-neutral-100"
-            >
-              Open reports
-            </Link>
-          </div>
-        }
+        title="Analyses"
+        description={`Analysis is tracked as run history for ${workspace.name}. Read results in Documents, Features, and Reports.`}
       />
 
-      <div className={`grid gap-4 ${kpis.length >= 4 ? "xl:grid-cols-4 md:grid-cols-2" : "md:grid-cols-3"}`}>
-        {kpis.map((kpi) => (
-          <div key={kpi.label} className="rounded-2xl border bg-white p-5 shadow-sm">
-            <div className="text-sm text-neutral-500">{kpi.label}</div>
-            <div className="mt-2 text-3xl font-semibold text-neutral-900">{kpi.value}</div>
-            <div className="mt-2 text-sm text-neutral-500">{kpi.helper}</div>
+      <TrustCallout
+        title="Analysis runs store history, not a separate reading surface"
+        body="Use this tab to monitor run status, compare runs, and rerun source documents. Consume ingest context in Documents and Sources, extracted outputs in Features, and summarized outputs in Reports."
+        points={[
+          `${workspace.extractionJobs.length} total run${workspace.extractionJobs.length === 1 ? "" : "s"}`,
+          `${completedRuns.length} completed`,
+          `${runningRuns.length} active`,
+        ]}
+        tone="warning"
+      />
+
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <div className="rounded-2xl border bg-white p-5 shadow-sm">
+          <div className="text-sm text-neutral-500">Runs</div>
+          <div className="mt-2 text-3xl font-semibold text-neutral-900">
+            {workspace.extractionJobs.length}
           </div>
-        ))}
-      </div>
-
-      {latestJob && snapshot ? (
-        <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
-          <Card className="rounded-2xl border-0 shadow-sm">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Layers3 className="h-5 w-5" />
-                Latest ingest analysis
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="rounded-2xl border bg-neutral-50 p-4 text-sm text-neutral-600">
-                Latest completed run: <span className="font-medium text-neutral-900">{latestJob.document.title}</span> on{" "}
-                {new Date(latestJob.createdAt).toLocaleString()}.
-              </div>
-              <div className="grid gap-4 md:grid-cols-2">
-                <div className="rounded-2xl border p-4">
-                  <div className="text-xs font-semibold uppercase tracking-[0.15em] text-neutral-500">
-                    Feature inventory
-                  </div>
-                  <p className="mt-3 text-sm leading-6 text-neutral-700">
-                    {snapshot.uiCopyJson.ingestTab.featureInventory}
-                  </p>
-                </div>
-                <div className="rounded-2xl border p-4">
-                  <div className="text-xs font-semibold uppercase tracking-[0.15em] text-neutral-500">
-                    Maturity classification
-                  </div>
-                  <p className="mt-3 text-sm leading-6 text-neutral-700">
-                    {snapshot.uiCopyJson.ingestTab.maturity}
-                  </p>
-                </div>
-                <div className="rounded-2xl border p-4">
-                  <div className="text-xs font-semibold uppercase tracking-[0.15em] text-neutral-500">
-                    Gap analysis
-                  </div>
-                  <p className="mt-3 text-sm leading-6 text-neutral-700">
-                    {snapshot.uiCopyJson.ingestTab.gapAnalysis}
-                  </p>
-                </div>
-                <div className="rounded-2xl border p-4">
-                  <div className="text-xs font-semibold uppercase tracking-[0.15em] text-neutral-500">
-                    Roadmap outputs
-                  </div>
-                  <p className="mt-3 text-sm leading-6 text-neutral-700">
-                    {snapshot.uiCopyJson.ingestTab.roadmap}
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="rounded-2xl border-0 shadow-sm">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Sparkles className="h-5 w-5" />
-                Capability cards
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {latestJob.capabilities.length === 0 ? (
-                <div className="rounded-2xl border border-dashed p-8 text-sm text-neutral-500">
-                  No capability analytics are stored for this run yet.
-                </div>
-              ) : (
-                <div className="space-y-3">
-                  {latestJob.capabilities.slice(0, 4).map((capability) => (
-                    <div key={capability.id} className="rounded-2xl border p-4">
-                      <div className="flex flex-wrap items-start justify-between gap-3">
-                        <div>
-                          <div className="font-medium text-neutral-900">{capability.name}</div>
-                          <div className="mt-1 text-sm text-neutral-600">
-                            Module: {capability.module} • {capability.currentMaturityTier.replace("_", " ")}
-                          </div>
-                        </div>
-                        <div className="text-right text-sm text-neutral-600">
-                          <div>{capability.extractedFeatureCount} extracted features</div>
-                          <div>{capability.hiddenFeatureEstimate} hidden estimate</div>
-                        </div>
-                      </div>
-                      <p className="mt-3 text-sm leading-6 text-neutral-700">
-                        {capability.summaryNarrative}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </CardContent>
-          </Card>
         </div>
-      ) : null}
-
-      <div className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
-        <Card className="rounded-2xl border-0 shadow-sm">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Bot className="h-5 w-5" />
-              Run extraction
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            {workspace.documents.length === 0 ? (
-              <div className="rounded-2xl border border-dashed p-8 text-sm text-neutral-500">
-                Upload a document first. Extraction jobs are created automatically on upload and can be rerun from here later.
-              </div>
-            ) : (
-              <div className="space-y-3">
-                {workspace.documents.map((document) => (
-                  <div key={document.id} className="rounded-2xl border p-4">
-                    <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-                      <div>
-                        <div className="font-medium text-neutral-900">{document.title}</div>
-                        <div className="mt-1 text-sm text-neutral-600">
-                          Source: {document.source?.name || "Manual upload"}
-                        </div>
-                        <div className="mt-1 text-sm text-neutral-600">
-                          Parse status: {document.status}
-                        </div>
-                      </div>
-
-                      <RunExtractionJobButton
-                        slug={workspace.slug}
-                        documentId={document.id}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </CardContent>
-        </Card>
-
-        <Card className="rounded-2xl border-0 shadow-sm">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <ActivitySquare className="h-5 w-5" />
-              Recent jobs
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            {workspace.extractionJobs.length === 0 ? (
-              <div className="rounded-2xl border border-dashed p-8 text-sm text-neutral-500">
-                No extraction jobs yet.
-              </div>
-            ) : (
-              <div className="space-y-3">
-                {workspace.extractionJobs.map((job) => (
-                  <div key={job.id} className="rounded-2xl border p-4">
-                    <div className="flex flex-wrap items-start justify-between gap-3">
-                      <div>
-                        <div className="font-medium text-neutral-900">
-                          {job.document.title}
-                        </div>
-                        <div className="mt-1 text-sm text-neutral-600">
-                          Trigger: {job.trigger} • Provider: {job.provider || "—"}
-                        </div>
-                        <div className="mt-1 text-sm text-neutral-600">
-                          Features: {job.featureCount}
-                          {job.confidenceAvg ? ` • Avg confidence: ${job.confidenceAvg}` : ""}
-                        </div>
-                        <div className="mt-2 text-xs text-neutral-500">
-                          {job.logs || "No logs available."}
-                        </div>
-                        <div className="mt-1 text-xs text-neutral-500">
-                          {new Date(job.createdAt).toLocaleString()}
-                        </div>
-                      </div>
-                      <StatusBadge status={job.status} />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </CardContent>
-        </Card>
+        <div className="rounded-2xl border bg-white p-5 shadow-sm">
+          <div className="text-sm text-neutral-500">Completed</div>
+          <div className="mt-2 text-3xl font-semibold text-neutral-900">{completedRuns.length}</div>
+        </div>
+        <div className="rounded-2xl border bg-white p-5 shadow-sm">
+          <div className="text-sm text-neutral-500">Features generated</div>
+          <div className="mt-2 text-3xl font-semibold text-neutral-900">{totalFeatures}</div>
+        </div>
+        <div className="rounded-2xl border bg-white p-5 shadow-sm">
+          <div className="text-sm text-neutral-500">Avg maturity</div>
+          <div className="mt-2 text-3xl font-semibold text-neutral-900">{averageMaturity}%</div>
+        </div>
       </div>
 
       <Card className="rounded-2xl border-0 shadow-sm">
-        <CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="flex items-center gap-2">
-            <FileText className="h-5 w-5" />
-            Pipeline notes
+            <ActivitySquare className="h-5 w-5" />
+            Analysis runs
           </CardTitle>
+          <div className="text-sm text-neutral-500">
+            Results move into workspace tabs after each run completes.
+          </div>
         </CardHeader>
         <CardContent>
-          <div className="rounded-2xl border p-4 text-sm text-neutral-600">
-            The pipeline now persists three layers per completed run: extracted features, capability assessments with maturity and gap scores, and a dashboard snapshot with roadmap and risk summaries. The extraction heuristics are still mock logic, but the storage contract is now ready for a real queue-backed parser and analytics engine.
-          </div>
+          {workspace.extractionJobs.length === 0 ? (
+            <div className="rounded-2xl border border-dashed p-8 text-sm text-neutral-500">
+              No analysis runs yet. Upload a document in Documents or connect a source to create the first run.
+            </div>
+          ) : (
+            <div className="overflow-hidden rounded-2xl border">
+              <table className="w-full text-sm">
+                <thead className="bg-neutral-50 text-left text-neutral-500">
+                  <tr>
+                    <th className="px-4 py-3 font-medium">Run</th>
+                    <th className="px-4 py-3 font-medium">Status</th>
+                    <th className="px-4 py-3 font-medium">Source document</th>
+                    <th className="px-4 py-3 font-medium">Created</th>
+                    <th className="px-4 py-3 font-medium">Model used</th>
+                    <th className="px-4 py-3 font-medium">Features</th>
+                    <th className="px-4 py-3 font-medium">Gaps</th>
+                    <th className="px-4 py-3 font-medium">Maturity</th>
+                    <th className="px-4 py-3 font-medium">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {workspace.extractionJobs.map((item) => {
+                    const gapCount = getGapCount(item);
+                    const maturityPercent = getMaturityPercent(item);
+                    const documentsHref = `/workspaces/${workspace.slug}?tab=documents`;
+                    const featuresHref = `/workspaces/${workspace.slug}?tab=features&job=${item.id}`;
+                    const reportsHref = `/workspaces/${workspace.slug}?tab=reports&job=${item.id}`;
+
+                    return (
+                      <tr key={item.id} className="border-t align-top hover:bg-neutral-50">
+                        <td className="px-4 py-3">
+                          <div className="font-medium text-neutral-900">{item.document.title}</div>
+                          <div className="mt-1 text-xs text-neutral-500">
+                            {item.trigger} run
+                            {item.providerUsed
+                              ? ` • ${item.providerUsed}`
+                              : item.provider
+                                ? ` • ${item.provider}`
+                                : ""}
+                          </div>
+                        </td>
+                        <td className="px-4 py-3">
+                          <StatusBadge status={item.status} />
+                        </td>
+                        <td className="px-4 py-3 text-neutral-600">
+                          <div>{item.document.title}</div>
+                          <div className="mt-1 text-xs text-neutral-500">
+                            {item.document.source?.name || "Manual upload"}
+                          </div>
+                        </td>
+                        <td className="px-4 py-3 text-neutral-600">
+                          {formatUtcDateTime(item.createdAt)}
+                        </td>
+                        <td className="px-4 py-3 text-neutral-600">
+                          {item.modelUsed ? (
+                            <div>
+                              <div className="font-medium text-neutral-900">{item.modelUsed}</div>
+                              <div className="mt-1 text-xs text-neutral-500">
+                                {item.promptVersionUsed || "No prompt version"}
+                                {typeof item.temperatureUsed === "number"
+                                  ? ` • temp ${item.temperatureUsed}`
+                                  : ""}
+                                {typeof item.maxTokensUsed === "number"
+                                  ? ` • ${item.maxTokensUsed} tokens`
+                                  : ""}
+                              </div>
+                            </div>
+                          ) : (
+                            "Not recorded"
+                          )}
+                        </td>
+                        <td className="px-4 py-3 text-neutral-600">{item.featureCount}</td>
+                        <td className="px-4 py-3 text-neutral-600">{gapCount}</td>
+                        <td className="px-4 py-3 text-neutral-600">{maturityPercent}%</td>
+                        <td className="px-4 py-3">
+                          <div className="flex min-w-[220px] flex-col gap-2">
+                            <div className="flex flex-wrap gap-2">
+                              <RunExtractionJobButton
+                                slug={workspace.slug}
+                                documentId={item.document.id}
+                                label={
+                                  item.status === "FAILED" ? "Retry" : item.status === "COMPLETED" ? "Rerun" : "Run again"
+                                }
+                                className="rounded-lg border px-3 py-1.5 text-xs font-medium text-neutral-700 hover:bg-neutral-100 disabled:opacity-50"
+                              />
+                              <Link
+                                href={featuresHref}
+                                className="inline-flex items-center rounded-lg border px-3 py-1.5 text-xs font-medium text-neutral-700 transition hover:bg-neutral-100"
+                              >
+                                Features
+                              </Link>
+                              <Link
+                                href={reportsHref}
+                                className="inline-flex items-center rounded-lg border px-3 py-1.5 text-xs font-medium text-neutral-700 transition hover:bg-neutral-100"
+                              >
+                                Reports
+                              </Link>
+                            </div>
+                            <Link
+                              href={documentsHref}
+                              className="inline-flex items-center gap-1 text-xs font-medium text-neutral-500 hover:text-neutral-900"
+                            >
+                              Open document context
+                              <ArrowRight className="h-3.5 w-3.5" />
+                            </Link>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
         </CardContent>
       </Card>
+
+      <div className="grid gap-6 xl:grid-cols-2">
+        <Card className="rounded-2xl border-0 shadow-sm">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <RotateCcw className="h-5 w-5" />
+              Run responsibilities
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3 text-sm text-neutral-600">
+            <div className="rounded-2xl border p-4">
+              Ingest belongs in <span className="font-medium text-neutral-900">Documents</span>,{" "}
+              <span className="font-medium text-neutral-900">Sources</span>, and upload flow.
+            </div>
+            <div className="rounded-2xl border p-4">
+              Extracted outputs belong in <span className="font-medium text-neutral-900">Features</span>.
+            </div>
+            <div className="rounded-2xl border p-4">
+              Summarized and exportable outputs belong in{" "}
+              <span className="font-medium text-neutral-900">Reports</span>.
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="rounded-2xl border-0 shadow-sm">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <FileText className="h-5 w-5" />
+              Canonical reading flow
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3 text-sm text-neutral-600">
+            <div className="rounded-2xl border p-4">
+              Start in Documents to verify parse and upload context.
+            </div>
+            <div className="rounded-2xl border p-4">
+              Move to Features to review extracted opportunities scoped to a run.
+            </div>
+            <div className="rounded-2xl border p-4">
+              Finish in Reports to inspect summary outputs for a selected run.
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
+  );
+}
+
+export default async function WorkspacePipelinePage({ params, searchParams }: Props) {
+  const session = await getServerSession(authConfig);
+
+  if (!session?.user?.email) {
+    redirect("/login");
+  }
+
+  const { slug } = await params;
+  const resolvedSearchParams = await searchParams;
+
+  return redirect(
+    `/workspaces/${slug}?tab=analyses${
+      typeof resolvedSearchParams.job === "string"
+        ? `&job=${encodeURIComponent(resolvedSearchParams.job)}`
+        : ""
+    }`
   );
 }

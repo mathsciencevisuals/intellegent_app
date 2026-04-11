@@ -2,6 +2,7 @@ import { notFound, redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import {
   AlertTriangle,
+  BrainCircuit,
   ArrowRightLeft,
   PencilLine,
   Settings,
@@ -11,9 +12,16 @@ import {
 import { authConfig } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { isWorkspaceOwner } from "@/lib/permissions/workspace";
+import { canManageMembers } from "@/lib/permissions/workspace";
+import {
+  getWorkspaceAIConfig,
+  resolveWorkspaceAiConfig,
+} from "@/lib/ai-config/workspace-ai-config";
 import { RenameWorkspaceForm } from "@/components/workspaces/rename-workspace-form";
 import { TransferOwnershipForm } from "@/components/workspaces/transfer-ownership-form";
 import { DeleteWorkspaceForm } from "@/components/workspaces/delete-workspace-form";
+import { AIModelSettingsForm } from "@/components/workspaces/ai-model-settings-form";
+import { TrustCallout } from "@/components/ui/trust-callout";
 import { PageHeader } from "@/components/ui/page-header";
 import {
   Card,
@@ -95,11 +103,16 @@ export default async function WorkspaceSettingsPage({ params }: Props) {
   }
 
   const isOwner = isWorkspaceOwner(currentMembership.role);
+  const canManageAiModels = canManageMembers(currentMembership.role);
+  const [resolvedAiConfig, storedAiConfig] = await Promise.all([
+    resolveWorkspaceAiConfig(workspace.id),
+    getWorkspaceAIConfig(workspace.id),
+  ]);
 
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Settings"
+        title="Workspace settings"
         description={`Manage ownership, naming, and lifecycle controls for ${workspace.name}.`}
       />
 
@@ -220,9 +233,75 @@ export default async function WorkspaceSettingsPage({ params }: Props) {
         </Card>
       </div>
 
+      <section id="ai-models" className="space-y-6 scroll-mt-24">
+        <PageHeader
+          eyebrow="Workspace administration"
+          title="AI models"
+          description="Configure workspace-level AI providers and model selection for analysis, summarization, and reports."
+        />
+
+        <TrustCallout
+          title="Workspace AI settings are scoped per tenant"
+          body="These controls are separate from user preferences. Runtime model choices are resolved per workspace and recorded on each analysis run."
+          points={[
+            canManageAiModels
+              ? "You can update and test this workspace configuration."
+              : "You can view the effective workspace configuration.",
+            "Feature extraction, summarization, and report generation can use different models.",
+            "Fallback defaults remain in place if no workspace override exists.",
+          ]}
+          tone="warning"
+        />
+
+        <Card className="rounded-2xl border-0 shadow-sm">
+          <CardHeader>
+            <div className="flex items-center gap-3">
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-neutral-100">
+                <BrainCircuit className="h-5 w-5 text-neutral-700" />
+              </div>
+              <div>
+                <CardTitle className="text-lg">Workspace AI administration</CardTitle>
+                <CardDescription>
+                  Last saved configuration:{" "}
+                  {storedAiConfig?.updatedAt
+                    ? new Intl.DateTimeFormat("en-US", {
+                        dateStyle: "medium",
+                        timeStyle: "short",
+                        timeZone: "UTC",
+                      }).format(storedAiConfig.updatedAt)
+                    : "No workspace override saved yet"}
+                </CardDescription>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <AIModelSettingsForm
+              slug={workspace.slug}
+              canManage={canManageAiModels}
+              current={{
+                ...resolvedAiConfig,
+                workspaceApiKeyEncrypted: storedAiConfig?.workspaceApiKeyEncrypted
+                  ? "**set**"
+                  : null,
+              }}
+              lastUpdatedAt={
+                storedAiConfig?.updatedAt
+                  ? new Intl.DateTimeFormat("en-US", {
+                      dateStyle: "medium",
+                      timeStyle: "short",
+                      timeZone: "UTC",
+                    }).format(storedAiConfig.updatedAt)
+                  : null
+              }
+              auditHistoryAvailable={false}
+            />
+          </CardContent>
+        </Card>
+      </section>
+
       {isOwner ? (
         <div className="space-y-6">
-          <Card className="rounded-2xl border-0 shadow-sm">
+          <Card id="rename-workspace" className="rounded-2xl border-0 shadow-sm scroll-mt-28">
             <CardHeader>
               <div className="flex items-center gap-3">
                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-neutral-100">
@@ -244,7 +323,7 @@ export default async function WorkspaceSettingsPage({ params }: Props) {
             </CardContent>
           </Card>
 
-          <Card className="rounded-2xl border-0 shadow-sm">
+          <Card id="delete-workspace" className="rounded-2xl border-0 shadow-sm scroll-mt-28">
             <CardHeader>
               <div className="flex items-center gap-3">
                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-neutral-100">

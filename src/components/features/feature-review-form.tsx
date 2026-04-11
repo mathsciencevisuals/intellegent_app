@@ -15,6 +15,9 @@ type MergeTarget = {
 type Props = {
   slug: string;
   featureId: string;
+  initialTitle: string;
+  initialDescription: string;
+  initialConfidenceScore: number;
   initialStatus: FeatureStatus;
   initialOwner: string;
   initialTags: string[];
@@ -24,12 +27,18 @@ type Props = {
 export function FeatureReviewForm({
   slug,
   featureId,
+  initialTitle,
+  initialDescription,
+  initialConfidenceScore,
   initialStatus,
   initialOwner,
   initialTags,
   mergeTargets,
 }: Props) {
   const router = useRouter();
+  const [title, setTitle] = useState(initialTitle);
+  const [description, setDescription] = useState(initialDescription);
+  const [confidenceScore, setConfidenceScore] = useState(initialConfidenceScore);
   const [status, setStatus] = useState<ReviewStatus>(
     initialStatus === "MERGED" ? "APPROVED" : initialStatus
   );
@@ -65,6 +74,9 @@ export function FeatureReviewForm({
             },
             body: JSON.stringify({
               action: "review",
+              title,
+              description,
+              confidenceScore,
               status,
               owner,
               tags: normalizedTags,
@@ -145,6 +157,64 @@ export function FeatureReviewForm({
   return (
     <div className="space-y-6">
       <form onSubmit={onSubmit} className="space-y-4">
+        <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs leading-5 text-neutral-700">
+          AI-generated extraction stays editable here. Reviewers can change the title,
+          description, confidence, owner, and final status before this candidate is
+          used for planning.
+        </div>
+
+        <div className="space-y-2">
+          <label className="text-sm font-medium text-neutral-700" htmlFor="feature-title">
+            Title
+          </label>
+          <input
+            id="feature-title"
+            type="text"
+            value={title}
+            onChange={(event) => setTitle(event.target.value)}
+            className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-sm"
+            maxLength={160}
+          />
+        </div>
+
+        <div className="space-y-2">
+          <label
+            className="text-sm font-medium text-neutral-700"
+            htmlFor="feature-description"
+          >
+            Reviewer description
+          </label>
+          <textarea
+            id="feature-description"
+            value={description}
+            onChange={(event) => setDescription(event.target.value)}
+            className="min-h-28 w-full rounded-xl border border-neutral-300 px-3 py-2 text-sm"
+            maxLength={1500}
+          />
+        </div>
+
+        <div className="space-y-2">
+          <label
+            className="text-sm font-medium text-neutral-700"
+            htmlFor="feature-confidence"
+          >
+            Confidence override
+          </label>
+          <input
+            id="feature-confidence"
+            type="range"
+            min={0}
+            max={100}
+            step={1}
+            value={confidenceScore}
+            onChange={(event) => setConfidenceScore(Number(event.target.value))}
+            className="w-full"
+          />
+          <div className="text-xs text-neutral-500">
+            {confidenceScore}% confidence after reviewer adjustment.
+          </div>
+        </div>
+
         <div className="space-y-2">
           <label className="text-sm font-medium text-neutral-700" htmlFor="feature-status">
             Status
@@ -167,21 +237,21 @@ export function FeatureReviewForm({
             onClick={() => handleQuickStatus("APPROVED")}
             className="rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-medium text-emerald-700"
           >
-            Approve
+            Approve for review
           </button>
           <button
             type="button"
             onClick={() => handleQuickStatus("REJECTED")}
             className="rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-xs font-medium text-red-700"
           >
-            Reject
+            Reject candidate
           </button>
           <button
             type="button"
             onClick={() => handleQuickStatus("CANDIDATE")}
             className="rounded-lg border px-3 py-1.5 text-xs font-medium text-neutral-700"
           >
-            Reset to candidate
+            Return to review
           </button>
         </div>
 
@@ -222,7 +292,7 @@ export function FeatureReviewForm({
           disabled={isPending}
           className="rounded-xl bg-neutral-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-800 disabled:opacity-50"
         >
-          {isPending ? "Saving..." : "Save review"}
+          {isPending ? "Saving..." : "Save review overrides"}
         </button>
       </form>
 

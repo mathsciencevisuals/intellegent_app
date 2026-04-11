@@ -5,6 +5,7 @@ import { Mail, Send, Users } from "lucide-react";
 
 import { authConfig } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { formatUtcDateTime } from "@/lib/utils";
 import { InviteActions } from "@/components/workspaces/invite-actions";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -123,7 +124,7 @@ export default async function InvitesPage() {
                         </div>
 
                         <div className="text-xs text-neutral-500">
-                          Sent on {new Date(invite.createdAt).toLocaleString()}
+                          Sent on {formatUtcDateTime(invite.createdAt)}
                         </div>
                       </div>
 
@@ -202,7 +203,7 @@ export default async function InvitesPage() {
                         Role: {invite.role}
                       </div>
                       <div className="mt-2 text-xs text-neutral-500">
-                        Sent on {new Date(invite.createdAt).toLocaleString()}
+                        Sent on {formatUtcDateTime(invite.createdAt)}
                       </div>
                     </div>
                   ))}

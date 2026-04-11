@@ -29,11 +29,15 @@ export type AggregateExtractionJob = {
 export type ExtractionJobAvgAggregateOutputType = {
   featureCount: number | null
   confidenceAvg: number | null
+  temperatureUsed: number | null
+  maxTokensUsed: number | null
 }
 
 export type ExtractionJobSumAggregateOutputType = {
   featureCount: number | null
   confidenceAvg: number | null
+  temperatureUsed: number | null
+  maxTokensUsed: number | null
 }
 
 export type ExtractionJobMinAggregateOutputType = {
@@ -46,6 +50,11 @@ export type ExtractionJobMinAggregateOutputType = {
   logs: string | null
   featureCount: number | null
   confidenceAvg: number | null
+  providerUsed: string | null
+  modelUsed: string | null
+  promptVersionUsed: string | null
+  temperatureUsed: number | null
+  maxTokensUsed: number | null
   startedAt: Date | null
   completedAt: Date | null
   createdAt: Date | null
@@ -62,6 +71,11 @@ export type ExtractionJobMaxAggregateOutputType = {
   logs: string | null
   featureCount: number | null
   confidenceAvg: number | null
+  providerUsed: string | null
+  modelUsed: string | null
+  promptVersionUsed: string | null
+  temperatureUsed: number | null
+  maxTokensUsed: number | null
   startedAt: Date | null
   completedAt: Date | null
   createdAt: Date | null
@@ -78,6 +92,11 @@ export type ExtractionJobCountAggregateOutputType = {
   logs: number
   featureCount: number
   confidenceAvg: number
+  providerUsed: number
+  modelUsed: number
+  promptVersionUsed: number
+  temperatureUsed: number
+  maxTokensUsed: number
   startedAt: number
   completedAt: number
   createdAt: number
@@ -89,11 +108,15 @@ export type ExtractionJobCountAggregateOutputType = {
 export type ExtractionJobAvgAggregateInputType = {
   featureCount?: true
   confidenceAvg?: true
+  temperatureUsed?: true
+  maxTokensUsed?: true
 }
 
 export type ExtractionJobSumAggregateInputType = {
   featureCount?: true
   confidenceAvg?: true
+  temperatureUsed?: true
+  maxTokensUsed?: true
 }
 
 export type ExtractionJobMinAggregateInputType = {
@@ -106,6 +129,11 @@ export type ExtractionJobMinAggregateInputType = {
   logs?: true
   featureCount?: true
   confidenceAvg?: true
+  providerUsed?: true
+  modelUsed?: true
+  promptVersionUsed?: true
+  temperatureUsed?: true
+  maxTokensUsed?: true
   startedAt?: true
   completedAt?: true
   createdAt?: true
@@ -122,6 +150,11 @@ export type ExtractionJobMaxAggregateInputType = {
   logs?: true
   featureCount?: true
   confidenceAvg?: true
+  providerUsed?: true
+  modelUsed?: true
+  promptVersionUsed?: true
+  temperatureUsed?: true
+  maxTokensUsed?: true
   startedAt?: true
   completedAt?: true
   createdAt?: true
@@ -138,6 +171,11 @@ export type ExtractionJobCountAggregateInputType = {
   logs?: true
   featureCount?: true
   confidenceAvg?: true
+  providerUsed?: true
+  modelUsed?: true
+  promptVersionUsed?: true
+  temperatureUsed?: true
+  maxTokensUsed?: true
   startedAt?: true
   completedAt?: true
   createdAt?: true
@@ -241,6 +279,11 @@ export type ExtractionJobGroupByOutputType = {
   logs: string | null
   featureCount: number
   confidenceAvg: number | null
+  providerUsed: string | null
+  modelUsed: string | null
+  promptVersionUsed: string | null
+  temperatureUsed: number | null
+  maxTokensUsed: number | null
   startedAt: Date | null
   completedAt: Date | null
   createdAt: Date
@@ -280,6 +323,11 @@ export type ExtractionJobWhereInput = {
   logs?: Prisma.StringNullableFilter<"ExtractionJob"> | string | null
   featureCount?: Prisma.IntFilter<"ExtractionJob"> | number
   confidenceAvg?: Prisma.IntNullableFilter<"ExtractionJob"> | number | null
+  providerUsed?: Prisma.StringNullableFilter<"ExtractionJob"> | string | null
+  modelUsed?: Prisma.StringNullableFilter<"ExtractionJob"> | string | null
+  promptVersionUsed?: Prisma.StringNullableFilter<"ExtractionJob"> | string | null
+  temperatureUsed?: Prisma.FloatNullableFilter<"ExtractionJob"> | number | null
+  maxTokensUsed?: Prisma.IntNullableFilter<"ExtractionJob"> | number | null
   startedAt?: Prisma.DateTimeNullableFilter<"ExtractionJob"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"ExtractionJob"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"ExtractionJob"> | Date | string
@@ -301,6 +349,11 @@ export type ExtractionJobOrderByWithRelationInput = {
   logs?: Prisma.SortOrderInput | Prisma.SortOrder
   featureCount?: Prisma.SortOrder
   confidenceAvg?: Prisma.SortOrderInput | Prisma.SortOrder
+  providerUsed?: Prisma.SortOrderInput | Prisma.SortOrder
+  modelUsed?: Prisma.SortOrderInput | Prisma.SortOrder
+  promptVersionUsed?: Prisma.SortOrderInput | Prisma.SortOrder
+  temperatureUsed?: Prisma.SortOrderInput | Prisma.SortOrder
+  maxTokensUsed?: Prisma.SortOrderInput | Prisma.SortOrder
   startedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -325,6 +378,11 @@ export type ExtractionJobWhereUniqueInput = Prisma.AtLeast<{
   logs?: Prisma.StringNullableFilter<"ExtractionJob"> | string | null
   featureCount?: Prisma.IntFilter<"ExtractionJob"> | number
   confidenceAvg?: Prisma.IntNullableFilter<"ExtractionJob"> | number | null
+  providerUsed?: Prisma.StringNullableFilter<"ExtractionJob"> | string | null
+  modelUsed?: Prisma.StringNullableFilter<"ExtractionJob"> | string | null
+  promptVersionUsed?: Prisma.StringNullableFilter<"ExtractionJob"> | string | null
+  temperatureUsed?: Prisma.FloatNullableFilter<"ExtractionJob"> | number | null
+  maxTokensUsed?: Prisma.IntNullableFilter<"ExtractionJob"> | number | null
   startedAt?: Prisma.DateTimeNullableFilter<"ExtractionJob"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"ExtractionJob"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"ExtractionJob"> | Date | string
@@ -346,6 +404,11 @@ export type ExtractionJobOrderByWithAggregationInput = {
   logs?: Prisma.SortOrderInput | Prisma.SortOrder
   featureCount?: Prisma.SortOrder
   confidenceAvg?: Prisma.SortOrderInput | Prisma.SortOrder
+  providerUsed?: Prisma.SortOrderInput | Prisma.SortOrder
+  modelUsed?: Prisma.SortOrderInput | Prisma.SortOrder
+  promptVersionUsed?: Prisma.SortOrderInput | Prisma.SortOrder
+  temperatureUsed?: Prisma.SortOrderInput | Prisma.SortOrder
+  maxTokensUsed?: Prisma.SortOrderInput | Prisma.SortOrder
   startedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -370,6 +433,11 @@ export type ExtractionJobScalarWhereWithAggregatesInput = {
   logs?: Prisma.StringNullableWithAggregatesFilter<"ExtractionJob"> | string | null
   featureCount?: Prisma.IntWithAggregatesFilter<"ExtractionJob"> | number
   confidenceAvg?: Prisma.IntNullableWithAggregatesFilter<"ExtractionJob"> | number | null
+  providerUsed?: Prisma.StringNullableWithAggregatesFilter<"ExtractionJob"> | string | null
+  modelUsed?: Prisma.StringNullableWithAggregatesFilter<"ExtractionJob"> | string | null
+  promptVersionUsed?: Prisma.StringNullableWithAggregatesFilter<"ExtractionJob"> | string | null
+  temperatureUsed?: Prisma.FloatNullableWithAggregatesFilter<"ExtractionJob"> | number | null
+  maxTokensUsed?: Prisma.IntNullableWithAggregatesFilter<"ExtractionJob"> | number | null
   startedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ExtractionJob"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ExtractionJob"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ExtractionJob"> | Date | string
@@ -384,6 +452,11 @@ export type ExtractionJobCreateInput = {
   logs?: string | null
   featureCount?: number
   confidenceAvg?: number | null
+  providerUsed?: string | null
+  modelUsed?: string | null
+  promptVersionUsed?: string | null
+  temperatureUsed?: number | null
+  maxTokensUsed?: number | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
@@ -405,6 +478,11 @@ export type ExtractionJobUncheckedCreateInput = {
   logs?: string | null
   featureCount?: number
   confidenceAvg?: number | null
+  providerUsed?: string | null
+  modelUsed?: string | null
+  promptVersionUsed?: string | null
+  temperatureUsed?: number | null
+  maxTokensUsed?: number | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
@@ -422,6 +500,11 @@ export type ExtractionJobUpdateInput = {
   logs?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   featureCount?: Prisma.IntFieldUpdateOperationsInput | number
   confidenceAvg?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  providerUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  modelUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  promptVersionUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temperatureUsed?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  maxTokensUsed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -443,6 +526,11 @@ export type ExtractionJobUncheckedUpdateInput = {
   logs?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   featureCount?: Prisma.IntFieldUpdateOperationsInput | number
   confidenceAvg?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  providerUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  modelUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  promptVersionUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temperatureUsed?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  maxTokensUsed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -462,6 +550,11 @@ export type ExtractionJobCreateManyInput = {
   logs?: string | null
   featureCount?: number
   confidenceAvg?: number | null
+  providerUsed?: string | null
+  modelUsed?: string | null
+  promptVersionUsed?: string | null
+  temperatureUsed?: number | null
+  maxTokensUsed?: number | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
@@ -476,6 +569,11 @@ export type ExtractionJobUpdateManyMutationInput = {
   logs?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   featureCount?: Prisma.IntFieldUpdateOperationsInput | number
   confidenceAvg?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  providerUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  modelUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  promptVersionUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temperatureUsed?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  maxTokensUsed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -492,6 +590,11 @@ export type ExtractionJobUncheckedUpdateManyInput = {
   logs?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   featureCount?: Prisma.IntFieldUpdateOperationsInput | number
   confidenceAvg?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  providerUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  modelUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  promptVersionUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temperatureUsed?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  maxTokensUsed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -518,6 +621,11 @@ export type ExtractionJobCountOrderByAggregateInput = {
   logs?: Prisma.SortOrder
   featureCount?: Prisma.SortOrder
   confidenceAvg?: Prisma.SortOrder
+  providerUsed?: Prisma.SortOrder
+  modelUsed?: Prisma.SortOrder
+  promptVersionUsed?: Prisma.SortOrder
+  temperatureUsed?: Prisma.SortOrder
+  maxTokensUsed?: Prisma.SortOrder
   startedAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -527,6 +635,8 @@ export type ExtractionJobCountOrderByAggregateInput = {
 export type ExtractionJobAvgOrderByAggregateInput = {
   featureCount?: Prisma.SortOrder
   confidenceAvg?: Prisma.SortOrder
+  temperatureUsed?: Prisma.SortOrder
+  maxTokensUsed?: Prisma.SortOrder
 }
 
 export type ExtractionJobMaxOrderByAggregateInput = {
@@ -539,6 +649,11 @@ export type ExtractionJobMaxOrderByAggregateInput = {
   logs?: Prisma.SortOrder
   featureCount?: Prisma.SortOrder
   confidenceAvg?: Prisma.SortOrder
+  providerUsed?: Prisma.SortOrder
+  modelUsed?: Prisma.SortOrder
+  promptVersionUsed?: Prisma.SortOrder
+  temperatureUsed?: Prisma.SortOrder
+  maxTokensUsed?: Prisma.SortOrder
   startedAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -555,6 +670,11 @@ export type ExtractionJobMinOrderByAggregateInput = {
   logs?: Prisma.SortOrder
   featureCount?: Prisma.SortOrder
   confidenceAvg?: Prisma.SortOrder
+  providerUsed?: Prisma.SortOrder
+  modelUsed?: Prisma.SortOrder
+  promptVersionUsed?: Prisma.SortOrder
+  temperatureUsed?: Prisma.SortOrder
+  maxTokensUsed?: Prisma.SortOrder
   startedAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -564,6 +684,8 @@ export type ExtractionJobMinOrderByAggregateInput = {
 export type ExtractionJobSumOrderByAggregateInput = {
   featureCount?: Prisma.SortOrder
   confidenceAvg?: Prisma.SortOrder
+  temperatureUsed?: Prisma.SortOrder
+  maxTokensUsed?: Prisma.SortOrder
 }
 
 export type ExtractionJobScalarRelationFilter = {
@@ -663,6 +785,14 @@ export type EnumExtractionTriggerFieldUpdateOperationsInput = {
   set?: $Enums.ExtractionTrigger
 }
 
+export type NullableFloatFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type ExtractionJobCreateNestedOneWithoutCapabilitiesInput = {
   create?: Prisma.XOR<Prisma.ExtractionJobCreateWithoutCapabilitiesInput, Prisma.ExtractionJobUncheckedCreateWithoutCapabilitiesInput>
   connectOrCreate?: Prisma.ExtractionJobCreateOrConnectWithoutCapabilitiesInput
@@ -713,6 +843,11 @@ export type ExtractionJobCreateWithoutWorkspaceInput = {
   logs?: string | null
   featureCount?: number
   confidenceAvg?: number | null
+  providerUsed?: string | null
+  modelUsed?: string | null
+  promptVersionUsed?: string | null
+  temperatureUsed?: number | null
+  maxTokensUsed?: number | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
@@ -732,6 +867,11 @@ export type ExtractionJobUncheckedCreateWithoutWorkspaceInput = {
   logs?: string | null
   featureCount?: number
   confidenceAvg?: number | null
+  providerUsed?: string | null
+  modelUsed?: string | null
+  promptVersionUsed?: string | null
+  temperatureUsed?: number | null
+  maxTokensUsed?: number | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
@@ -780,6 +920,11 @@ export type ExtractionJobScalarWhereInput = {
   logs?: Prisma.StringNullableFilter<"ExtractionJob"> | string | null
   featureCount?: Prisma.IntFilter<"ExtractionJob"> | number
   confidenceAvg?: Prisma.IntNullableFilter<"ExtractionJob"> | number | null
+  providerUsed?: Prisma.StringNullableFilter<"ExtractionJob"> | string | null
+  modelUsed?: Prisma.StringNullableFilter<"ExtractionJob"> | string | null
+  promptVersionUsed?: Prisma.StringNullableFilter<"ExtractionJob"> | string | null
+  temperatureUsed?: Prisma.FloatNullableFilter<"ExtractionJob"> | number | null
+  maxTokensUsed?: Prisma.IntNullableFilter<"ExtractionJob"> | number | null
   startedAt?: Prisma.DateTimeNullableFilter<"ExtractionJob"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"ExtractionJob"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"ExtractionJob"> | Date | string
@@ -794,6 +939,11 @@ export type ExtractionJobCreateWithoutDocumentInput = {
   logs?: string | null
   featureCount?: number
   confidenceAvg?: number | null
+  providerUsed?: string | null
+  modelUsed?: string | null
+  promptVersionUsed?: string | null
+  temperatureUsed?: number | null
+  maxTokensUsed?: number | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
@@ -813,6 +963,11 @@ export type ExtractionJobUncheckedCreateWithoutDocumentInput = {
   logs?: string | null
   featureCount?: number
   confidenceAvg?: number | null
+  providerUsed?: string | null
+  modelUsed?: string | null
+  promptVersionUsed?: string | null
+  temperatureUsed?: number | null
+  maxTokensUsed?: number | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
@@ -856,6 +1011,11 @@ export type ExtractionJobCreateWithoutCapabilitiesInput = {
   logs?: string | null
   featureCount?: number
   confidenceAvg?: number | null
+  providerUsed?: string | null
+  modelUsed?: string | null
+  promptVersionUsed?: string | null
+  temperatureUsed?: number | null
+  maxTokensUsed?: number | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
@@ -876,6 +1036,11 @@ export type ExtractionJobUncheckedCreateWithoutCapabilitiesInput = {
   logs?: string | null
   featureCount?: number
   confidenceAvg?: number | null
+  providerUsed?: string | null
+  modelUsed?: string | null
+  promptVersionUsed?: string | null
+  temperatureUsed?: number | null
+  maxTokensUsed?: number | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
@@ -908,6 +1073,11 @@ export type ExtractionJobUpdateWithoutCapabilitiesInput = {
   logs?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   featureCount?: Prisma.IntFieldUpdateOperationsInput | number
   confidenceAvg?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  providerUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  modelUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  promptVersionUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temperatureUsed?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  maxTokensUsed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -928,6 +1098,11 @@ export type ExtractionJobUncheckedUpdateWithoutCapabilitiesInput = {
   logs?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   featureCount?: Prisma.IntFieldUpdateOperationsInput | number
   confidenceAvg?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  providerUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  modelUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  promptVersionUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temperatureUsed?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  maxTokensUsed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -944,6 +1119,11 @@ export type ExtractionJobCreateWithoutRoadmapRecommendationsInput = {
   logs?: string | null
   featureCount?: number
   confidenceAvg?: number | null
+  providerUsed?: string | null
+  modelUsed?: string | null
+  promptVersionUsed?: string | null
+  temperatureUsed?: number | null
+  maxTokensUsed?: number | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
@@ -964,6 +1144,11 @@ export type ExtractionJobUncheckedCreateWithoutRoadmapRecommendationsInput = {
   logs?: string | null
   featureCount?: number
   confidenceAvg?: number | null
+  providerUsed?: string | null
+  modelUsed?: string | null
+  promptVersionUsed?: string | null
+  temperatureUsed?: number | null
+  maxTokensUsed?: number | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
@@ -996,6 +1181,11 @@ export type ExtractionJobUpdateWithoutRoadmapRecommendationsInput = {
   logs?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   featureCount?: Prisma.IntFieldUpdateOperationsInput | number
   confidenceAvg?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  providerUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  modelUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  promptVersionUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temperatureUsed?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  maxTokensUsed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1016,6 +1206,11 @@ export type ExtractionJobUncheckedUpdateWithoutRoadmapRecommendationsInput = {
   logs?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   featureCount?: Prisma.IntFieldUpdateOperationsInput | number
   confidenceAvg?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  providerUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  modelUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  promptVersionUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temperatureUsed?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  maxTokensUsed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1032,6 +1227,11 @@ export type ExtractionJobCreateWithoutDashboardSnapshotInput = {
   logs?: string | null
   featureCount?: number
   confidenceAvg?: number | null
+  providerUsed?: string | null
+  modelUsed?: string | null
+  promptVersionUsed?: string | null
+  temperatureUsed?: number | null
+  maxTokensUsed?: number | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
@@ -1052,6 +1252,11 @@ export type ExtractionJobUncheckedCreateWithoutDashboardSnapshotInput = {
   logs?: string | null
   featureCount?: number
   confidenceAvg?: number | null
+  providerUsed?: string | null
+  modelUsed?: string | null
+  promptVersionUsed?: string | null
+  temperatureUsed?: number | null
+  maxTokensUsed?: number | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
@@ -1084,6 +1289,11 @@ export type ExtractionJobUpdateWithoutDashboardSnapshotInput = {
   logs?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   featureCount?: Prisma.IntFieldUpdateOperationsInput | number
   confidenceAvg?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  providerUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  modelUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  promptVersionUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temperatureUsed?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  maxTokensUsed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1104,6 +1314,11 @@ export type ExtractionJobUncheckedUpdateWithoutDashboardSnapshotInput = {
   logs?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   featureCount?: Prisma.IntFieldUpdateOperationsInput | number
   confidenceAvg?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  providerUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  modelUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  promptVersionUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temperatureUsed?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  maxTokensUsed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1121,6 +1336,11 @@ export type ExtractionJobCreateManyWorkspaceInput = {
   logs?: string | null
   featureCount?: number
   confidenceAvg?: number | null
+  providerUsed?: string | null
+  modelUsed?: string | null
+  promptVersionUsed?: string | null
+  temperatureUsed?: number | null
+  maxTokensUsed?: number | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
@@ -1135,6 +1355,11 @@ export type ExtractionJobUpdateWithoutWorkspaceInput = {
   logs?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   featureCount?: Prisma.IntFieldUpdateOperationsInput | number
   confidenceAvg?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  providerUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  modelUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  promptVersionUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temperatureUsed?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  maxTokensUsed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1154,6 +1379,11 @@ export type ExtractionJobUncheckedUpdateWithoutWorkspaceInput = {
   logs?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   featureCount?: Prisma.IntFieldUpdateOperationsInput | number
   confidenceAvg?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  providerUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  modelUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  promptVersionUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temperatureUsed?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  maxTokensUsed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1172,6 +1402,11 @@ export type ExtractionJobUncheckedUpdateManyWithoutWorkspaceInput = {
   logs?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   featureCount?: Prisma.IntFieldUpdateOperationsInput | number
   confidenceAvg?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  providerUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  modelUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  promptVersionUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temperatureUsed?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  maxTokensUsed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1187,6 +1422,11 @@ export type ExtractionJobCreateManyDocumentInput = {
   logs?: string | null
   featureCount?: number
   confidenceAvg?: number | null
+  providerUsed?: string | null
+  modelUsed?: string | null
+  promptVersionUsed?: string | null
+  temperatureUsed?: number | null
+  maxTokensUsed?: number | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
@@ -1201,6 +1441,11 @@ export type ExtractionJobUpdateWithoutDocumentInput = {
   logs?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   featureCount?: Prisma.IntFieldUpdateOperationsInput | number
   confidenceAvg?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  providerUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  modelUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  promptVersionUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temperatureUsed?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  maxTokensUsed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1220,6 +1465,11 @@ export type ExtractionJobUncheckedUpdateWithoutDocumentInput = {
   logs?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   featureCount?: Prisma.IntFieldUpdateOperationsInput | number
   confidenceAvg?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  providerUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  modelUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  promptVersionUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temperatureUsed?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  maxTokensUsed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1238,6 +1488,11 @@ export type ExtractionJobUncheckedUpdateManyWithoutDocumentInput = {
   logs?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   featureCount?: Prisma.IntFieldUpdateOperationsInput | number
   confidenceAvg?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  providerUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  modelUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  promptVersionUsed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temperatureUsed?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  maxTokensUsed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1294,6 +1549,11 @@ export type ExtractionJobSelect<ExtArgs extends runtime.Types.Extensions.Interna
   logs?: boolean
   featureCount?: boolean
   confidenceAvg?: boolean
+  providerUsed?: boolean
+  modelUsed?: boolean
+  promptVersionUsed?: boolean
+  temperatureUsed?: boolean
+  maxTokensUsed?: boolean
   startedAt?: boolean
   completedAt?: boolean
   createdAt?: boolean
@@ -1316,6 +1576,11 @@ export type ExtractionJobSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   logs?: boolean
   featureCount?: boolean
   confidenceAvg?: boolean
+  providerUsed?: boolean
+  modelUsed?: boolean
+  promptVersionUsed?: boolean
+  temperatureUsed?: boolean
+  maxTokensUsed?: boolean
   startedAt?: boolean
   completedAt?: boolean
   createdAt?: boolean
@@ -1334,6 +1599,11 @@ export type ExtractionJobSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   logs?: boolean
   featureCount?: boolean
   confidenceAvg?: boolean
+  providerUsed?: boolean
+  modelUsed?: boolean
+  promptVersionUsed?: boolean
+  temperatureUsed?: boolean
+  maxTokensUsed?: boolean
   startedAt?: boolean
   completedAt?: boolean
   createdAt?: boolean
@@ -1352,13 +1622,18 @@ export type ExtractionJobSelectScalar = {
   logs?: boolean
   featureCount?: boolean
   confidenceAvg?: boolean
+  providerUsed?: boolean
+  modelUsed?: boolean
+  promptVersionUsed?: boolean
+  temperatureUsed?: boolean
+  maxTokensUsed?: boolean
   startedAt?: boolean
   completedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ExtractionJobOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "workspaceId" | "documentId" | "status" | "trigger" | "provider" | "logs" | "featureCount" | "confidenceAvg" | "startedAt" | "completedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["extractionJob"]>
+export type ExtractionJobOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "workspaceId" | "documentId" | "status" | "trigger" | "provider" | "logs" | "featureCount" | "confidenceAvg" | "providerUsed" | "modelUsed" | "promptVersionUsed" | "temperatureUsed" | "maxTokensUsed" | "startedAt" | "completedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["extractionJob"]>
 export type ExtractionJobInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>
   document?: boolean | Prisma.DocumentDefaultArgs<ExtArgs>
@@ -1395,6 +1670,11 @@ export type $ExtractionJobPayload<ExtArgs extends runtime.Types.Extensions.Inter
     logs: string | null
     featureCount: number
     confidenceAvg: number | null
+    providerUsed: string | null
+    modelUsed: string | null
+    promptVersionUsed: string | null
+    temperatureUsed: number | null
+    maxTokensUsed: number | null
     startedAt: Date | null
     completedAt: Date | null
     createdAt: Date
@@ -1836,6 +2116,11 @@ export interface ExtractionJobFieldRefs {
   readonly logs: Prisma.FieldRef<"ExtractionJob", 'String'>
   readonly featureCount: Prisma.FieldRef<"ExtractionJob", 'Int'>
   readonly confidenceAvg: Prisma.FieldRef<"ExtractionJob", 'Int'>
+  readonly providerUsed: Prisma.FieldRef<"ExtractionJob", 'String'>
+  readonly modelUsed: Prisma.FieldRef<"ExtractionJob", 'String'>
+  readonly promptVersionUsed: Prisma.FieldRef<"ExtractionJob", 'String'>
+  readonly temperatureUsed: Prisma.FieldRef<"ExtractionJob", 'Float'>
+  readonly maxTokensUsed: Prisma.FieldRef<"ExtractionJob", 'Int'>
   readonly startedAt: Prisma.FieldRef<"ExtractionJob", 'DateTime'>
   readonly completedAt: Prisma.FieldRef<"ExtractionJob", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"ExtractionJob", 'DateTime'>

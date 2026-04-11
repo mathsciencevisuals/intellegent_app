@@ -5,6 +5,11 @@ import type {
   ModuleSummary,
   OpportunityResponse,
 } from "@/lib/pipeline/types";
+import {
+  getConfidenceLabel,
+  getPipelineVersion,
+  getReviewGuidance,
+} from "@/lib/trust";
 
 type OpportunityDetail = OpportunityResponse & {
   summary: string;
@@ -57,6 +62,8 @@ function mapOpportunity(capability: {
   name: string;
   module: string;
   description: string | null;
+  extractedFeatureCount: number;
+  confidenceAvg: number | null;
   assessment: {
     maturityTier: Maturity;
     rationale: string;
@@ -101,6 +108,14 @@ function mapOpportunity(capability: {
       annualDollarValue: assessment?.annualDollarImpact ?? 0,
     },
     priorityScore: assessment?.compositeOpportunityScore ?? 0,
+    trust: {
+      confidence: capability.confidenceAvg ?? 0,
+      confidenceLabel: getConfidenceLabel(capability.confidenceAvg ?? 0),
+      sourceCount: capability.extractedFeatureCount,
+      evidenceCount: capability.extractedFeatureCount,
+      reviewGuidance: getReviewGuidance(capability.confidenceAvg ?? 0),
+      pipelineVersion: getPipelineVersion(),
+    },
   } satisfies OpportunityResponse;
 }
 

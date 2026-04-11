@@ -1,9 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { useMemo, useState } from "react";
-import { Bell, Mail, Settings, ShieldCheck } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 
 type Props = {
   name?: string | null;
@@ -96,35 +95,6 @@ export function ProfileMenu({
             <div className="rounded-xl bg-neutral-50 p-3 text-neutral-700">
               {now}
             </div>
-          </div>
-
-          <div className="mt-4 space-y-2">
-            <Link
-              href="/settings"
-              onClick={() => setOpen(false)}
-              className="flex items-center gap-3 rounded-xl border px-3 py-2.5 text-sm text-neutral-700 transition hover:bg-neutral-50"
-            >
-              <Settings className="h-4 w-4" />
-              Preferences
-            </Link>
-
-            <Link
-              href="/invites"
-              onClick={() => setOpen(false)}
-              className="flex items-center gap-3 rounded-xl border px-3 py-2.5 text-sm text-neutral-700 transition hover:bg-neutral-50"
-            >
-              <Mail className="h-4 w-4" />
-              Invite center
-            </Link>
-
-            <Link
-              href="/notifications"
-              onClick={() => setOpen(false)}
-              className="flex items-center gap-3 rounded-xl border px-3 py-2.5 text-sm text-neutral-700 transition hover:bg-neutral-50"
-            >
-              <Bell className="h-4 w-4" />
-              Notifications
-            </Link>
           </div>
 
           <div className="mt-4 flex items-start gap-3 rounded-2xl border border-emerald-200 bg-emerald-50 p-3">

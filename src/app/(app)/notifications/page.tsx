@@ -12,6 +12,7 @@ import {
 
 import { authConfig } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { formatUtcDateTime } from "@/lib/utils";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { StatusBadge } from "@/components/ui/status-badge";
@@ -27,7 +28,7 @@ type NotificationItem = {
 };
 
 function formatTimestamp(value: Date) {
-  return new Date(value).toLocaleString();
+  return formatUtcDateTime(value);
 }
 
 function toneClasses(tone: NotificationItem["tone"]) {

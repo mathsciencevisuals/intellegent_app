@@ -107,3 +107,8 @@ export type RoadmapRecommendation = Prisma.RoadmapRecommendationModel
  * 
  */
 export type DashboardSnapshot = Prisma.DashboardSnapshotModel
+/**
+ * Model WorkspaceAIConfig
+ * 
+ */
+export type WorkspaceAIConfig = Prisma.WorkspaceAIConfigModel

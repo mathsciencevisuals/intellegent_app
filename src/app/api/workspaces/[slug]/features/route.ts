@@ -23,7 +23,8 @@ export async function GET(
       return NextResponse.json({ error: "Workspace not found" }, { status: 404 });
     }
 
-    const q = getSingle(req.nextUrl.searchParams.getAll("q"));
+    const rawQ = getSingle(req.nextUrl.searchParams.getAll("q"));
+    const q = rawQ ? rawQ.slice(0, 200) : rawQ;
     const status = getSingle(req.nextUrl.searchParams.getAll("status"));
     const moduleName = getSingle(req.nextUrl.searchParams.getAll("module"));
     const tag = getSingle(req.nextUrl.searchParams.getAll("tag"));

@@ -1,6 +1,9 @@
 export const PIPELINE_CONFIG = {
+  version: "trust-v1",
   blendedHourlyRate: 65,
   workingWeeksPerYear: 50,
+  conservativeRoiPenalty: 8,
+  conservativeRiskBuffer: 8,
   priorityWeights: {
     roiPotential: 0.3,
     repeatability: 0.25,

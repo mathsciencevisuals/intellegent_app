@@ -4,6 +4,7 @@ import { BellRing, KeyRound, ShieldCheck, UserRound } from "lucide-react";
 
 import { authConfig } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { formatUtcDate } from "@/lib/utils";
 import { PasswordSettingsForm } from "@/components/settings/password-settings-form";
 import { PreferencesSettingsForm } from "@/components/settings/preferences-settings-form";
 import { ProfileSettingsForm } from "@/components/settings/profile-settings-form";
@@ -70,11 +71,7 @@ export default async function PreferencesPage() {
     },
     {
       label: "Member since",
-      value: user.createdAt.toLocaleDateString(undefined, {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-      }),
+      value: formatUtcDate(user.createdAt),
     },
   ];
 

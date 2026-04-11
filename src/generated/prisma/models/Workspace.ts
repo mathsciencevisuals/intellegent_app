@@ -202,6 +202,7 @@ export type WorkspaceWhereInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationListRelationFilter
   dashboardSnapshots?: Prisma.DashboardSnapshotListRelationFilter
   savedViews?: Prisma.SavedViewListRelationFilter
+  aiConfig?: Prisma.XOR<Prisma.WorkspaceAIConfigNullableScalarRelationFilter, Prisma.WorkspaceAIConfigWhereInput> | null
 }
 
 export type WorkspaceOrderByWithRelationInput = {
@@ -223,6 +224,7 @@ export type WorkspaceOrderByWithRelationInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationOrderByRelationAggregateInput
   dashboardSnapshots?: Prisma.DashboardSnapshotOrderByRelationAggregateInput
   savedViews?: Prisma.SavedViewOrderByRelationAggregateInput
+  aiConfig?: Prisma.WorkspaceAIConfigOrderByWithRelationInput
 }
 
 export type WorkspaceWhereUniqueInput = Prisma.AtLeast<{
@@ -247,6 +249,7 @@ export type WorkspaceWhereUniqueInput = Prisma.AtLeast<{
   roadmapRecommendations?: Prisma.RoadmapRecommendationListRelationFilter
   dashboardSnapshots?: Prisma.DashboardSnapshotListRelationFilter
   savedViews?: Prisma.SavedViewListRelationFilter
+  aiConfig?: Prisma.XOR<Prisma.WorkspaceAIConfigNullableScalarRelationFilter, Prisma.WorkspaceAIConfigWhereInput> | null
 }, "id" | "slug">
 
 export type WorkspaceOrderByWithAggregationInput = {
@@ -291,6 +294,7 @@ export type WorkspaceCreateInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationCreateNestedManyWithoutWorkspaceInput
   dashboardSnapshots?: Prisma.DashboardSnapshotCreateNestedManyWithoutWorkspaceInput
   savedViews?: Prisma.SavedViewCreateNestedManyWithoutWorkspaceInput
+  aiConfig?: Prisma.WorkspaceAIConfigCreateNestedOneWithoutWorkspaceInput
 }
 
 export type WorkspaceUncheckedCreateInput = {
@@ -311,6 +315,7 @@ export type WorkspaceUncheckedCreateInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedCreateNestedManyWithoutWorkspaceInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedCreateNestedManyWithoutWorkspaceInput
   savedViews?: Prisma.SavedViewUncheckedCreateNestedManyWithoutWorkspaceInput
+  aiConfig?: Prisma.WorkspaceAIConfigUncheckedCreateNestedOneWithoutWorkspaceInput
 }
 
 export type WorkspaceUpdateInput = {
@@ -331,6 +336,7 @@ export type WorkspaceUpdateInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationUpdateManyWithoutWorkspaceNestedInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUpdateManyWithoutWorkspaceNestedInput
   savedViews?: Prisma.SavedViewUpdateManyWithoutWorkspaceNestedInput
+  aiConfig?: Prisma.WorkspaceAIConfigUpdateOneWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceUncheckedUpdateInput = {
@@ -351,6 +357,7 @@ export type WorkspaceUncheckedUpdateInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedUpdateManyWithoutWorkspaceNestedInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedUpdateManyWithoutWorkspaceNestedInput
   savedViews?: Prisma.SavedViewUncheckedUpdateManyWithoutWorkspaceNestedInput
+  aiConfig?: Prisma.WorkspaceAIConfigUncheckedUpdateOneWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceCreateManyInput = {
@@ -617,6 +624,20 @@ export type WorkspaceUpdateOneRequiredWithoutDashboardSnapshotsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.WorkspaceUpdateToOneWithWhereWithoutDashboardSnapshotsInput, Prisma.WorkspaceUpdateWithoutDashboardSnapshotsInput>, Prisma.WorkspaceUncheckedUpdateWithoutDashboardSnapshotsInput>
 }
 
+export type WorkspaceCreateNestedOneWithoutAiConfigInput = {
+  create?: Prisma.XOR<Prisma.WorkspaceCreateWithoutAiConfigInput, Prisma.WorkspaceUncheckedCreateWithoutAiConfigInput>
+  connectOrCreate?: Prisma.WorkspaceCreateOrConnectWithoutAiConfigInput
+  connect?: Prisma.WorkspaceWhereUniqueInput
+}
+
+export type WorkspaceUpdateOneRequiredWithoutAiConfigNestedInput = {
+  create?: Prisma.XOR<Prisma.WorkspaceCreateWithoutAiConfigInput, Prisma.WorkspaceUncheckedCreateWithoutAiConfigInput>
+  connectOrCreate?: Prisma.WorkspaceCreateOrConnectWithoutAiConfigInput
+  upsert?: Prisma.WorkspaceUpsertWithoutAiConfigInput
+  connect?: Prisma.WorkspaceWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.WorkspaceUpdateToOneWithWhereWithoutAiConfigInput, Prisma.WorkspaceUpdateWithoutAiConfigInput>, Prisma.WorkspaceUncheckedUpdateWithoutAiConfigInput>
+}
+
 export type WorkspaceCreateWithoutOwnerInput = {
   id?: string
   name: string
@@ -634,6 +655,7 @@ export type WorkspaceCreateWithoutOwnerInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationCreateNestedManyWithoutWorkspaceInput
   dashboardSnapshots?: Prisma.DashboardSnapshotCreateNestedManyWithoutWorkspaceInput
   savedViews?: Prisma.SavedViewCreateNestedManyWithoutWorkspaceInput
+  aiConfig?: Prisma.WorkspaceAIConfigCreateNestedOneWithoutWorkspaceInput
 }
 
 export type WorkspaceUncheckedCreateWithoutOwnerInput = {
@@ -653,6 +675,7 @@ export type WorkspaceUncheckedCreateWithoutOwnerInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedCreateNestedManyWithoutWorkspaceInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedCreateNestedManyWithoutWorkspaceInput
   savedViews?: Prisma.SavedViewUncheckedCreateNestedManyWithoutWorkspaceInput
+  aiConfig?: Prisma.WorkspaceAIConfigUncheckedCreateNestedOneWithoutWorkspaceInput
 }
 
 export type WorkspaceCreateOrConnectWithoutOwnerInput = {
@@ -710,6 +733,7 @@ export type WorkspaceCreateWithoutMembershipsInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationCreateNestedManyWithoutWorkspaceInput
   dashboardSnapshots?: Prisma.DashboardSnapshotCreateNestedManyWithoutWorkspaceInput
   savedViews?: Prisma.SavedViewCreateNestedManyWithoutWorkspaceInput
+  aiConfig?: Prisma.WorkspaceAIConfigCreateNestedOneWithoutWorkspaceInput
 }
 
 export type WorkspaceUncheckedCreateWithoutMembershipsInput = {
@@ -729,6 +753,7 @@ export type WorkspaceUncheckedCreateWithoutMembershipsInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedCreateNestedManyWithoutWorkspaceInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedCreateNestedManyWithoutWorkspaceInput
   savedViews?: Prisma.SavedViewUncheckedCreateNestedManyWithoutWorkspaceInput
+  aiConfig?: Prisma.WorkspaceAIConfigUncheckedCreateNestedOneWithoutWorkspaceInput
 }
 
 export type WorkspaceCreateOrConnectWithoutMembershipsInput = {
@@ -764,6 +789,7 @@ export type WorkspaceUpdateWithoutMembershipsInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationUpdateManyWithoutWorkspaceNestedInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUpdateManyWithoutWorkspaceNestedInput
   savedViews?: Prisma.SavedViewUpdateManyWithoutWorkspaceNestedInput
+  aiConfig?: Prisma.WorkspaceAIConfigUpdateOneWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceUncheckedUpdateWithoutMembershipsInput = {
@@ -783,6 +809,7 @@ export type WorkspaceUncheckedUpdateWithoutMembershipsInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedUpdateManyWithoutWorkspaceNestedInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedUpdateManyWithoutWorkspaceNestedInput
   savedViews?: Prisma.SavedViewUncheckedUpdateManyWithoutWorkspaceNestedInput
+  aiConfig?: Prisma.WorkspaceAIConfigUncheckedUpdateOneWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceCreateWithoutDocumentsInput = {
@@ -802,6 +829,7 @@ export type WorkspaceCreateWithoutDocumentsInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationCreateNestedManyWithoutWorkspaceInput
   dashboardSnapshots?: Prisma.DashboardSnapshotCreateNestedManyWithoutWorkspaceInput
   savedViews?: Prisma.SavedViewCreateNestedManyWithoutWorkspaceInput
+  aiConfig?: Prisma.WorkspaceAIConfigCreateNestedOneWithoutWorkspaceInput
 }
 
 export type WorkspaceUncheckedCreateWithoutDocumentsInput = {
@@ -821,6 +849,7 @@ export type WorkspaceUncheckedCreateWithoutDocumentsInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedCreateNestedManyWithoutWorkspaceInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedCreateNestedManyWithoutWorkspaceInput
   savedViews?: Prisma.SavedViewUncheckedCreateNestedManyWithoutWorkspaceInput
+  aiConfig?: Prisma.WorkspaceAIConfigUncheckedCreateNestedOneWithoutWorkspaceInput
 }
 
 export type WorkspaceCreateOrConnectWithoutDocumentsInput = {
@@ -856,6 +885,7 @@ export type WorkspaceUpdateWithoutDocumentsInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationUpdateManyWithoutWorkspaceNestedInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUpdateManyWithoutWorkspaceNestedInput
   savedViews?: Prisma.SavedViewUpdateManyWithoutWorkspaceNestedInput
+  aiConfig?: Prisma.WorkspaceAIConfigUpdateOneWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceUncheckedUpdateWithoutDocumentsInput = {
@@ -875,6 +905,7 @@ export type WorkspaceUncheckedUpdateWithoutDocumentsInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedUpdateManyWithoutWorkspaceNestedInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedUpdateManyWithoutWorkspaceNestedInput
   savedViews?: Prisma.SavedViewUncheckedUpdateManyWithoutWorkspaceNestedInput
+  aiConfig?: Prisma.WorkspaceAIConfigUncheckedUpdateOneWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceCreateWithoutInvitesInput = {
@@ -894,6 +925,7 @@ export type WorkspaceCreateWithoutInvitesInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationCreateNestedManyWithoutWorkspaceInput
   dashboardSnapshots?: Prisma.DashboardSnapshotCreateNestedManyWithoutWorkspaceInput
   savedViews?: Prisma.SavedViewCreateNestedManyWithoutWorkspaceInput
+  aiConfig?: Prisma.WorkspaceAIConfigCreateNestedOneWithoutWorkspaceInput
 }
 
 export type WorkspaceUncheckedCreateWithoutInvitesInput = {
@@ -913,6 +945,7 @@ export type WorkspaceUncheckedCreateWithoutInvitesInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedCreateNestedManyWithoutWorkspaceInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedCreateNestedManyWithoutWorkspaceInput
   savedViews?: Prisma.SavedViewUncheckedCreateNestedManyWithoutWorkspaceInput
+  aiConfig?: Prisma.WorkspaceAIConfigUncheckedCreateNestedOneWithoutWorkspaceInput
 }
 
 export type WorkspaceCreateOrConnectWithoutInvitesInput = {
@@ -948,6 +981,7 @@ export type WorkspaceUpdateWithoutInvitesInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationUpdateManyWithoutWorkspaceNestedInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUpdateManyWithoutWorkspaceNestedInput
   savedViews?: Prisma.SavedViewUpdateManyWithoutWorkspaceNestedInput
+  aiConfig?: Prisma.WorkspaceAIConfigUpdateOneWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceUncheckedUpdateWithoutInvitesInput = {
@@ -967,6 +1001,7 @@ export type WorkspaceUncheckedUpdateWithoutInvitesInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedUpdateManyWithoutWorkspaceNestedInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedUpdateManyWithoutWorkspaceNestedInput
   savedViews?: Prisma.SavedViewUncheckedUpdateManyWithoutWorkspaceNestedInput
+  aiConfig?: Prisma.WorkspaceAIConfigUncheckedUpdateOneWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceCreateWithoutSourcesInput = {
@@ -986,6 +1021,7 @@ export type WorkspaceCreateWithoutSourcesInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationCreateNestedManyWithoutWorkspaceInput
   dashboardSnapshots?: Prisma.DashboardSnapshotCreateNestedManyWithoutWorkspaceInput
   savedViews?: Prisma.SavedViewCreateNestedManyWithoutWorkspaceInput
+  aiConfig?: Prisma.WorkspaceAIConfigCreateNestedOneWithoutWorkspaceInput
 }
 
 export type WorkspaceUncheckedCreateWithoutSourcesInput = {
@@ -1005,6 +1041,7 @@ export type WorkspaceUncheckedCreateWithoutSourcesInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedCreateNestedManyWithoutWorkspaceInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedCreateNestedManyWithoutWorkspaceInput
   savedViews?: Prisma.SavedViewUncheckedCreateNestedManyWithoutWorkspaceInput
+  aiConfig?: Prisma.WorkspaceAIConfigUncheckedCreateNestedOneWithoutWorkspaceInput
 }
 
 export type WorkspaceCreateOrConnectWithoutSourcesInput = {
@@ -1040,6 +1077,7 @@ export type WorkspaceUpdateWithoutSourcesInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationUpdateManyWithoutWorkspaceNestedInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUpdateManyWithoutWorkspaceNestedInput
   savedViews?: Prisma.SavedViewUpdateManyWithoutWorkspaceNestedInput
+  aiConfig?: Prisma.WorkspaceAIConfigUpdateOneWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceUncheckedUpdateWithoutSourcesInput = {
@@ -1059,6 +1097,7 @@ export type WorkspaceUncheckedUpdateWithoutSourcesInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedUpdateManyWithoutWorkspaceNestedInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedUpdateManyWithoutWorkspaceNestedInput
   savedViews?: Prisma.SavedViewUncheckedUpdateManyWithoutWorkspaceNestedInput
+  aiConfig?: Prisma.WorkspaceAIConfigUncheckedUpdateOneWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceCreateWithoutSourceSyncsInput = {
@@ -1078,6 +1117,7 @@ export type WorkspaceCreateWithoutSourceSyncsInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationCreateNestedManyWithoutWorkspaceInput
   dashboardSnapshots?: Prisma.DashboardSnapshotCreateNestedManyWithoutWorkspaceInput
   savedViews?: Prisma.SavedViewCreateNestedManyWithoutWorkspaceInput
+  aiConfig?: Prisma.WorkspaceAIConfigCreateNestedOneWithoutWorkspaceInput
 }
 
 export type WorkspaceUncheckedCreateWithoutSourceSyncsInput = {
@@ -1097,6 +1137,7 @@ export type WorkspaceUncheckedCreateWithoutSourceSyncsInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedCreateNestedManyWithoutWorkspaceInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedCreateNestedManyWithoutWorkspaceInput
   savedViews?: Prisma.SavedViewUncheckedCreateNestedManyWithoutWorkspaceInput
+  aiConfig?: Prisma.WorkspaceAIConfigUncheckedCreateNestedOneWithoutWorkspaceInput
 }
 
 export type WorkspaceCreateOrConnectWithoutSourceSyncsInput = {
@@ -1132,6 +1173,7 @@ export type WorkspaceUpdateWithoutSourceSyncsInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationUpdateManyWithoutWorkspaceNestedInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUpdateManyWithoutWorkspaceNestedInput
   savedViews?: Prisma.SavedViewUpdateManyWithoutWorkspaceNestedInput
+  aiConfig?: Prisma.WorkspaceAIConfigUpdateOneWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceUncheckedUpdateWithoutSourceSyncsInput = {
@@ -1151,6 +1193,7 @@ export type WorkspaceUncheckedUpdateWithoutSourceSyncsInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedUpdateManyWithoutWorkspaceNestedInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedUpdateManyWithoutWorkspaceNestedInput
   savedViews?: Prisma.SavedViewUncheckedUpdateManyWithoutWorkspaceNestedInput
+  aiConfig?: Prisma.WorkspaceAIConfigUncheckedUpdateOneWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceCreateWithoutExtractionJobsInput = {
@@ -1170,6 +1213,7 @@ export type WorkspaceCreateWithoutExtractionJobsInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationCreateNestedManyWithoutWorkspaceInput
   dashboardSnapshots?: Prisma.DashboardSnapshotCreateNestedManyWithoutWorkspaceInput
   savedViews?: Prisma.SavedViewCreateNestedManyWithoutWorkspaceInput
+  aiConfig?: Prisma.WorkspaceAIConfigCreateNestedOneWithoutWorkspaceInput
 }
 
 export type WorkspaceUncheckedCreateWithoutExtractionJobsInput = {
@@ -1189,6 +1233,7 @@ export type WorkspaceUncheckedCreateWithoutExtractionJobsInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedCreateNestedManyWithoutWorkspaceInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedCreateNestedManyWithoutWorkspaceInput
   savedViews?: Prisma.SavedViewUncheckedCreateNestedManyWithoutWorkspaceInput
+  aiConfig?: Prisma.WorkspaceAIConfigUncheckedCreateNestedOneWithoutWorkspaceInput
 }
 
 export type WorkspaceCreateOrConnectWithoutExtractionJobsInput = {
@@ -1224,6 +1269,7 @@ export type WorkspaceUpdateWithoutExtractionJobsInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationUpdateManyWithoutWorkspaceNestedInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUpdateManyWithoutWorkspaceNestedInput
   savedViews?: Prisma.SavedViewUpdateManyWithoutWorkspaceNestedInput
+  aiConfig?: Prisma.WorkspaceAIConfigUpdateOneWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceUncheckedUpdateWithoutExtractionJobsInput = {
@@ -1243,6 +1289,7 @@ export type WorkspaceUncheckedUpdateWithoutExtractionJobsInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedUpdateManyWithoutWorkspaceNestedInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedUpdateManyWithoutWorkspaceNestedInput
   savedViews?: Prisma.SavedViewUncheckedUpdateManyWithoutWorkspaceNestedInput
+  aiConfig?: Prisma.WorkspaceAIConfigUncheckedUpdateOneWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceCreateWithoutFeaturesInput = {
@@ -1262,6 +1309,7 @@ export type WorkspaceCreateWithoutFeaturesInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationCreateNestedManyWithoutWorkspaceInput
   dashboardSnapshots?: Prisma.DashboardSnapshotCreateNestedManyWithoutWorkspaceInput
   savedViews?: Prisma.SavedViewCreateNestedManyWithoutWorkspaceInput
+  aiConfig?: Prisma.WorkspaceAIConfigCreateNestedOneWithoutWorkspaceInput
 }
 
 export type WorkspaceUncheckedCreateWithoutFeaturesInput = {
@@ -1281,6 +1329,7 @@ export type WorkspaceUncheckedCreateWithoutFeaturesInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedCreateNestedManyWithoutWorkspaceInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedCreateNestedManyWithoutWorkspaceInput
   savedViews?: Prisma.SavedViewUncheckedCreateNestedManyWithoutWorkspaceInput
+  aiConfig?: Prisma.WorkspaceAIConfigUncheckedCreateNestedOneWithoutWorkspaceInput
 }
 
 export type WorkspaceCreateOrConnectWithoutFeaturesInput = {
@@ -1316,6 +1365,7 @@ export type WorkspaceUpdateWithoutFeaturesInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationUpdateManyWithoutWorkspaceNestedInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUpdateManyWithoutWorkspaceNestedInput
   savedViews?: Prisma.SavedViewUpdateManyWithoutWorkspaceNestedInput
+  aiConfig?: Prisma.WorkspaceAIConfigUpdateOneWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceUncheckedUpdateWithoutFeaturesInput = {
@@ -1335,6 +1385,7 @@ export type WorkspaceUncheckedUpdateWithoutFeaturesInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedUpdateManyWithoutWorkspaceNestedInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedUpdateManyWithoutWorkspaceNestedInput
   savedViews?: Prisma.SavedViewUncheckedUpdateManyWithoutWorkspaceNestedInput
+  aiConfig?: Prisma.WorkspaceAIConfigUncheckedUpdateOneWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceCreateWithoutSavedViewsInput = {
@@ -1354,6 +1405,7 @@ export type WorkspaceCreateWithoutSavedViewsInput = {
   capabilities?: Prisma.CapabilityCreateNestedManyWithoutWorkspaceInput
   roadmapRecommendations?: Prisma.RoadmapRecommendationCreateNestedManyWithoutWorkspaceInput
   dashboardSnapshots?: Prisma.DashboardSnapshotCreateNestedManyWithoutWorkspaceInput
+  aiConfig?: Prisma.WorkspaceAIConfigCreateNestedOneWithoutWorkspaceInput
 }
 
 export type WorkspaceUncheckedCreateWithoutSavedViewsInput = {
@@ -1373,6 +1425,7 @@ export type WorkspaceUncheckedCreateWithoutSavedViewsInput = {
   capabilities?: Prisma.CapabilityUncheckedCreateNestedManyWithoutWorkspaceInput
   roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedCreateNestedManyWithoutWorkspaceInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedCreateNestedManyWithoutWorkspaceInput
+  aiConfig?: Prisma.WorkspaceAIConfigUncheckedCreateNestedOneWithoutWorkspaceInput
 }
 
 export type WorkspaceCreateOrConnectWithoutSavedViewsInput = {
@@ -1408,6 +1461,7 @@ export type WorkspaceUpdateWithoutSavedViewsInput = {
   capabilities?: Prisma.CapabilityUpdateManyWithoutWorkspaceNestedInput
   roadmapRecommendations?: Prisma.RoadmapRecommendationUpdateManyWithoutWorkspaceNestedInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUpdateManyWithoutWorkspaceNestedInput
+  aiConfig?: Prisma.WorkspaceAIConfigUpdateOneWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceUncheckedUpdateWithoutSavedViewsInput = {
@@ -1427,6 +1481,7 @@ export type WorkspaceUncheckedUpdateWithoutSavedViewsInput = {
   capabilities?: Prisma.CapabilityUncheckedUpdateManyWithoutWorkspaceNestedInput
   roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedUpdateManyWithoutWorkspaceNestedInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedUpdateManyWithoutWorkspaceNestedInput
+  aiConfig?: Prisma.WorkspaceAIConfigUncheckedUpdateOneWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceCreateWithoutCapabilitiesInput = {
@@ -1446,6 +1501,7 @@ export type WorkspaceCreateWithoutCapabilitiesInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationCreateNestedManyWithoutWorkspaceInput
   dashboardSnapshots?: Prisma.DashboardSnapshotCreateNestedManyWithoutWorkspaceInput
   savedViews?: Prisma.SavedViewCreateNestedManyWithoutWorkspaceInput
+  aiConfig?: Prisma.WorkspaceAIConfigCreateNestedOneWithoutWorkspaceInput
 }
 
 export type WorkspaceUncheckedCreateWithoutCapabilitiesInput = {
@@ -1465,6 +1521,7 @@ export type WorkspaceUncheckedCreateWithoutCapabilitiesInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedCreateNestedManyWithoutWorkspaceInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedCreateNestedManyWithoutWorkspaceInput
   savedViews?: Prisma.SavedViewUncheckedCreateNestedManyWithoutWorkspaceInput
+  aiConfig?: Prisma.WorkspaceAIConfigUncheckedCreateNestedOneWithoutWorkspaceInput
 }
 
 export type WorkspaceCreateOrConnectWithoutCapabilitiesInput = {
@@ -1500,6 +1557,7 @@ export type WorkspaceUpdateWithoutCapabilitiesInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationUpdateManyWithoutWorkspaceNestedInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUpdateManyWithoutWorkspaceNestedInput
   savedViews?: Prisma.SavedViewUpdateManyWithoutWorkspaceNestedInput
+  aiConfig?: Prisma.WorkspaceAIConfigUpdateOneWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceUncheckedUpdateWithoutCapabilitiesInput = {
@@ -1519,6 +1577,7 @@ export type WorkspaceUncheckedUpdateWithoutCapabilitiesInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedUpdateManyWithoutWorkspaceNestedInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedUpdateManyWithoutWorkspaceNestedInput
   savedViews?: Prisma.SavedViewUncheckedUpdateManyWithoutWorkspaceNestedInput
+  aiConfig?: Prisma.WorkspaceAIConfigUncheckedUpdateOneWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceCreateWithoutRoadmapRecommendationsInput = {
@@ -1538,6 +1597,7 @@ export type WorkspaceCreateWithoutRoadmapRecommendationsInput = {
   capabilities?: Prisma.CapabilityCreateNestedManyWithoutWorkspaceInput
   dashboardSnapshots?: Prisma.DashboardSnapshotCreateNestedManyWithoutWorkspaceInput
   savedViews?: Prisma.SavedViewCreateNestedManyWithoutWorkspaceInput
+  aiConfig?: Prisma.WorkspaceAIConfigCreateNestedOneWithoutWorkspaceInput
 }
 
 export type WorkspaceUncheckedCreateWithoutRoadmapRecommendationsInput = {
@@ -1557,6 +1617,7 @@ export type WorkspaceUncheckedCreateWithoutRoadmapRecommendationsInput = {
   capabilities?: Prisma.CapabilityUncheckedCreateNestedManyWithoutWorkspaceInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedCreateNestedManyWithoutWorkspaceInput
   savedViews?: Prisma.SavedViewUncheckedCreateNestedManyWithoutWorkspaceInput
+  aiConfig?: Prisma.WorkspaceAIConfigUncheckedCreateNestedOneWithoutWorkspaceInput
 }
 
 export type WorkspaceCreateOrConnectWithoutRoadmapRecommendationsInput = {
@@ -1592,6 +1653,7 @@ export type WorkspaceUpdateWithoutRoadmapRecommendationsInput = {
   capabilities?: Prisma.CapabilityUpdateManyWithoutWorkspaceNestedInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUpdateManyWithoutWorkspaceNestedInput
   savedViews?: Prisma.SavedViewUpdateManyWithoutWorkspaceNestedInput
+  aiConfig?: Prisma.WorkspaceAIConfigUpdateOneWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceUncheckedUpdateWithoutRoadmapRecommendationsInput = {
@@ -1611,6 +1673,7 @@ export type WorkspaceUncheckedUpdateWithoutRoadmapRecommendationsInput = {
   capabilities?: Prisma.CapabilityUncheckedUpdateManyWithoutWorkspaceNestedInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedUpdateManyWithoutWorkspaceNestedInput
   savedViews?: Prisma.SavedViewUncheckedUpdateManyWithoutWorkspaceNestedInput
+  aiConfig?: Prisma.WorkspaceAIConfigUncheckedUpdateOneWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceCreateWithoutDashboardSnapshotsInput = {
@@ -1630,6 +1693,7 @@ export type WorkspaceCreateWithoutDashboardSnapshotsInput = {
   capabilities?: Prisma.CapabilityCreateNestedManyWithoutWorkspaceInput
   roadmapRecommendations?: Prisma.RoadmapRecommendationCreateNestedManyWithoutWorkspaceInput
   savedViews?: Prisma.SavedViewCreateNestedManyWithoutWorkspaceInput
+  aiConfig?: Prisma.WorkspaceAIConfigCreateNestedOneWithoutWorkspaceInput
 }
 
 export type WorkspaceUncheckedCreateWithoutDashboardSnapshotsInput = {
@@ -1649,6 +1713,7 @@ export type WorkspaceUncheckedCreateWithoutDashboardSnapshotsInput = {
   capabilities?: Prisma.CapabilityUncheckedCreateNestedManyWithoutWorkspaceInput
   roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedCreateNestedManyWithoutWorkspaceInput
   savedViews?: Prisma.SavedViewUncheckedCreateNestedManyWithoutWorkspaceInput
+  aiConfig?: Prisma.WorkspaceAIConfigUncheckedCreateNestedOneWithoutWorkspaceInput
 }
 
 export type WorkspaceCreateOrConnectWithoutDashboardSnapshotsInput = {
@@ -1684,6 +1749,7 @@ export type WorkspaceUpdateWithoutDashboardSnapshotsInput = {
   capabilities?: Prisma.CapabilityUpdateManyWithoutWorkspaceNestedInput
   roadmapRecommendations?: Prisma.RoadmapRecommendationUpdateManyWithoutWorkspaceNestedInput
   savedViews?: Prisma.SavedViewUpdateManyWithoutWorkspaceNestedInput
+  aiConfig?: Prisma.WorkspaceAIConfigUpdateOneWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceUncheckedUpdateWithoutDashboardSnapshotsInput = {
@@ -1702,6 +1768,103 @@ export type WorkspaceUncheckedUpdateWithoutDashboardSnapshotsInput = {
   features?: Prisma.FeatureUncheckedUpdateManyWithoutWorkspaceNestedInput
   capabilities?: Prisma.CapabilityUncheckedUpdateManyWithoutWorkspaceNestedInput
   roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedUpdateManyWithoutWorkspaceNestedInput
+  savedViews?: Prisma.SavedViewUncheckedUpdateManyWithoutWorkspaceNestedInput
+  aiConfig?: Prisma.WorkspaceAIConfigUncheckedUpdateOneWithoutWorkspaceNestedInput
+}
+
+export type WorkspaceCreateWithoutAiConfigInput = {
+  id?: string
+  name: string
+  slug: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutOwnedWorkspacesInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutWorkspaceInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutWorkspaceInput
+  invites?: Prisma.WorkspaceInviteCreateNestedManyWithoutWorkspaceInput
+  sources?: Prisma.SourceCreateNestedManyWithoutWorkspaceInput
+  sourceSyncs?: Prisma.SourceSyncCreateNestedManyWithoutWorkspaceInput
+  extractionJobs?: Prisma.ExtractionJobCreateNestedManyWithoutWorkspaceInput
+  features?: Prisma.FeatureCreateNestedManyWithoutWorkspaceInput
+  capabilities?: Prisma.CapabilityCreateNestedManyWithoutWorkspaceInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationCreateNestedManyWithoutWorkspaceInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotCreateNestedManyWithoutWorkspaceInput
+  savedViews?: Prisma.SavedViewCreateNestedManyWithoutWorkspaceInput
+}
+
+export type WorkspaceUncheckedCreateWithoutAiConfigInput = {
+  id?: string
+  name: string
+  slug: string
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutWorkspaceInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutWorkspaceInput
+  invites?: Prisma.WorkspaceInviteUncheckedCreateNestedManyWithoutWorkspaceInput
+  sources?: Prisma.SourceUncheckedCreateNestedManyWithoutWorkspaceInput
+  sourceSyncs?: Prisma.SourceSyncUncheckedCreateNestedManyWithoutWorkspaceInput
+  extractionJobs?: Prisma.ExtractionJobUncheckedCreateNestedManyWithoutWorkspaceInput
+  features?: Prisma.FeatureUncheckedCreateNestedManyWithoutWorkspaceInput
+  capabilities?: Prisma.CapabilityUncheckedCreateNestedManyWithoutWorkspaceInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedCreateNestedManyWithoutWorkspaceInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedCreateNestedManyWithoutWorkspaceInput
+  savedViews?: Prisma.SavedViewUncheckedCreateNestedManyWithoutWorkspaceInput
+}
+
+export type WorkspaceCreateOrConnectWithoutAiConfigInput = {
+  where: Prisma.WorkspaceWhereUniqueInput
+  create: Prisma.XOR<Prisma.WorkspaceCreateWithoutAiConfigInput, Prisma.WorkspaceUncheckedCreateWithoutAiConfigInput>
+}
+
+export type WorkspaceUpsertWithoutAiConfigInput = {
+  update: Prisma.XOR<Prisma.WorkspaceUpdateWithoutAiConfigInput, Prisma.WorkspaceUncheckedUpdateWithoutAiConfigInput>
+  create: Prisma.XOR<Prisma.WorkspaceCreateWithoutAiConfigInput, Prisma.WorkspaceUncheckedCreateWithoutAiConfigInput>
+  where?: Prisma.WorkspaceWhereInput
+}
+
+export type WorkspaceUpdateToOneWithWhereWithoutAiConfigInput = {
+  where?: Prisma.WorkspaceWhereInput
+  data: Prisma.XOR<Prisma.WorkspaceUpdateWithoutAiConfigInput, Prisma.WorkspaceUncheckedUpdateWithoutAiConfigInput>
+}
+
+export type WorkspaceUpdateWithoutAiConfigInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedWorkspacesNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutWorkspaceNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutWorkspaceNestedInput
+  invites?: Prisma.WorkspaceInviteUpdateManyWithoutWorkspaceNestedInput
+  sources?: Prisma.SourceUpdateManyWithoutWorkspaceNestedInput
+  sourceSyncs?: Prisma.SourceSyncUpdateManyWithoutWorkspaceNestedInput
+  extractionJobs?: Prisma.ExtractionJobUpdateManyWithoutWorkspaceNestedInput
+  features?: Prisma.FeatureUpdateManyWithoutWorkspaceNestedInput
+  capabilities?: Prisma.CapabilityUpdateManyWithoutWorkspaceNestedInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUpdateManyWithoutWorkspaceNestedInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUpdateManyWithoutWorkspaceNestedInput
+  savedViews?: Prisma.SavedViewUpdateManyWithoutWorkspaceNestedInput
+}
+
+export type WorkspaceUncheckedUpdateWithoutAiConfigInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutWorkspaceNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutWorkspaceNestedInput
+  invites?: Prisma.WorkspaceInviteUncheckedUpdateManyWithoutWorkspaceNestedInput
+  sources?: Prisma.SourceUncheckedUpdateManyWithoutWorkspaceNestedInput
+  sourceSyncs?: Prisma.SourceSyncUncheckedUpdateManyWithoutWorkspaceNestedInput
+  extractionJobs?: Prisma.ExtractionJobUncheckedUpdateManyWithoutWorkspaceNestedInput
+  features?: Prisma.FeatureUncheckedUpdateManyWithoutWorkspaceNestedInput
+  capabilities?: Prisma.CapabilityUncheckedUpdateManyWithoutWorkspaceNestedInput
+  roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedUpdateManyWithoutWorkspaceNestedInput
+  dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedUpdateManyWithoutWorkspaceNestedInput
   savedViews?: Prisma.SavedViewUncheckedUpdateManyWithoutWorkspaceNestedInput
 }
 
@@ -1730,6 +1893,7 @@ export type WorkspaceUpdateWithoutOwnerInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationUpdateManyWithoutWorkspaceNestedInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUpdateManyWithoutWorkspaceNestedInput
   savedViews?: Prisma.SavedViewUpdateManyWithoutWorkspaceNestedInput
+  aiConfig?: Prisma.WorkspaceAIConfigUpdateOneWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceUncheckedUpdateWithoutOwnerInput = {
@@ -1749,6 +1913,7 @@ export type WorkspaceUncheckedUpdateWithoutOwnerInput = {
   roadmapRecommendations?: Prisma.RoadmapRecommendationUncheckedUpdateManyWithoutWorkspaceNestedInput
   dashboardSnapshots?: Prisma.DashboardSnapshotUncheckedUpdateManyWithoutWorkspaceNestedInput
   savedViews?: Prisma.SavedViewUncheckedUpdateManyWithoutWorkspaceNestedInput
+  aiConfig?: Prisma.WorkspaceAIConfigUncheckedUpdateOneWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceUncheckedUpdateManyWithoutOwnerInput = {
@@ -1899,6 +2064,7 @@ export type WorkspaceSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   roadmapRecommendations?: boolean | Prisma.Workspace$roadmapRecommendationsArgs<ExtArgs>
   dashboardSnapshots?: boolean | Prisma.Workspace$dashboardSnapshotsArgs<ExtArgs>
   savedViews?: boolean | Prisma.Workspace$savedViewsArgs<ExtArgs>
+  aiConfig?: boolean | Prisma.Workspace$aiConfigArgs<ExtArgs>
   _count?: boolean | Prisma.WorkspaceCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["workspace"]>
 
@@ -1945,6 +2111,7 @@ export type WorkspaceInclude<ExtArgs extends runtime.Types.Extensions.InternalAr
   roadmapRecommendations?: boolean | Prisma.Workspace$roadmapRecommendationsArgs<ExtArgs>
   dashboardSnapshots?: boolean | Prisma.Workspace$dashboardSnapshotsArgs<ExtArgs>
   savedViews?: boolean | Prisma.Workspace$savedViewsArgs<ExtArgs>
+  aiConfig?: boolean | Prisma.Workspace$aiConfigArgs<ExtArgs>
   _count?: boolean | Prisma.WorkspaceCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type WorkspaceIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1969,6 +2136,7 @@ export type $WorkspacePayload<ExtArgs extends runtime.Types.Extensions.InternalA
     roadmapRecommendations: Prisma.$RoadmapRecommendationPayload<ExtArgs>[]
     dashboardSnapshots: Prisma.$DashboardSnapshotPayload<ExtArgs>[]
     savedViews: Prisma.$SavedViewPayload<ExtArgs>[]
+    aiConfig: Prisma.$WorkspaceAIConfigPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2383,6 +2551,7 @@ export interface Prisma__WorkspaceClient<T, Null = never, ExtArgs extends runtim
   roadmapRecommendations<T extends Prisma.Workspace$roadmapRecommendationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Workspace$roadmapRecommendationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RoadmapRecommendationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   dashboardSnapshots<T extends Prisma.Workspace$dashboardSnapshotsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Workspace$dashboardSnapshotsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DashboardSnapshotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   savedViews<T extends Prisma.Workspace$savedViewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Workspace$savedViewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SavedViewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  aiConfig<T extends Prisma.Workspace$aiConfigArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Workspace$aiConfigArgs<ExtArgs>>): Prisma.Prisma__WorkspaceAIConfigClient<runtime.Types.Result.GetResult<Prisma.$WorkspaceAIConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3080,6 +3249,25 @@ export type Workspace$savedViewsArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.SavedViewScalarFieldEnum | Prisma.SavedViewScalarFieldEnum[]
+}
+
+/**
+ * Workspace.aiConfig
+ */
+export type Workspace$aiConfigArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WorkspaceAIConfig
+   */
+  select?: Prisma.WorkspaceAIConfigSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WorkspaceAIConfig
+   */
+  omit?: Prisma.WorkspaceAIConfigOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkspaceAIConfigInclude<ExtArgs> | null
+  where?: Prisma.WorkspaceAIConfigWhereInput
 }
 
 /**

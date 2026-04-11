@@ -1,13 +1,16 @@
-import { mkdir, writeFile } from "fs/promises";
+import { mkdir, unlink, writeFile } from "fs/promises";
 import path from "path";
 
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 
 import { prisma } from "@/lib/prisma";
+import { resolveAnthropicApiKey } from "@/lib/ai-config/provider-runtime";
+import { resolveWorkspaceAiRuntime } from "@/lib/ai-config/workspace-ai-config";
 import { authConfig } from "@/lib/auth";
 import { processDocumentFile } from "@/lib/documents/process-document";
 import { runMockExtractionJob } from "@/lib/features/run-mock-extraction-job";
+import { runAnalysis } from "@/lib/analysis-service";
 
 type RouteContext = {
   params: Promise<{
@@ -92,6 +95,7 @@ export async function GET(_req: NextRequest, { params }: RouteContext) {
 export async function POST(req: NextRequest, { params }: RouteContext) {
   let documentId: string | null = null;
   let extractionJobId: string | null = null;
+  let writtenFilePath: string | null = null;
 
   try {
     const session = await getServerSession(authConfig);
@@ -230,6 +234,7 @@ export async function POST(req: NextRequest, { params }: RouteContext) {
 
     await mkdir(workspaceUploadDir, { recursive: true });
     await writeFile(filePath, buffer);
+    writtenFilePath = filePath;
 
     const processed = await processDocumentFile({
       filePath,
@@ -259,9 +264,34 @@ export async function POST(req: NextRequest, { params }: RouteContext) {
       sourceId,
     });
 
+    // Local pipeline analysis is persisted during mock extraction and remains the
+    // source of truth for extracted feature counts shown in the UI.
+    const finalDocument =
+      (await prisma.document.findUnique({
+        where: { id: document.id },
+      })) ?? updatedDocument;
+
+    const analysisApiKey = updatedDocument.extractedText
+      ? resolveAnthropicApiKey(
+          await resolveWorkspaceAiRuntime(workspace.id, "featureExtraction")
+        )
+      : null;
+
+    if (updatedDocument.extractedText && analysisApiKey) {
+      try {
+        await runAnalysis(
+          workspace.id,
+          updatedDocument.title,
+          updatedDocument.extractedText
+        );
+      } catch (analysisError) {
+        console.error("Analysis enrichment failed:", analysisError);
+      }
+    }
+
     return NextResponse.json(
       {
-        document: updatedDocument,
+        document: finalDocument,
         extractionJobId: extractionJob.id,
         createdFeatureCount: extractionResult.createdFeatureCount,
       },
@@ -269,6 +299,10 @@ export async function POST(req: NextRequest, { params }: RouteContext) {
     );
   } catch (error) {
     console.error("POST /api/workspaces/[slug]/documents failed:", error);
+
+    if (writtenFilePath) {
+      unlink(writtenFilePath).catch(() => {});
+    }
 
     if (documentId) {
       try {
